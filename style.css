@@ -11,10 +11,12 @@ body {
 
 /* navigation menu */
 nav {
-    background: rgb(239, 80, 41);
+    background: rgb(170, 58, 30);
     margin: 0 auto;
+    margin-bottom: 20px;
     display: flex;
     padding: 10px;
+    border-radius: 16px;
 }
 h1 {
     display: flex;
