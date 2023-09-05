@@ -81,7 +81,11 @@ h1 {
 
 /* Header */
 header h1 {
-    color: #252525;
+    background-color: #f8f8f8;
+    /* color: #000; */
+    background-clip: text;
+    color: transparent;
+
     font-size: 10vw;
 }
 
