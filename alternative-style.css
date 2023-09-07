@@ -3,6 +3,7 @@
 /* Roots */
 :root {
     --fonts: 'Poppins', Arial, Helvetica, sans-serif;
+    --nav-height: 56px;
 }
 
 /* Body */
@@ -31,7 +32,7 @@ h1 {
         position: fixed;
 
         width: calc(100vw - 64px);
-        height: 56px;
+        height: var(--nav-height);
         padding: 0 32px;
 
         z-index: 999;
@@ -63,9 +64,64 @@ h1 {
         background: #ffffff20;
     }
 
+    /* On-Screen Navigation */
+    .on-screen-nav {
+        position: fixed;
+        display: none;
+        opacity: 0%;
+
+        background: #25252580;
+
+        width: 100vw;
+        height: calc(100vh - var(--nav-height));
+        margin-top: var(--nav-height);
+
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+
+        z-index: 999;
+        backdrop-filter: blur(16px) saturate(120%);
+        transition: 250ms ease-in;
+        transition-property: opacity;
+    }
+
+    .on-screen-nav.active {
+        display: flex;
+        opacity: 100%;
+        margin-left: 0;
+    }
+
+    .on-screen-nav li {
+        color: #ffffff50;
+        font-family: var(--fonts);
+        font-weight: 500;
+        font-size: 3rem;
+        list-style: none;
+
+        border-radius: 48px;
+        padding: 4px 24px;
+        margin-bottom: 16px;
+
+        transition: 400ms ease-out;
+    }
+
+    .on-screen-nav li:hover {
+        cursor: pointer;
+        background: #ffffff20;
+    }
+
+    .on-screen-nav p {
+        position: fixed;
+        bottom: 32px;
+        color: #ffffff50;
+        font-weight: 600;
+        font-size: 0.8rem;
+    }
 
     /* Nav Header */
-    nav img {
+    .nav-logo  {
         width: 40px;
         height: 40px;
     }
@@ -74,8 +130,22 @@ h1 {
         display: none;
     }
 
+    /* Menu Button */
+    .nav-menu {
+        width: 24px;
+        height: 24px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-menu img {
+        width: 24px;
+        height: 24px;
+    }
+
     /* Nav Other */
-    nav a {
+    nav a, .on-screen-nav a {
         color: #fff;
         text-decoration: none;
     }
@@ -87,6 +157,7 @@ header {
     padding: 32px 0;
     padding-top: 48px;
     max-height: 800px;
+    overflow-x: hidden;
 }
 
 header .content {
@@ -201,4 +272,23 @@ header h1 {
 .notify-container p {
     font-size: 0.8rem;
     margin-top: -4px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 600px) {
+
+    nav li {
+        display: none;
+    }
+
+    .nav-menu {
+        display: flex;
+    }
+
+}
+
+@media only screen and (min-width: 600px) {
+    .on-screen-nav.active {
+        display: none;
+    }
 }

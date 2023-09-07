@@ -12,18 +12,47 @@
             <!-- Navigation -->
             <nav>
                 <a href="/index.html"><div class="nav-header">
-                    <img alt="Aiden Portfolio Logo" src="/assets/logo-gen1.png"/>
+                    <img class="nav-logo" alt="Aiden Portfolio Logo" src="/assets/logo-gen1.png"/>
                     <h1>Aiden's Portfolio</h1>
                 </div></a>
                 <ul id="nav-ul">
                     <li class="nav-li"><a href="index.html">Home</a></li>
                     <li class="nav-li><a href="portfolio.html">Portfolio</a></li>
+                    <li class="nav-li nav-menu" id="osn-menu-btn"><img src="/assets/icons/menu-icon.png" alt="menu"></li>
                 </ul>
             </nav>
+
+            <div class="on-screen-nav" id="osn-container">
+                <li class="nav-li"><a href="index.html">Home</a></li>
+                <li class="nav-li><a href="portfolio.html">Portfolio</a></li>
+                <p>Site created by Aiden Melton</p>
+
+                <script>
+                    var MenuButton = document.getElementById("osn-menu-btn");
+                    var OSNContainer = document.getElementById("osn-container")
+                    var OSNActive = false;
+
+                    MenuButton.addEventListener('click', (e) => {
+                        ToggleOnScreenMenu();
+                    })
+
+                    function ToggleOnScreenMenu() {
+                        if (OSNActive == false){
+                            OSNContainer.classList.add("active")
+                            OSNActive = true;
+                        } else {
+                            OSNContainer.classList.remove("active")
+                            OSNActive = false;
+                        }
+                    }
+
+                </script>
+            </div>
 
             <!-- Main Content -->
             <main>
 
+                <!-- Notifications -->
                 <span class="notifications">
                     <div class="notify-container" id="notification1">
                         <img src="/assets/icons/notification-icon.png" alt="notification-icon"> 
@@ -32,26 +61,27 @@
                             <p>This is a test notification.</p>
                         </div>
                     </div>
+
+                    <script type="text/javascript">
+                        const test_notification = document.getElementById("notification1");
+                        
+                        setTimeout(showNotification(true), 10000);
+    
+                        test_notification.addEventListener('click', (e) => {
+                            showNotification(false);
+                        });
+    
+                        function showNotification(boolean) {
+                            if (boolean == true){
+                                test_notification.classList.add('active');
+                            } else {
+                                test_notification.classList.remove('active');
+                            }
+                        }
+                    </script>
                 </span>
 
-                <script type="text/javascript">
-                    const test_notification = document.getElementById("notification1");
-                    
-                    setTimeout(showNotification(true), 10000);
-
-                    test_notification.addEventListener('click', (e) => {
-                        showNotification(false);
-                    });
-
-                    function showNotification(boolean) {
-                        if (boolean == true){
-                            test_notification.classList.add('active');
-                        } else {
-                            test_notification.classList.remove('active');
-                        }
-                    }
-                </script>
-
+                <!-- Header -->
                 <header>
                     <div class="cutout-container">
                         <img class="cutout-img" id="header_hover_object" alt="Aiden Melton" src="/assets/cutout-header-name.svg"/>
