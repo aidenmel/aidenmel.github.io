@@ -24,16 +24,43 @@
             <!-- Main Content -->
             <main>
 
+                <span class="notifications">
+                    <div class="notify-container" id="notification1">
+                        <img src="/assets/icons/notification-icon.png" alt="notification-icon"> 
+                        <div>
+                            <h6>Null</h6>
+                            <p>This is a test notification.</p>
+                        </div>
+                    </div>
+                </span>
+
+                <script type="text/javascript">
+                    const test_notification = document.getElementById("notification1");
+                    
+                    setTimeout(showNotification(true), 10000);
+
+                    test_notification.addEventListener('click', (e) => {
+                        showNotification(false);
+                    });
+
+                    function showNotification(boolean) {
+                        if (boolean == true){
+                            test_notification.classList.add('active');
+                        } else {
+                            test_notification.classList.remove('active');
+                        }
+                    }
+                </script>
+
                 <header>
                     <div class="cutout-container">
-                        <img class="cutout-img" alt="Aiden Melton" src="/assets/cutout-header-name.svg"/>
+                        <img class="cutout-img" id="header_hover_object" alt="Aiden Melton" src="/assets/cutout-header-name.svg"/>
                         
                         <!-- Cursor Reveal Effect -->
                         <div class="header_cursor" id="header_cursor"></div>
                         <script src="/scripts/header-cursor.js"></script>
                     </div>
                 </header>
-
 
                 <!-- Sidebar Section -->
                 <div class="sidebar">
@@ -42,6 +69,7 @@
 
                 <!-- Content Section -->
                 <div class="content">
+
                     <h2>Aiden Melton</h2>
                     <p>Student at Covington High School</p>
 
