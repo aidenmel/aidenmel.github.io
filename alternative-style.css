@@ -214,7 +214,7 @@ header h1 {
     }
 
 /* Notifications */
-.notifications {
+.notifications, .css-container {
     display: block;
     position: fixed;
     bottom: 0;
@@ -273,6 +273,18 @@ header h1 {
     font-size: 0.8rem;
     margin-top: -4px;
 }
+
+/* CSS Changer */
+.css-container {
+    justify-content: flex-end;
+    margin-left: 16px;
+    max-width: 250px;
+}
+
+.css-container p {
+    margin-top: 0;
+}
+
 
 /* Responsive */
 @media only screen and (max-width: 600px) {
