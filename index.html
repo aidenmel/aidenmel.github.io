@@ -3,6 +3,20 @@
     <head>
         <title>Aiden's Portfolio - Home</title>
         <link rel="stylesheet" href="/alternative-style.css">
+        <script>
+            function changeTheme(boolean) {
+                var ThemeLink = document.getElementsByTagName('link')[0];
+
+                // if (ThemeLink.getAttribute('href')) {
+                    if (boolean == true) {
+                        ThemeLink.setAttribute('href', "/style.css")
+                    } else {
+                        ThemeLink.setAttribute('href', "/alternative-style.css")
+                    }
+                // }
+            }
+        </script>
+
         <link rel="icon" href="/assets/logo-gen1.png">
         <meta charset="UTF-8">
     </head>
@@ -10,15 +24,27 @@
         <!-- All Content Goes Here -->
         <div id="all-contents">
 
-            <!-- Stylesheet Swap -->
+            <!-- Stylesheet Swap (Switches the stylesheet between the standard to custom styling) -->
             <div class="css-container">
                 <div class="notify-container active" id="swap-css">
-                    <img src="/assets/icons/notification-icon.png" alt="notification-icon"> 
                     <div>
-                        <h6>Change Stylesheet</h6>
-                        <p>Flip the switch to see the original stylesheet.</p>
+                        <h6>Toggle Stylesheet</h6>
+                        <p>Enables the original stylesheet</p>
                     </div>
+                    <label class="switch">
+                        <input id="stylesheet-checkbox" type="checkbox">
+                        <span class="slider"></span>
+                    </label>
                 </div>
+
+                <script>
+                    var Checkbox = document.getElementById("stylesheet-checkbox");
+                        
+                    Checkbox.addEventListener('click', (e) => {
+                        changeTheme(Checkbox.checked);
+                    })
+
+                </script>
             </div>
 
             <!-- Navigation -->
@@ -34,6 +60,7 @@
                 </ul>
             </nav>
 
+            <!-- Implemented for mobile devices; will not work on 'Standard' type -->
             <div class="on-screen-nav" id="osn-container">
                 <li class="nav-li"><a href="index.html">Home</a></li>
                 <li class="nav-li><a href="portfolio.html">Portfolio</a></li>
@@ -57,8 +84,8 @@
                             OSNActive = false;
                         }
                     }
-
                 </script>
+
             </div>
 
             <!-- Main Content -->
