@@ -50,7 +50,7 @@ a {
 
 /* main container area beneath menu */
 main {
-    background: rgb(245, 238, 219);
+    background: rgb(237, 244, 250);
     display: flex;
 }
 .sidebar {
@@ -75,11 +75,12 @@ h2, h3 {
 }
 
 /* Alternative Styles - To remove pieces used in 'alternative-style.css' */
-span.notifications, .on-screen-nav, nav img, .header_cursor, header {
+.fs-container, span.notifications, .on-screen-nav, nav img, .header_cursor, header, #manipulated-header {
     display: none;
 }
 
 /* Switching Between Stylesheets */
+
 /* CSS Changer */
 .css-container {
     display: flex;
@@ -96,6 +97,13 @@ span.notifications, .on-screen-nav, nav img, .header_cursor, header {
     max-width: 250px;
 }
 
+.notify-container {
+    display: flex;
+    justify-content: column;
+    align-items: center;
+    padding-right: 8px;
+}
+
 .css-container h6, .css-container p {
     margin: 2px;
 }
@@ -109,7 +117,7 @@ span.notifications, .on-screen-nav, nav img, .header_cursor, header {
     z-index: 100000;
     display: inline-block;
     position: relative;
-    width: 62px;
+    width: 64px;
     height: 34px;
 }
 
