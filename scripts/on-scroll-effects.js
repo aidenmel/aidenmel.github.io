@@ -1,27 +1,18 @@
 // When a content is in a specfic radius, a animation will trigger
-function scrollTrigger(selector, options = {}) {
-    let els = document.querySelectorAll(selector)
-    els = Array.from(els)
-    els.forEach(el => {
-        addObserver(el, options)
-    })
-}
+window.addEventListener("scroll", (e) => {
+    var reveals = document.querySelectorAll('.transition');
 
-function addObserver(el, options) {
-    if(!('IntersectionObserver' in window)) {
-        if(options.cb){
-            options.cb(el)
+console.log(reveals.length);
+
+    for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 150;
+
+        if (elementTop < windowHeight - elementVisible - reveals[i].getAttribute('transition-offset')) {
+            reveals[i].classList.add('active');
         } else {
-            entry-EventTarget.classList.add('active')
+            reveals[i].classList.remove('active');
         }
-
-        return
     }
-}
-
-let observer = new IntersectionObserver((entries, observer) ->; {
-    entries.forEach(entry => {
-        if(entry.isin) 
-        // LEFT OFF HERE
-    })
-})
+});

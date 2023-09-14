@@ -153,10 +153,10 @@ h1 {
 /* Header */
 header {
     background-color: #fff;
-    height: 80vh;
+    height: calc(100vh - 32px);
     padding: 32px 0;
     padding-top: 48px;
-    max-height: 800px;
+    /* max-height: 800px; */
     overflow-x: hidden;
 }
 
@@ -293,7 +293,7 @@ header {
     border-bottom: solid 8px #f8f8f8;
 
     width: 100vw;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 128px - 64px);
 }
 
     /* Full-Screen Content */
@@ -305,7 +305,7 @@ header {
         object-fit: cover;
         object-position: center;
         
-        transition: 250ms ease-out;
+        transition: 400ms ease-out;
     }
 
     .fs-details {
@@ -316,6 +316,7 @@ header {
 
         z-index: 5;
 
+        opacity: 0;
         position: absolute;
 
         display: flex;
@@ -323,7 +324,19 @@ header {
         align-items: center;
         flex-direction: column;
 
-        transition: 250ms ease-out;
+        transition: 400ms ease-out;
+        transform: translateY(16px) scale(95%);
+    }
+
+    /* Transitions */
+    .fs-container.active .fs-img img {
+        filter: blur(8px) saturate(120%);
+        transform: scale(105%);
+    }
+
+    .fs-container.active .fs-details {
+        transform: translateY() scale(100%);
+        opacity: 100;
     }
 
     /* Full Screen Text Styles */
@@ -338,9 +351,6 @@ header {
     .fs-details p {
         font-size: 32px;
     }
-
-    /* Effects */
-
 
 /* CSS Changer */
 .css-container {
