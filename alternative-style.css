@@ -4,6 +4,9 @@
 :root {
     --fonts: 'Poppins', Arial, Helvetica, sans-serif;
     --nav-height: 56px;
+    --full-screen-height: 95vh;
+    --max-full-screen-height: 1200px;
+
 }
 
 /* Body */
@@ -291,21 +294,22 @@ header {
 .fs-container {
     border-top: solid 8px #f8f8f8;
     border-bottom: solid 8px #f8f8f8;
-
     width: 100vw;
-    height: calc(100vh - 128px - 64px);
+
+    height: var(--full-screen-height);
+    max-height: var(--max-full-screen-height);
 }
 
     /* Full-Screen Content */
     .fs-img img {
         position: absolute;
+        height: var(--full-screen-height);
+        max-height: var(--max-full-screen-height);
 
         width: 100%;
-        height: 100%;
         object-fit: cover;
         object-position: center;
-        
-        transition: 400ms ease-out;
+        transition: 600ms ease-out;
     }
 
     .fs-details {
@@ -314,38 +318,42 @@ header {
 
         color: #fff;
 
-        z-index: 5;
-
-        opacity: 0;
         position: absolute;
+        height: var(--full-screen-height);
+        max-height: var(--max-full-screen-height);
+
+        z-index: 5;
+        opacity: 0;
 
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
 
-        transition: 400ms ease-out;
-        transform: translateY(16px) scale(95%);
+        transition: 600ms ease-out;
+        transform: translateY(64px) scale(98%);
     }
 
     /* Transitions */
     .fs-container.active .fs-img img {
-        filter: blur(8px) saturate(120%);
-        transform: scale(105%);
+        filter: saturate(0%);
+        /* transform: scale(105%); */
     }
 
     .fs-container.active .fs-details {
-        transform: translateY() scale(100%);
+        transform: translateY(0) scale(100%);
         opacity: 100;
+        text-shadow: 0 0 16px #25252550;
     }
 
     /* Full Screen Text Styles */
     .fs-details h1 {
-        font-size: 6rem;
+        font-size: 8rem;
         text-align: center;
         padding: 0 16px;
-        line-height: 6rem;
+        line-height: 7rem;
         margin-bottom: -16px;
+        /* text-shadow: 0 0 8px 8px #000; */
     }
 
     .fs-details p {

@@ -95,6 +95,8 @@ h2, h3 {
     justify-content: space-around;
     margin-left: 16px;
     max-width: 250px;
+
+    transition: 400ms ease-out;
 }
 
 .notify-container {

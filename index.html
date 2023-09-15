@@ -21,8 +21,7 @@
     </head>
     <body>
 
-        <!-- All Content Goes Here -->
-        <div id="all-contents">
+        <!-- Notifications, On-Screen Fixed Containers -->
 
             <!-- Stylesheet Swap  (Not included in 'style.css') (Switches the stylesheet between the standard to custom styling) -->
             <div class="css-container">
@@ -88,37 +87,42 @@
                 </script>
             </div>
 
+             <!-- Notifications (Not included in 'style.css') -->
+             <span class="notifications">
+                <div class="notify-container" id="notification1">
+                    <img src="/assets/icons/notification-icon.png" alt="notification-icon"> 
+                    <div>
+                        <h6>Null</h6>
+                        <p>This is a test notification.</p>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    const test_notification = document.getElementById("notification1");
+                    
+                    setTimeout(showNotification(true), 10000);
+
+                    test_notification.addEventListener('click', (e) => {
+                        showNotification(false);
+                    });
+
+                    function showNotification(boolean) {
+                        if (boolean == true){
+                            test_notification.classList.add('active');
+                        } else {
+                            test_notification.classList.remove('active');
+                        }
+                    }
+                </script>
+            </span>
+
+
+        
+    <!-- All Content Goes Here -->
+    <div id="all-contents">
+
         <!-- Main Content -->
             <main>
-
-                <!-- Notifications (Not included in 'style.css') -->
-                <span class="notifications">
-                    <div class="notify-container" id="notification1">
-                        <img src="/assets/icons/notification-icon.png" alt="notification-icon"> 
-                        <div>
-                            <h6>Null</h6>
-                            <p>This is a test notification.</p>
-                        </div>
-                    </div>
-
-                    <script type="text/javascript">
-                        const test_notification = document.getElementById("notification1");
-                        
-                        setTimeout(showNotification(true), 10000);
-    
-                        test_notification.addEventListener('click', (e) => {
-                            showNotification(false);
-                        });
-    
-                        function showNotification(boolean) {
-                            if (boolean == true){
-                                test_notification.classList.add('active');
-                            } else {
-                                test_notification.classList.remove('active');
-                            }
-                        }
-                    </script>
-                </span>
 
                 <!-- Header (Not included in 'style.css') -->
                 <header>
@@ -137,14 +141,14 @@
                 </div>
 
                 <!-- Full Screen Image Container -->
-                <div class="fs-container transition" transition-offset="350">
+                <div class="fs-container transition" transition-offset="400">
                     <span class="fs-img">
                         <img src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
                     </span>
-                    <span class="fs-details">
+                    <div class="fs-details">
                         <h1>Aiden Melton</h1>
                         <h6>Photo Captured by <strong>Aiden Melton</strong></h6>
-                    </span>
+                    </div>
                 </div>
 
                 <!-- Content Section -->
@@ -164,7 +168,7 @@
                     </div>
                 </div>
 
-                <!-- JS Scripts -->
+                <!-- Scripts -->
                 <script src="/scripts/on-scroll-effects.js"></script>
 
             </main>
