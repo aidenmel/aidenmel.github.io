@@ -44,8 +44,19 @@ $(function () {
     // You must decide the x position, y position, width, and height of the platforms
     // example usage: createPlatform(x,y,width,height)
 
+      // Top row platforms
+      createPlatform((0.25 * canvas.width) - 125, 375, 250, 10) // Aligns the platform directly in the middle w/ percentages (add-on by Aiden Melton)
+      createPlatform((0.50 * canvas.width) - 125, 250, 250, 10)
+      createPlatform((0.75 * canvas.width) - 125, 375, 250, 10)
+    
+      // Middle row platforms
+      createPlatform((0.33 * canvas.width) - 125, 500, 250, 10) // Aligns the platform directly in the middle w/ percentages (add-on by Aiden Melton)
+      createPlatform((0.66 * canvas.width) - 125, 500, 250, 10)
 
-
+      // Bottom row platforms
+      createPlatform((0.1 * canvas.width) - 125, 625, 250, 10) // Aligns the platform directly in the middle w/ percentages (add-on by Aiden Melton)
+      // createPlatform((0.25 * canvas.width) - 125, 625, 250, 10)
+      createPlatform((0.9 * canvas.width) - 125, 625, 250, 10)
     
     // TODO 2
     // Create collectables
@@ -53,7 +64,13 @@ $(function () {
     // Your collectable choices are 'database' 'diamond' 'grace' 'kennedi' 'max' and 'steve'; more can be added if you wish
     // example usage: createCollectable(type, x, y, gravity, bounce)
 
+      createCollectable('diamond', (0.9 * canvas.width) - (48/2), 550, 1, 1)
+      // createCollectable('diamond', (0.25 * canvas.width) - (48/2), 550, 1, 1)
+      createCollectable('diamond', (0.1 * canvas.width) - (48/2), 550, 1, 1)
 
+      createCollectable('diamond', (0.50 * canvas.width) - (48/2), 150, 1, 1)
+      createCollectable('diamond', (0.25 * canvas.width) - (48/2), 300, 1, 1)
+      createCollectable('diamond', (0.75 * canvas.width) - (48/2), 300, 1, 1)
 
 
     // TODO 3
@@ -62,8 +79,10 @@ $(function () {
     // Your wall choices are: 'top' 'left' 'right' and 'bottom'
     // example usage: createCannon(side, position, delay, width, height)
 
-
-
+      createCannon('bottom', (0.33 * canvas.width) - (48/2), 800)
+      createCannon('bottom', (0.66 * canvas.width) - (48/2), 800)
+      createCannon('left', 620, 100)
+      createCannon('right', 720, 100)
 
     /////////////////////////////////////////////////
     //////////ONLY CHANGE ABOVE THIS POINT///////////
