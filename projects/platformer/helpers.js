@@ -387,6 +387,36 @@ function deathOfPlayer() {
   }
 }
 
+function playerWin() {
+  ctx.fillStyle = "#25252520";
+  ctx.fillRect(
+    canvas.width / 4,
+    canvas.height / 6,
+    canvas.width / 2,
+    canvas.height / 2
+  );
+  ctx.fillStyle = "#fff";
+  ctx.font = "800% sans-serif";
+  ctx.weight = "bold";
+  ctx.fillText(
+    "You Won! 🎉",
+    canvas.width / 4,
+    canvas.height / 6 + canvas.height / 5,
+    (canvas.width / 16) * 14
+  );
+  ctx.font = "250% sans-serif";
+  ctx.fillText(
+    "Hit any key to restart the level",
+    canvas.width / 4,
+    canvas.height / 6 + canvas.height / 3,
+    (canvas.width / 16) * 14
+  );
+  if (keyPress.any) {
+    keyPress.any = false;
+    window.location.reload();
+  }
+}
+
 function playerFrictionAndGravity() {
   //max speed limiter for ground
   if (player.speedX > maxSpeed) {
@@ -509,7 +539,11 @@ function drawCollectables() {
   }
 }
 
+// var collectablesCollected = {};
+
 function collectablesCollide() {
+  // var collectablesCollected = 0;
+  
   for (var i = 0; i < collectables.length; i++) {
     if (
       collectables[i].x + collectableWidth > player.x &&
@@ -518,8 +552,14 @@ function collectablesCollide() {
       collectables[i].y + collectableHeight > player.y
     ) {
       collectables[i].collected = true;
+      collectablesCollected = collectablesCollected + 1;
     }
   }
+
+  // console.log(collectablesCollected, collectables.length)
+  // if (collectablesCollected == collectables.length) {
+  //   playerWin()
+  // }
 }
 
 function createPlatform(x, y, width, height) {

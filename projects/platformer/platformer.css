@@ -6,8 +6,11 @@ body {
 
   font-family: 'Space Grotesk';
 
-  width: 100vw;
+  width: calc(100vw - 64px);
   height: 100vh;
+
+  margin-left: 32px;
+  margin-right: 32px;
 
   flex-direction: column;
   display: flex;
@@ -18,6 +21,9 @@ body {
 canvas {
   background-color: rgb(103, 139, 216);
   width: 100%;
+  max-width: 1400px;
+  border-radius: 8px;
+  border: solid 4px #ffffff50;
 }
 
 img {
