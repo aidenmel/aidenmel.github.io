@@ -148,10 +148,16 @@ h1 {
     }
 
     /* Nav Other */
-    nav a, .on-screen-nav a {
-        color: #fff;
+    nav a, .on-screen-nav a.active_link {
+        color: #ffffff;
         text-decoration: none;
     }
+
+    .on-screen-nav a {
+        color: #ffffff50;
+        text-decoration: none;
+    }
+
 
 /* Header */
 header {
@@ -401,6 +407,7 @@ header {
 /* CSS Changer */
 .css-container {
     justify-content: space-around;
+    z-index: 10000;
     margin-left: 16px;
     max-width: 250px;
 }

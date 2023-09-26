@@ -4,13 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/alternative-style.css">
-    <title>Document</title>
+        <script>
+            function changeTheme(boolean) {
+                var ThemeLink = document.getElementsByTagName('link')[0];
+
+                // if (ThemeLink.getAttribute('href')) {
+                    if (boolean == true) {
+                        ThemeLink.setAttribute('href', "/style.css")
+                    } else {
+                        ThemeLink.setAttribute('href', "/alternative-style.css")
+                    }
+                // }
+            }
+        </script>
+    <title>Aiden's Portfolio - Portfolio</title>
 </head>
 <body>
-    <div class="content" style="display: flex; justify-content: center; align-items: center; flex-direction: column; width: 100vw; height: 100vh;">
-        <h1 style="font-size: 38px; color: #252525; margin-bottom: 0;">Nothing to See Yet</h1>
-        <p style="margin-top: 0; font-size: 16px;">Something's happening, try coming back later.</p>
-        <a href="/index.html" target="_self"><button style="padding: 8px 16px; border-radius: 64px; border: 4px solid #252525; color: #252525; font-weight: 600; cursor: pointer; margin-top: 32px; font-size: 16px;">Go Back</button></a>
+
+    <div id="all-contents">
+       
+        <!-- Navigation  (Not included in 'style.css') -->
+        <nav>
+            <h1 id="default-header-title">Aiden's Portfolio</h1>
+            <a href="/index.html" id="manipulated-header"><div class="nav-header">
+                <img class="nav-logo" alt="Aiden Portfolio Logo" src="/assets/logo-gen1.png"/>
+                <h1>Aiden's Portfolio</h1>
+            </div></a>
+            <ul id="nav-ul">
+                <li class="nav-li"><a href="index.html">Home</a></li>
+                <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
+                <li class="nav-li nav-menu" id="osn-menu-btn"><img src="/assets/icons/menu-icon.png" alt="menu"></li>
+            </ul>
+        </nav>
+
+         <!-- Implemented for mobile devices (Not included in 'style.css') -->
+         <div class="on-screen-nav" id="osn-container">
+            <li class="nav-li"><a href="index.html">Home</a></li>
+            <li class="nav-li"><a class="active_link" href="portfolio.html">Portfolio</a></li>
+            <p>Site created by Aiden Melton</p>
+
+            <script>
+                var MenuButton = document.getElementById("osn-menu-btn");
+                var OSNContainer = document.getElementById("osn-container")
+                var OSNActive = false;
+
+                MenuButton.addEventListener('click', (e) => {
+                    ToggleOnScreenMenu();
+                })
+
+                function ToggleOnScreenMenu() {
+                    if (OSNActive == false){
+                        OSNContainer.classList.add("active")
+                        OSNActive = true;
+                    } else {
+                        OSNContainer.classList.remove("active")
+                        OSNActive = false;
+                    }
+                }
+            </script>
+        </div>
+
+        <main>
+            <div class="content">
+                <h1>Portfolio</h1>
+                <ul id="portfolio">
+                    <li><a href="projects/platformer/">Platformer : A cannon - dodging, collectible - grabbing adventure game for Halleb0t</a></li>
+                    <li><a href="projects/bouncing-box/">Bouncing Box : A project that gives you a taste of game development on the web </a></li>
+                    <li><a href="projects/circularity/">Circularity : A motion poem using random number generation and velocity applied to circle shapes...</a></li>
+                </ul>
+            </div>
+        </main>
+
     </div>
+    
+
+    <!-- Extras (Not required by Greenlight) -->
+
+        <!-- Stylesheet Swap  (Not included in 'style.css') (Switches the stylesheet between the standard to custom styling) -->
+        <div class="css-container">
+            <div class="notify-container active" id="swap-css">
+                <div>
+                    <h6>Toggle Stylesheet</h6>
+                    <p>Enables the original stylesheet</p>
+                </div>
+                <label class="switch">
+                    <input id="stylesheet-checkbox" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <script>
+                var Checkbox = document.getElementById("stylesheet-checkbox");
+                    
+                Checkbox.addEventListener('click', (e) => {
+                    changeTheme(Checkbox.checked);
+                })
+
+            </script>
+        </div>
+
 </body>
 </html>
