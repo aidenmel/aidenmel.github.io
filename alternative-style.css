@@ -4,15 +4,19 @@
 :root {
     --fonts: 'Poppins', Arial, Helvetica, sans-serif;
     --nav-height: 56px;
-    --full-screen-height: 95vh;
+    --full-screen-height: calc(100vh - 64px);
     --max-full-screen-height: 1200px;
+    --default-white: #f8f8f8;
 
+    /* Sizing */
+    --container-max-height: 1200px;
+    --container-max-width: 1600px
 }
 
 /* Body */
 body {
     font-family: var(--fonts);
-    background: #f8f8f8;
+    background: var(--default-white);
     margin: 0;
     color: #252525;
 }
@@ -338,33 +342,47 @@ header {
 .fs-container {
     border-top: solid 8px #f8f8f8;
     border-bottom: solid 8px #f8f8f8;
+    
     width: 100vw;
+    max-width: var(--container-max-width);
+
+    padding: 48px 48px;
+    background-color: var(--default-white);
 
     height: var(--full-screen-height);
-    max-height: var(--max-full-screen-height);
+    max-height: var(--container-max-height);
 }
 
     /* Full-Screen Content */
     .fs-img img {
         position: absolute;
-        height: var(--full-screen-height);
-        max-height: var(--max-full-screen-height);
+        
+        height: calc(var(--full-screen-height) - 48px);
+        max-height: var(--container-max-height);
 
-        width: 100%;
+        border-radius: 16px;
+
         object-fit: cover;
         object-position: center;
         transition: 600ms ease-out;
+
+        width: calc(-64px + 100%);
+        max-width: var(--container-max-width);
+        
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .fs-details {
-        width: 100%;
-        height: 100%;
+        width: calc(-48px + 100%);
+        max-width: var(--container-max-width);
 
         color: #fff;
 
         position: absolute;
-        height: var(--full-screen-height);
-        max-height: var(--max-full-screen-height);
+
+        height: 100%;
+        max-height: var(--container-max-height);
 
         z-index: 5;
         opacity: 0;
@@ -375,7 +393,8 @@ header {
         flex-direction: column;
 
         transition: 600ms ease-out;
-        transform: translateY(64px) scale(98%);
+        left: 50%;
+        transform: translateX(-50%) translateY(64px) scale(98%);
     }
 
     /* Transitions */
@@ -385,9 +404,9 @@ header {
     }
 
     .fs-container.active .fs-details {
-        transform: translateY(0) scale(100%);
+        transform: translateX(-50%) translateY(0) scale(100%);
         opacity: 100;
-        text-shadow: 0 0 16px #25252550;
+        /* text-shadow: 0 0 16px #25252550; */
     }
 
     /* Full Screen Text Styles */
