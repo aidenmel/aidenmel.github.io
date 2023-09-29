@@ -19,6 +19,7 @@ body {
     background: var(--default-white);
     margin: 0;
     color: #252525;
+    scroll-behavior: smooth;
 }
 
 /* Text Styles */
@@ -161,16 +162,6 @@ h1 {
         color: #ffffff50;
         text-decoration: none;
     }
-
-/* Main Content */
-main {
-    margin-left: 48px;
-    /* max-width: var(--container-max-width); */
-
-    /* position: absolute;
-    left: 50%;
-    transform: translateX(-50%);*/
-}
 
 /* Header */
 header {
@@ -434,14 +425,20 @@ header {
         font-size: 32px;
     }
 
-/* Interests List */
-#Interests {
-    max-width: var(--container-max-width);
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+/* Notices */
+.notice {
+    margin-top: 64px;
 }
 
+/* Page Content */
+main .content {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Interests List */
 #Interests li.active {
     opacity: 1;
     transform: translateY(0) scale(100%);
@@ -457,11 +454,6 @@ header {
 
     width: calc(100vw - 48px - 48px);
     max-width: var(--container-max-width);
-
-    /* margin-left: 0px; */
-    /* margin-left: 48px; */
-
-    border-bottom: 100vh solid transparent;
 }
 
 #Interests ul li {
@@ -508,7 +500,7 @@ header {
 }
 
 #Interests ul li:hover {
-    box-shadow: 0 0 8px 8px #25252505;
+    box-shadow: 0 0 8px 8px #25252510;
 }
 
 #Interests h3 {
@@ -584,6 +576,59 @@ header {
         transform: translateX(20px);
     }
 
+/* Footer */
+footer {
+    width: calc(100vw - 48px - 48px);
+    padding: 32px 48px;
+    padding-bottom: 128px;
+    background-color: #fff;
+    color: #252525;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+footer .footer-contents {
+    max-width: var(--container-max-width);
+    width: 100%;
+}
+
+footer p {
+    font-weight: 500;
+    margin-bottom: -8px;
+}
+
+footer img {
+    filter: brightness(10%);
+}
+
+footer li {
+    list-style: none;
+    margin-left: -38px;
+}
+
+footer a {
+    color: #252525;
+}
+
+footer button {
+    font-weight: 500;
+    font-family: var(--fonts); 
+    border-radius: 16px;
+    border: 2px #252525 solid;
+    padding: 4px 16px;
+    background-color: transparent;
+    margin-top: 16px;
+
+    transition: 250ms ease-out;
+}
+
+footer button:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: #252525;
+}
 
 /* Responsive */
 @media only screen and (max-width: 700px) {
