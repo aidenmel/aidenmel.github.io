@@ -159,7 +159,7 @@ h2, h3 {
 }
 
 /* Alternative Styles - To remove pieces used in 'alternative-style.css' */
-.fs-container, .notice, #Interests img, span.notifications, .on-screen-nav, nav img, .header_cursor, header, #manipulated-header {
+.fs-container, footer, .notice, #Interests img, span.notifications, .on-screen-nav, nav img, .header_cursor, header, #manipulated-header {
     display: none;
 }
 

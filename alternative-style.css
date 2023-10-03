@@ -45,6 +45,7 @@ h1 {
 
         z-index: 999;
         backdrop-filter: blur(16px) saturate(120%);
+        -webkit-backdrop-filter: blur(16px) saturate(120%);
     }
 
     nav ul {
@@ -91,6 +92,7 @@ h1 {
 
         z-index: 999;
         backdrop-filter: blur(16px) saturate(120%);
+        -webkit-backdrop-filter: blur(16px) saturate(120%);
         transition: 250ms ease-in;
         transition-property: opacity;
     }
@@ -292,6 +294,7 @@ header {
     background-color: #25252550;
     border-radius: 16px;
     backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
 
     flex-direction: row;
     align-items: center;
