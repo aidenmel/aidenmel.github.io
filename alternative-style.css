@@ -449,19 +449,46 @@ main .content {
     
     padding-bottom: 16px;
     padding-top: 0px;
+    padding-left: 0px;
 
     width: calc(100vw - 48px - 48px);
     max-width: var(--container-max-width);
+
+    height: 80vh;
+    max-height: var(--container-max-height);
 }
 
 #Location li {
     list-style: none;
 }
 
-#apple-map {
+#Location iframe {
     width: 100%;
     height: 100%;
+    border-radius: 16px;
+
+    opacity: 0%;
+    transform: translateY(32px) scale(98%);
+    transition: 400ms ease-out;
 }
+
+#Location iframe.active {
+    opacity: 100%;
+    transform: translateY(0) scale(100%);
+}
+
+#Location .details {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.original-location {
+    display: none;
+}
+
 
 /* Interests & Location */
 #Interests li.active {
@@ -666,10 +693,27 @@ footer button:hover {
     .nav-menu {
         display: flex;
     }
-    
+        
+    .fs-details h1 {
+        font-size: 6rem;
+        line-height: 5rem;
+    }
+
     /* Interest Block */
     #Interests ul {
         grid: auto-flow / 2fr;
+    }
+
+    #Location ul {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+    }
+
+
+    #Location .map {
+        height: 100%;
     }
 
     /* #Interests ul li:last-of-type { */
