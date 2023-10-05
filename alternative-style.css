@@ -564,6 +564,16 @@ main .content {
     margin-top: 0;
 }
 
+/* Portfolio */
+.portfolio-details {
+    max-width: var(--container-max-width);
+    
+}
+
+.original-portfolio-details {
+    display: none;
+}
+
 /* CSS Changer */
 .css-container {
     justify-content: space-around;
@@ -681,6 +691,39 @@ footer button:hover {
     color: #fff;
     background-color: #252525;
 }
+
+/* Other & Extras */
+.hidden {
+    display: none;
+}
+
+.platformer {
+    padding-top: 96px;
+    padding-left: 32px;
+    padding-right: 32px;
+
+    width: 100%;
+    height: auto;
+    /* max-width: var(--container-max-width); */
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    text-align: center;
+
+    position: relative;
+
+    margin-bottom: 64px;
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+}
+
+    .platformer h1 {
+        color: #252525;
+    }
+
 
 /* Responsive */
 @media only screen and (max-width: 700px) {

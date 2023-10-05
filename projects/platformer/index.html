@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>platformer</title>
-    <link href="platformer.css" rel="stylesheet" />
+    <link href="/alternative-style.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <script src="setup.js"></script>
     <script src="helpers.js"></script>
@@ -11,12 +11,76 @@
   </head>
 
   <body id="body">
-    <h1>Platformer</h1>
-    <p>Jump on platforms and collect items to earn points. Watch out! If you hit a lazer you will lose.</p>
-    <canvas id="canvas" width="1400" height="750"></canvas>
-    <img id="cannon" src="images/cannon.png" />
-    <img id="player" src="images/halle.png" />
-    <img id="projectile" src="images/projectile.png" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Test.svg" />
+
+      <!-- Navigation  (Not included in 'style.css') -->
+      <nav>
+        <h1 id="default-header-title">Aiden's Portfolio</h1>
+        <a href="/index.html" id="manipulated-header"><div class="nav-header">
+            <img class="nav-logo" alt="Aiden Portfolio Logo" src="/assets/logo-gen1.png"/>
+            <h1>Aiden's Portfolio</h1>
+        </div></a>
+        <ul id="nav-ul">
+            <li class="nav-li"><a href="/index.html">Home</a></li>
+            <li class="nav-li"><a href="/portfolio.html">Portfolio</a></li>
+            <li class="nav-li nav-menu" id="osn-menu-btn"><img src="/assets/icons/menu-icon.png" alt="menu"></li>
+        </ul>
+      </nav>
+
+      <!-- Implemented for mobile devices (Not included in 'style.css') -->
+      <div class="on-screen-nav" id="osn-container">
+        <li class="nav-li"><a href="index.html">Home</a></li>
+        <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
+        <p>Site created by Aiden Melton</p>
+
+        <script>
+            var MenuButton = document.getElementById("osn-menu-btn");
+            var OSNContainer = document.getElementById("osn-container")
+            var OSNActive = false;
+
+            MenuButton.addEventListener('click', (e) => {
+                ToggleOnScreenMenu();
+            })
+
+            function ToggleOnScreenMenu() {
+                if (OSNActive == false){
+                    OSNContainer.classList.add("active")
+                    OSNActive = true;
+                } else {
+                    OSNContainer.classList.remove("active")
+                    OSNActive = false;
+                }
+            }
+        </script>
+      </div>
+
+      <div class="platformer">
+        <div class="platformer-details">
+          <h1>Platformer</h1>
+          <p>Jump on platforms and collect items to earn points. Watch out! If you hit a lazer you will lose.</p>
+        </div>
+        
+        <canvas style="background-color: rgb(103, 139, 216); width: 100%; max-width: 1400px; border: solid 4px #ffffff50;" id="canvas" width="1400" height="750"></canvas>
+      </div>
+
+      <img class="hidden" id="cannon" src="images/cannon.png" />
+      <img class="hidden" id="player" src="images/halle.png" />
+      <img class="hidden" id="projectile" src="images/projectile.png" />
+      <img class="hidden" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Test.svg" />
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-contents">
+          <a href="/index.html">
+              <img class="nav-logo" alt="Aiden Portfolio Logo" src="/assets/logo-gen1.png"/>
+          </a>
+          <p>Quick Links</p>
+          <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="portfolio.html">Portfolio</a></li>
+          </ul>
+          <a href="#top-of-page"><button>Return to Top</button></a>
+      </div>
+    </footer>
+
   </body>
 </html>
