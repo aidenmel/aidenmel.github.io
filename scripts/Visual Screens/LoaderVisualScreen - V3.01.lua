@@ -1,3 +1,4 @@
+local TweenService = game:GetService("TweenService")
 --[[
 
     Visual Screens ULTRA | Loader
@@ -20,12 +21,29 @@
 -- Variables
 local VSULoader = {}
 
+    -- Services
+    local TweenService = game:GetService("TweenService")
+
+        -- TweenInfo
+        local DefaultTweenInfo = TweenInfo.new(0.8, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0)
+        local TweenInfoTable = {
+            ["Interface"] = TweenInfo.new(0.8, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0),
+        }
+
     -- Objects
     local SettingsScript = script.Parent.Parent
     local ImportsFolder = script.Parent.Imports
 
+    -- Panel Variables
+    local ImageListFrame = nil
+    local GifListFrame = nil
+
+        -- Templates
+        local ImageFrameTemplate = nil
+        local GifFrameTemplate = nil
+
     -- Strings
-    local Version = 3.01
+    local Version = "3.01"
 
 -- Functions
 
@@ -41,7 +59,27 @@ local VSULoader = {}
 
 --[[
     
-    1 | SPRITESHEET FUNCTIONS
+    1 | SERVICE FUNCTIONS
+
+]]-- 
+
+    -- TweenService
+    local function TweenObject(Object, Property, Value, CustomTweenInfo)
+
+        -- Set tweenInfo by specific strings (quick-select)
+        if tostring(CustomTweenInfo) ~= nil and table.find(TweenInfoTable, tostring(CustomTweenInfo)) then
+            CustomTweenInfo = TweenInfoTable[tostring(CustomTweenInfo)]
+        end
+
+        -- Play Tween
+        local NewTween = TweenService:Create(Object, CustomTweenInfo or DefaultTweenInfo, {[Property] = Value})
+        NewTween:Play()
+
+    end
+
+--[[
+    
+    2 | SPRITESHEET FUNCTIONS
 
 ]]-- 
 
@@ -109,7 +147,7 @@ local VSULoader = {}
                Images[TotalImageCount] = { -- Make new table for image
                    ImageId = value:GetAttribute('ImageId'), -- Set image ID
                    Name = value:GetAttribute('Name') or 'Image '..TotalImageCount, -- Set image name, or make a name
-                   ZIndex = value:GetAttribute('Order') or 0 -- Set iamge order, if any
+                   LayoutOrder = value:GetAttribute('Order') or 0 -- Set iamge order, if any
                }
            end
         end
@@ -133,7 +171,7 @@ local VSULoader = {}
                     -- Default values
                     ImageId = value:GetAttribute('ImageId'), -- Set image ID
                     Name = value:GetAttribute('Name') or 'Image '..TotalImageCount, -- Set image name, or make a name
-                    ZIndex = value:GetAttribute('Order') or 0 -- Set iamge order, if any
+                    LayoutOrder = value:GetAttribute('Order') or 0 -- Set iamge order, if any
 
                 }
                 
@@ -151,13 +189,12 @@ local VSULoader = {}
                         end
                     end
                 else
-                    table.insert(SetupErrors, value.Name..' does not have frames parented to object.') -- Adds to error list
+                    table.insert(SetupErrors, value.Name..' does not have a frame folder.') -- Adds to error list
                     return
                 end
 
                 -- Get Spritesheet Frame Size
                 if GIFs[TotalGifCount]['Spritesheet'] == true then -- If true, determine the size of the frames
-                
                     local SImageSize, SRows, SColumns = value:GetAttribute('SImageSize'), value:GetAttribute('SRows'), value:GetAttribute('SColumns') 
 
                     if SImageSize ~= nil and SRows ~= nil and SColumns ~= nil then
@@ -167,8 +204,6 @@ local VSULoader = {}
                         table.insert(SetupErrors, value.Name..' experienced a error in finding the image size.')
                     end
                 end
-                
-
             end
         end
 
@@ -187,11 +222,32 @@ local VSULoader = {}
 -- Events
 function VSULoader.LoadVSU()
 
-    -- Extract Objects
+    -- Extractions
     local Images, GIFs = ExtractFiles() -- Returns images followed by GIFs
 
+    -- Create Images
+    for i,v in pairs(Images) do
 
+        -- Creates a new template
+        local ImageFrame = ImageFrameTemplate:Clone()
+        ImageFrame.Name = v["Name"]
+        ImageFrame.LayoutOrder = tonumber(v["LayoutOrder"])
+        ImageFrame.DisplayImage.Image = 'rbxassetid://'..v['ImageId']
 
+        -- Events
+        ImageFrame.SelectButton.MouseButton1Click:Connect(function()
+            
+        end)
+
+        -- Hover events
+        ImageFrame.SelectButton.MouseEnter:Connect(function() -- When the mouse hovers over
+            TweenObject(ImageFrame.Di.Size, 'Size', UDim2.new(1,16,1,16), 'Interface')
+        end)
+
+        ImageFrame.SelectButton.MouseLeave:Connect(function() -- While the mouse is not hovered over
+            TweenObject(ImageFrame.Di.Size, 'Size', UDim2.new(1,0,1,0), 'Interface')
+        end)
+    end
 end
 
 -- Return Module
