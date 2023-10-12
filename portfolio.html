@@ -22,6 +22,22 @@
 </head>
 <body>
 
+    <!-- Loading Screen -->
+    <div id="LoadingScreen">
+        <div class="LoadBlock"></div>
+    </div>
+
+    <script>
+        var loadingScreen = document.getElementById('LoadingScreen')
+
+        document.onreadystatechange = () => {
+            if (document.readyState === 'complete') {
+                loadingScreen.classList.add('complete');
+            }
+        }
+    </script>
+
+    <!-- Page Content -->
     <div id="all-contents">
        
         <!-- Navigation  (Not included in 'style.css') -->
@@ -109,7 +125,7 @@
             </div>
         </main>
     </div>
-    
+
     <!-- Footer -->
     <footer>
         <div class="footer-contents">
