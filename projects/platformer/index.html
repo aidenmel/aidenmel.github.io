@@ -12,6 +12,35 @@
 
   <body id="body">
 
+      <!-- Loading Screen -->
+      <div id="LoadingScreen">
+        <div class="loadingBlock"></div>
+        <p class="loadingMsg">We're getting everything ready.</p>
+      </div>
+
+      <script>
+        var loadingScreen = document.getElementById('LoadingScreen')
+
+        document.onreadystatechange = () => {
+            if (document.readyState === 'complete') {
+                setTimeout(() => {
+                loadingScreen.classList.add('complete');
+                
+                setTimeout(() => {
+                    loadingScreen.classList.add('disabled')
+                }, 400)    
+
+                }, 200);
+            }
+        }
+
+        // Redirects
+        // document.addEventListener('beforeunload', () => {
+        //     loadingScreen.classList.remove('disabled')
+        //     loadingScreen.classList.remove('complete')
+        // })
+      </script>
+
       <!-- Navigation  (Not included in 'style.css') -->
       <nav>
         <h1 id="default-header-title">Aiden's Portfolio</h1>

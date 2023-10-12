@@ -20,11 +20,12 @@
         </script>
     <title>Aiden's Portfolio - Portfolio</title>
 </head>
-<body>
+<body id="body">
 
     <!-- Loading Screen -->
     <div id="LoadingScreen">
-        <div class="LoadBlock"></div>
+        <div class="loadingBlock"></div>
+        <p class="loadingMsg">We're getting everything ready.</p>
     </div>
 
     <script>
@@ -32,9 +33,22 @@
 
         document.onreadystatechange = () => {
             if (document.readyState === 'complete') {
+                setTimeout(() => {
                 loadingScreen.classList.add('complete');
+                
+                setTimeout(() => {
+                    loadingScreen.classList.add('disabled')
+                }, 400)    
+
+                }, 200);
             }
         }
+
+        // Redirects
+        // document.addEventListener('beforeunload', () => {
+        //     loadingScreen.classList.remove('disabled')
+        //     loadingScreen.classList.remove('complete')
+        // })
     </script>
 
     <!-- Page Content -->
@@ -93,9 +107,7 @@
             <div class="content">
                 <h1 class="original-portfolio-details">Portfolio</h1>
                 
-                <div>
-                    <p>Below includes a directory of projects completed throughout the school year.</p>
-                </div>
+                <p>Below includes a directory of projects completed throughout the school year.</p>
 
                 <ul id="portfolio">
                     <a href="projects/platformer/"><li>
@@ -106,7 +118,8 @@
                         <div class="arrow"><img class="arrow icon" src="/assets/icons/arrow.png"></div>
                     </li></a>
 
-                    <a href="projects/bouncing-box/"><li>
+                    <li class="section">Coming Soon</li>
+                    <a href="projects/bouncing-box/"><li class="disabled">
                         <div class="detail">
                             <div class="title"><img class="icon" src="/assets/icons/controller.png">Bouncing Box</div>
                             <p>A project that gives you a taste of game development on the web</p>
@@ -114,7 +127,7 @@
                         <div class="arrow"><img class="arrow icon" src="/assets/icons/arrow.png"></div>
                     </li></a>
 
-                    <a href="projects/circularity/"><li>
+                    <a href="projects/circularity/"><li class="disabled">
                         <div class="detail">
                             <div class="title"><img class="icon" src="/assets/icons/controller.png">Circularity</div>
                             <p>A motion poem using random number generation and velocity applied to circle shapes...</p>

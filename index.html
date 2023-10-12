@@ -25,6 +25,36 @@
     </head>
     <body id="top-of-page">
 
+
+        <!-- Loading Screen -->
+        <div id="LoadingScreen">
+            <div class="loadingBlock"></div>
+            <p class="loadingMsg">We're getting everything ready.</p>
+        </div>
+
+        <script>
+            var loadingScreen = document.getElementById('LoadingScreen')
+
+            document.onreadystatechange = () => {
+                if (document.readyState === 'complete') {
+                    setTimeout(() => {
+                    loadingScreen.classList.add('complete');
+                    
+                    setTimeout(() => {
+                        loadingScreen.classList.add('disabled')
+                    }, 400)    
+
+                    }, 200);
+                }
+            }
+
+            // Redirects
+            // document.addEventListener('beforeunload', () => {
+            //     loadingScreen.classList.remove('disabled')
+            //     loadingScreen.classList.remove('complete')
+            // })
+        </script>
+
         <!-- Notifications, On-Screen Fixed Containers -->
 
             <!-- Stylesheet Swap  (Not included in 'style.css') (Switches the stylesheet between the standard to custom styling) -->
@@ -125,19 +155,19 @@
     <!-- All Content Goes Here -->
     <div id="all-contents">
 
+        <!-- Header (Not included in 'style.css') -->
+        <header>
+            <div class="cutout-container">
+                <img class="cutout-img" id="header_hover_object" alt="Aiden Melton" src="/assets/cutout-header-name.svg"/>
+                
+                <!-- Cursor Reveal Effect -->
+                <div class="header_cursor" id="header_cursor"></div>
+                <script src="/scripts/header-cursor.js"></script>
+            </div>
+        </header>
+
         <!-- Main Content -->
             <main>
-
-                <!-- Header (Not included in 'style.css') -->
-                <header>
-                    <div class="cutout-container">
-                        <img class="cutout-img" id="header_hover_object" alt="Aiden Melton" src="/assets/cutout-header-name.svg"/>
-                        
-                        <!-- Cursor Reveal Effect -->
-                        <div class="header_cursor" id="header_cursor"></div>
-                        <script src="/scripts/header-cursor.js"></script>
-                    </div>
-                </header>
 
                 <!-- Sidebar Section -->
                 <div class="sidebar">
