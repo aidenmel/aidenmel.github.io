@@ -47,24 +47,6 @@
         flex-direction: column;
 
         text-rendering:optimizeLegibility;
-
-        transform: matrix3d(
-            1,
-            0,
-            0,
-            0,
-            0,
-            1,
-            0,
-            -0.005,
-            0,
-            0,
-            1,
-            0,
-            0,
-            200,
-            0,
-            1.1);
     }
 
     .img-content p {
@@ -88,11 +70,44 @@
 </style>
 <body>
     
-    <div class="img-content">
+    <div class="img-content" id="test-effect">
         <h1>Airpods Pro</h1>
         <p>Redefining the listening experience.</p>
         <button>Purchase</button>
     </div>
+    <script>
+        var startAt = 500;
+        var finishEffectAfter = 200;
+        var endAt = 1500;
+
+        var testContainer = document.getElementById('test-effect')
+
+        window.addEventListener('scroll', (e) => {
+            const scrollTop = html.scrollTop;
+            const maxScrollTop = html.scrollHeight - window.innerHeight;
+            const scrollFraction = scrollTop / maxScrollTop;
+            
+            var finishPoint = startAt + finishEffectAfter;
+            var numerator = scrollTop - startAt;
+
+            if (scrollTop > startAt && scrollTop < finishPoint){ // If the scroll exceeds the start
+                testContainer.style.opacity =  numerator/finishEffectAfter;
+                console.log('starting')
+            } else if (scrollTop > finishPoint && scrollTop < endAt - finishEffectAfter){ // If the scroll exceeds the finish point but not the start of the zoom out effect
+                testContainer.style.opacity = 1;
+                console.log('midpoint')
+            } else if (scrollTop > endAt - finishEffectAfter && scrollTop < endAt){ // If the scroll exceeds the end point
+                var num = 1 - numerator
+                testContainer.style.opacity = num/finishEffectAfter;
+                console.log('ending', num/finishEffectAfter - endAt)
+            } else { // If the scroll value is before or after the entire effect
+                testContainer.style.opacity = 0;
+                console.log('out of view')
+            };
+        });
+
+    </script>
+
 
     <canvas id="hero-lightpass" />
     <script>
