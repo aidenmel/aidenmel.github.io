@@ -76,7 +76,7 @@
         <button>Purchase</button>
     </div>
     <script>
-        var startAt = 500;
+        var startAt = 250;
         var finishEffectAfter = 200;
         var endAt = 1500;
 
@@ -92,16 +92,21 @@
 
             if (scrollTop > startAt && scrollTop < finishPoint){ // If the scroll exceeds the start
                 testContainer.style.opacity =  numerator/finishEffectAfter;
+                testContainer.style.display = 'block';
                 console.log('starting')
             } else if (scrollTop > finishPoint && scrollTop < endAt - finishEffectAfter){ // If the scroll exceeds the finish point but not the start of the zoom out effect
                 testContainer.style.opacity = 1;
+                testContainer.style.display = 'block';
                 console.log('midpoint')
             } else if (scrollTop > endAt - finishEffectAfter && scrollTop < endAt){ // If the scroll exceeds the end point
-                var num = 1 - numerator
-                testContainer.style.opacity = num/finishEffectAfter;
+                var num = scrollTop * (endAt - finishEffectAfter);
+                var denom = endAt;
+                testContainer.style.opacity = num/denom;
+                testContainer.style.display = 'block';
                 console.log('ending', num/finishEffectAfter - endAt)
             } else { // If the scroll value is before or after the entire effect
                 testContainer.style.opacity = 0;
+                testContainer.style.display = 'none';
                 console.log('out of view')
             };
         });
