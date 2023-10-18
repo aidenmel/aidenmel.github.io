@@ -7,37 +7,45 @@
     <title>Airpod Scroll Test</title>
 </head>
 <body>
-    <div class="img-content" id="animation-effect-test">
+    <div class="img-content scroll-responsive" id="animation-effect-test" fx-start="250" fx-end="2600">
         <h1>Airpods Pro</h1>
         <p>Redefining the listening experience.</p>
         <button>Purchase</button>
     </div>
     <script>
-        var startAt = 250;
-        var endAt = 2700;
-
-        var testContainer = document.getElementById('animation-effect-test')
-
+      
+        var ScrollResponsiveObjects = document.getElementsByClassName('scroll-responsive');
         window.addEventListener('scroll', (e) => {
-            const scrollTop = html.scrollTop;
             
-            var percent = (scrollTop - startAt) / (endAt - startAt)
+          // Get scroll position
+          var ScrollPos = html.scrollTop;
 
-            if (percent >= -80){
-                percent == -0;
-            } else if (percent <= -920){
-                percent == -999.9999
-            }
-
-            if (scrollTop > startAt && scrollTop < endAt){ // If the scroll exceeds the start
-                testContainer.style.animationDelay = -(percent * 1000) + "s"
-                testContainer.style.display = 'block';
-                console.log('starting', -(percent * 1000) + "s")
-            } else { // If the scroll value is before or after the entire effect
-                testContainer.style.display = 'none';
-                console.log('out of view')
-            };
-        });
+          // Loop through scroll-responsive objects
+          for (let i = 0; i < ScrollResponsiveObjects.length; i++) {
+          
+             var Object = ScrollResponsiveObjects[i];
+             var ObjectStart = Object.getAttribute('fx-start'); 
+             var ObjectEnd = Object.getAttribute('fx-end');
+  
+             if (ScrollPos > ObjectStart && ScrollPos < ObjectEnd){
+               
+               var Percentage = (ScrollPos - ObjectStart)/(ObjectEnd - ObjectStart);
+               
+               // Set restrictions to percents
+               if (Percentage >= -80){
+                 Percentage == -0;
+               } else if (Percentage <= -920){
+                 Percentage == -999.99;
+               }
+               
+               // Set effect (if it meets the criteria)
+               Object.style.animationDelay = -(Percentage * 1000) + 's';
+               Object.style.display = 'block';
+             } else {
+               Object.style.display = 'none';
+             }
+           }
+        })
     </script>
 
     <canvas id="hero-lightpass" />
