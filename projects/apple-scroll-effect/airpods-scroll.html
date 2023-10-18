@@ -21,61 +21,24 @@
         window.addEventListener('scroll', (e) => {
             const scrollTop = html.scrollTop;
             
-            var percent = (scrollTop - startAt) / endAt
+            var percent = (scrollTop - startAt) / (endAt - startAt)
+
+            if (percent >= -80){
+                percent == -0;
+            } else if (percent <= -920){
+                percent == -999.9999
+            }
 
             if (scrollTop > startAt && scrollTop < endAt){ // If the scroll exceeds the start
                 testContainer.style.animationDelay = -(percent * 1000) + "s"
+                testContainer.style.display = 'block';
                 console.log('starting', -(percent * 1000) + "s")
             } else { // If the scroll value is before or after the entire effect
-                // testContainer.style.display = 'none';
+                testContainer.style.display = 'none';
                 console.log('out of view')
             };
         });
     </script>
-
-    <!-- <div class="legacy-img-content" id="test-effect">
-        <h1>Airpods Pro</h1>
-        <p>Redefining the listening experience.</p>
-        <button>Purchase</button>
-    </div> -->
-    <!-- <script>
-        var startAt = 250;
-        var finishEffectAfter = 500;
-        var endAt = 2000;
-
-        var testContainer = document.getElementById('test-effect')
-
-        window.addEventListener('scroll', (e) => {
-            const scrollTop = html.scrollTop;
-            const maxScrollTop = html.scrollHeight - window.innerHeight;
-            const scrollFraction = scrollTop / maxScrollTop;
-            
-            var finishPoint = startAt + finishEffectAfter;
-            var numerator = scrollTop - startAt;
-
-            if (scrollTop > startAt && scrollTop < finishPoint){ // If the scroll exceeds the start
-                testContainer.style.opacity =  numerator/finishEffectAfter;
-                testContainer.style.display = 'block';
-                // console.log('starting', numerator/finishEffectAfter)
-            } else if (scrollTop > finishPoint && scrollTop < endAt - finishEffectAfter){ // If the scroll exceeds the finish point but not the start of the zoom out effect
-                testContainer.style.opacity = 1;
-                testContainer.style.display = 'block';
-                // console.log('midpoint')
-            } else if (scrollTop > endAt - finishEffectAfter && scrollTop < endAt){ // If the scroll exceeds the end point
-                var num = (scrollTop - endAt + finishEffectAfter);
-                var denom = endAt;
-                testContainer.style.opacity = -((scrollTop - endAt)/finishEffectAfter);
-                testContainer.style.display = 'block';
-                // console.log('ending', scrollTop, testContainer.style.opacity)
-            } else { // If the scroll value is before or after the entire effect
-                testContainer.style.opacity = 0;
-                testContainer.style.display = 'none';
-                // console.log('out of view')
-            };
-        });
-
-    </script> -->
-
 
     <canvas id="hero-lightpass" />
     <script>

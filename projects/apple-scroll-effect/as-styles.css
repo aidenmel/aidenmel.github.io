@@ -40,7 +40,7 @@ canvas {
     align-items: center;
     flex-direction: column;
 
-    animation: 1000s linear 0s infinite airpod-appear-anim;
+    animation: 1000s linear infinite airpod-appear-anim;
     animation-delay: -1000s;
 
     text-rendering:optimizeLegibility;
@@ -59,13 +59,13 @@ canvas {
 @keyframes airpod-appear-anim {
     
     0% {
-        display: block;
+        /* display: block; */
         opacity: 0;
-        transform: translateY(32px);
+        transform: translateY(32px) matrix3d(1, 0, 0, .0, 0, 1, -1, -0.009, 0, 0, 1, 0, 0, 0, 0, 1);
         
     }
     
-    10% {
+    20% {
         opacity: 1;
         transform: translate(0);
     }
@@ -81,7 +81,7 @@ canvas {
     100% {
         transform: scale(200%);
         opacity: 0;
-        display: none;
+        /* display: none; */
     }
 
 
