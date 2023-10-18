@@ -61,7 +61,7 @@ canvas {
     0% {
         /* display: block; */
         opacity: 0;
-        transform: translateY(32px) matrix3d(1, 0, 0, .0, 0, 1, -1, -0.009, 0, 0, 1, 0, 0, 0, 0, 1);
+        transform: translateY(32px) matrix3d(2, 0, 0, 0, 0, 0.6, -1, -0.005, 0, 0, 1, 0, 0, 0, 0, 1);
         
     }
     
@@ -71,15 +71,11 @@ canvas {
     }
 
     80% {
-        transform: scale(1);
-    }
-
-    90% {
         opacity: 1;
     }
 
     100% {
-        transform: scale(200%);
+        transform: scale(1.4);
         opacity: 0;
         /* display: none; */
     }
