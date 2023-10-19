@@ -7,10 +7,14 @@
     <title>Airpod Scroll Test</title>
 </head>
 <body>
-    <div class="img-content scroll-responsive" id="animation-effect-test" fx-start="250" fx-end="2600">
+  <canvas class="scroll-responsive hero-activated" fx-frame-count="148" fx-link="https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/" fx-link-end=".jpg" fx-start="0" fx-end="6000" id="hero-lightpass"></canvas>
+   <div class="img-content scroll-responsive" id="animation-effect-test" fx-start="250" fx-end="5800">
         <h1>Airpods Pro</h1>
         <p>Redefining the listening experience.</p>
         <button>Purchase</button>
+    </div>
+    <div class="fs-paragraph scroll-responsive" fx-start="6050" fx-end="15000">
+      <p><span>Airpod Pros offer a seamless design that is ratified by the high quality sound. </span><span>Now offering spatial audio, a renovated listening experienced which is all done through SONY's sound engineering. </span><span>Hear basses in a crisp quality, making it seem as if you never left the concert hall. </span><span> Airpod Pros, in a crystal white color is available for purchase today.</span>
     </div>
     <script>
       
@@ -30,7 +34,7 @@
              if (ScrollPos > ObjectStart && ScrollPos < ObjectEnd){
                
                var Percentage = (ScrollPos - ObjectStart)/(ObjectEnd - ObjectStart);
-               
+              
                // Set restrictions to percents
                if (Percentage >= -80){
                  Percentage == -0;
@@ -47,41 +51,42 @@
            }
         })
     </script>
-
-    <canvas id="hero-lightpass" />
     <script>
         const html = document.documentElement
-        const canvas = document.getElementById('hero-lightpass');
-        const context = canvas.getContext('2d');
+        var HeroCollection = document.getElementsByClassName('hero-activated');
 
-        const frameCount = 148
-        const currentFrame = index => (
-            `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/${index.toString().padStart(4, '0')}.jpg`
-        )
+        for (let i = 0; i < HeroCollection.length; i++){
 
-        const preloadImages = () => {
+          const canvas = HeroCollection[i];
+          const context = canvas.getContext('2d');
+          const frameCount = canvas.getAttribute('fx-frame-count');
+          const currentFrame = index => canvas.getAttribute('fx-link') + index.toString().padStart(4, '0') + canvas.getAttribute('fx-link-end');
+
+          const preloadImages = () => {
             for (let i = 1; i < frameCount; i++) {
                 const img = new Image();
                 img.src = currentFrame(i);
             }
-        }
+          }
 
-        const img = new Image()
-        img.src = currentFrame(1);
-        img.onload=function(){
-            context.drawImage(img,0,0);
-        }
-        canvas.width = 1158;
-        canvas.height = 770;
+          const img = new Image()
+          img.src = currentFrame(1);
+          img.onload=function(){
+              context.drawImage(img,0,0);
+          }
 
-        const updateImage = index => {
+          canvas.width = 1158;
+          canvas.height = 770;
+
+          const updateImage = index => {
             img.src = currentFrame(index);
             context.drawImage(img, 0, 0)
-        }
+          }
 
         window.addEventListener('scroll', (e) => {
+
             const scrollTop = html.scrollTop;
-            const maxScrollTop = html.scrollHeight - window.innerHeight;
+            const maxScrollTop = canvas.getAttribute('fx-end');
             const scrollFraction = scrollTop / maxScrollTop
             const frameIndex = Math.min(frameCount - 1, Math.ceil(scrollFraction * frameCount));
 
@@ -90,6 +95,7 @@
         });
 
         preloadImages()
+      }
 
 </script>
 

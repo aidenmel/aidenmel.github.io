@@ -5,8 +5,8 @@ html {
 }
 
 body {
-    height: 500vh;
-    background: #000;
+    height: 20000px;
+    background: #000; 
     font-family: 'Poppins', sans-serif;
 }
 
@@ -75,7 +75,7 @@ canvas {
     }
 
     100% {
-        transform: scale(1.4);
+        transform: scale(1.1);
         opacity: 0;
         /* display: none; */
     }
@@ -93,4 +93,56 @@ button {
     background-color: #007AFF;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
+}
+
+.fs-paragraph {
+  color: #fff;
+  position: fixed;
+  width: 100vw;
+  max-width: 400px;
+  height: 100vh;
+  padding: 64px;
+  animation: 1000s linear infinite fs-paragraph;
+  animation-delay: -0.5s;
+}
+.fs-paragraph p {
+  z-index: 15;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #f8f8f850;
+  line-height: 2.5rem;
+  width: 100%;
+  text-wrap: wrap;
+}
+
+.hero-lightpass {
+  animation: 1000s linear infinite hero-lightpass;
+  animation-delay: -0.5s;
+}
+
+@keyframes hero-lightpass {
+  0% {
+    opacity: 1; 
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fs-paragraph {
+  0% {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY();
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-130%);
+  }
 }
