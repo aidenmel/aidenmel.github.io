@@ -13,8 +13,11 @@
         <p>Redefining the listening experience.</p>
         <button>Purchase</button>
     </div>
-    <div class="fs-paragraph scroll-responsive" fx-start="6050" fx-end="15000">
-      <p><span>Airpod Pros offer a seamless design that is ratified by the high quality sound. </span><span>Now offering spatial audio, a renovated listening experienced which is all done through SONY's sound engineering. </span><span>Hear basses in a crisp quality, making it seem as if you never left the concert hall. </span><span> Airpod Pros, in a crystal white color is available for purchase today.</span>
+    <div class="fs-paragraph scroll-responsive" fx-start="6050" fx-end="12000">
+      <p><span class="scroll-responsive" disable-out-of-view="false" fx-start="6100" fx-end="8000">Airpod Pros offer a seamless design that is ratified by the high quality sound. </span>
+        <span class="scroll-responsive" disable-out-of-view="false" fx-start="7500" fx-end="9000">Now offering spatial audio, a renovated listening experienced which is all done through SONY's sound engineering. </span>
+        <span class="scroll-responsive" disable-out-of-view="false" fx-start="8500" fx-end="10000">Hear basses in a crisp quality, making it seem as if you never left the concert hall. </span>
+        <span class="scroll-responsive" disable-out-of-view="false" fx-start="9500" fx-end="11000"> Airpod Pros, in a crystal white color is available for purchase today.</span>
     </div>
     <script>
       
@@ -46,7 +49,11 @@
                Object.style.animationDelay = -(Percentage * 1000) + 's';
                Object.style.display = 'block';
              } else {
-               Object.style.display = 'none';
+              if (Object.getAttribute('disable-out-of-view') == 'false'){
+                Object.style.display = 'block'
+              } else {
+                Object.style.display = 'none';
+              }
              }
            }
         })

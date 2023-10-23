@@ -104,6 +104,7 @@ button {
   padding: 64px;
   animation: 1000s linear infinite fs-paragraph;
   animation-delay: -0.5s;
+  text-align: center;
 }
 .fs-paragraph p {
   z-index: 15;
@@ -113,6 +114,11 @@ button {
   line-height: 2.5rem;
   width: 100%;
   text-wrap: wrap;
+}
+
+.fs-paragraph p span {
+  animation: 1000s linear infinite fs-paragraph-line;
+  animation-delay: -1s;
 }
 
 .hero-lightpass {
@@ -144,5 +150,20 @@ button {
   100% {
     opacity: 0;
     transform: translateY(-130%);
+  }
+}
+
+@keyframes fs-paragraph-line {
+  0% {
+    color: #f8f8f850;
+  }
+  20% {
+    color: #f8f8f8;
+  }
+  80% {
+    color: #f8f8f8;
+  }
+  100% {
+    color: #f8f8f850
   }
 }
