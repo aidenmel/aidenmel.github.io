@@ -151,6 +151,24 @@ button {
   font-size: 1.4rem;
 }
 
+/* Author Note */
+div.author {
+  border-radius: 8px;
+  background: #202020;
+  padding: 16px;
+  margin-bottom: 32px;
+  border: 1px solid #ffffff20;
+}
+
+div.author h6, div.author p:last-child {
+  margin: 0;
+}
+
+div.author p {
+  margin:0;
+  margin-bottom: 8px;
+}
+
 /* main container area beneath menu */
 main {
   padding-top: 96px;
