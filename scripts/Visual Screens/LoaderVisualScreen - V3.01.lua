@@ -252,3 +252,72 @@ end
 
 -- Return Module
 return VSULoader
+
+
+--[[
+
+    3 | Core Functions
+
+]]--
+
+local ActiveEffect = {
+    EffectFunction = function(Graphic, Speed, Angle)
+        
+    end;
+}
+local SystemData = {
+    Brightness = 1.2;
+    Speed = 0.4;
+}
+local SelectedScreens = {};
+local GraphicNum = 0;
+
+local function UpdateScreenFrames(GraphicNum, ImageId, ScreenTable)
+    for i,v in pairs(ScreenTable) do
+        v['Graphics'][GraphicNum].ImageId = 'rbxassetid://'..ImageId;
+    end
+end
+
+local function RunSpritesheet(DataTable, ScreenTable)
+    
+    if DataTable['Looped'] == true then
+        
+        -- Loop through sprite
+        if DataTable['Spritesheet'] == true then
+            
+        else
+            for i = 0,1,#DataTable['Frames'] do -- Loop through frames
+                local FrameId = DataTable['Frames'][i]
+                UpdateScreenFrames(Graphic, FrameId, ScreenTable)
+                task.wait(DataTable['PlaybackSpeed']) --                                    *** Undefined, add to table ***
+            end
+        end
+    end
+end
+
+local function DisplayImage(DataTable)
+    
+    GraphicNum = GraphicNum + 1
+
+    for index, screen in pairs(SelectedScreens) do
+        
+        -- Display image
+        local CloneGraphic = Instance.new('ImageLabel')
+        CloneGraphic.Parent = screen['ScreenFrame'];
+        CloneGraphic.Name = 'Graphic'..GraphicNum;
+        CloneGraphic.Size = UDim2.new(1,0,1,0);
+        CloneGraphic.Visible = true
+        CloneGraphic.ZIndex = GraphicNum
+        CloneGraphic.ImageRectSize = DataTable['ImageSize'] or UDim2.new(1,0,1,0)
+        CloneGraphic.Image = 'rbxassetid://'..DataTable['Frames'][1] or DataTable['ImageId']
+
+        -- Play effect
+        ActiveEffect['EffectFunction'](CloneGraphic, SystemData['Speed']);
+    end
+
+    if DataTable['IsVideo'] then -- If a video, detect & run
+        local ScreenClone = SelectedScreens;
+        RunSpritesheet(DataTable, ScreenClone)
+    end
+
+end
