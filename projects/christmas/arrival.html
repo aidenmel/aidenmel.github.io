@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Dear Sydnee Melton</title>
+        <link rel="stylesheet" href="./christmas.css">
+        <link rel="icon" href="./assets/ChristmasTreeIcon.png">
+        <meta name="theme-color" content="#929292">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
+    </head>
+    <body id="top-of-page">
+
+
+        <!-- Loading Screen -->
+        <div id="LoadingScreen">
+            <div class="loadingBlock"></div>
+            <p class="loadingMsg">We're getting everything ready.</p>
+        </div>
+
+        <script>
+            var loadingScreen = document.getElementById('LoadingScreen')
+
+            document.onreadystatechange = () => {
+                if (document.readyState === 'complete') {
+                    setTimeout(() => {
+                    loadingScreen.classList.add('complete');
+                    
+                    setTimeout(() => {
+                        loadingScreen.classList.add('disabled')
+                    }, 400)    
+
+                    }, 200);
+                }
+            }
+
+            // Redirects
+            // document.addEventListener('beforeunload', () => {
+            //     loadingScreen.classList.remove('disabled')
+            //     loadingScreen.classList.remove('complete')
+            // })
+        </script>
+
+            <!-- Navigation  (Not included in 'style.css') -->
+            <!-- <nav>
+                <h1 id="default-header-title">Aiden's Portfolio</h1>
+                <a href="/index.html" id="manipulated-header"><div class="nav-header">
+                    <img class="nav-logo" alt="Aiden Portfolio Logo" src="/assets/logo-gen1.png"/>
+                    <h1>Aiden's Portfolio</h1>
+                </div></a>
+                <ul id="nav-ul">
+                    <li class="nav-li"><a href="index.html">Home</a></li>
+                    <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
+                    <li class="nav-li nav-menu" id="osn-menu-btn"><img src="/assets/icons/menu-icon.png" alt="menu"></li>
+                </ul>
+            </nav> -->
+
+        
+    <!-- All Content Goes Here -->
+        <div id="all-contents">
+
+        <!-- Main Content -->
+            <main>
+
+                <img src="./assets/HolidayBackground.jpeg" alt="" class="background">
+
+                <!-- Christmas Letter -->
+                
+                <div class="mobile-grid-content">
+
+                    <div>
+                        <h1>Dear Sydnee</h1>
+                        <p>I have returned from the <i>North Pole</i> to spend this holiday season with <b>YOU</b>!</p>
+                    </div>
+                    
+                    <div class=""> 
+                        <img src="./assets/ElfOnTheShelf.png" class="Elf transition">
+                    </div>
+
+                    <div>
+                        <p>I have a ton of fun things planned, so always keep and <b>eye out</b>. Remember, I will report <i>anything bad back to Santa</i>. So be <b>GOOD</b>!</p>
+                    </div>
+
+                    <div class="">
+                        <img src="./assets/SydChristmas.jpeg" alt="" class="Syd transition">
+                    </div>
+
+                    <div>
+                        <p><em><b>PS:</b> Don't touch me or I get really hurt!</em></p>
+                    </div>
+
+                </div>
+
+
+                    <!-- Interests Section -->
+                    <!-- <div id="Interests">
+                        <h3>Interests</h3>
+                        <p>Change window size to expand menu.</p>
+                        <ul>
+                            <li class="transition"><img src="https://daily.jstor.org/wp-content/uploads/2023/01/good_times_with_bad_music_1050x700.jpg" /><span>Music</span></li>
+                            <li class="transition" transition-offset="50"><img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2022/01/104228210.jpg?auto=format&q=60&w=1280&h=720&fit=crop&crop=faces" /><span>Web Design</span></li>
+                            <li class="transition" transition-offset="100"><img src="https://hips.hearstapps.com/hmg-prod/images/teen-shows-1582317535.jpg?crop=1xw:1xh;center,top&resize=1200:*" /><span>TV Shows</span></li>
+                        </ul>
+                    </div> -->
+                    
+                <!-- Scripts -->
+                <script src="/scripts/on-scroll-effects.js"></script>
+
+            </main>
+         </div>
+    </body>
+</html>
