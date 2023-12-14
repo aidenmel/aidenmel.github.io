@@ -5,17 +5,28 @@
 	<title>Bouncing Box</title>
 	<script src="jquery.min.js"></script>
 	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Gabarito:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+		
 		.box {
-			width: 70px;
-			height: 70px;
+			
+			border-radius: 8px;
 			background-color: teal;
-			font-size: 300%;
+
+			color: #fff;
+			line-height: 66px;
+			font-family: 'Climate Crisis', sans-serif;
+			font-size: 35px;
 			text-align: center;
-			user-select: none;
+
 			display: block;
 			position: absolute;
+
+			width: 70px;
+			height: 70px;
+			
+			user-select: none;
 			top: 100px;
-			left: 0px;  /* <--- Change me! */
+			left: calc(50vw - 35px);  /* <--- Change me! */
 		}
 		.board{
 			height: 100vh;
@@ -62,17 +73,28 @@
 			//////////////////////////////////////////////////////////////////
 			
 			// TODO 2 - Variable declarations 
+			var positionX = 0;
+			var speed = 1;
+			var score = 0;
 			
+			moveBoxTo(10)
 
-			
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
 			it should move the Box to a new location. If the box drifts off the screen
 			turn it around! 
 			*/
 			function update() {
-				
 
+				// Collisions
+				if (positionX >= boardWidth || positionX <= 0){
+					speed *= -1;
+				} 
+
+				positionX = positionX + speed + 10
+
+				// Update frame
+				moveBoxTo(positionX)
 			};
 
 			/* 
@@ -81,8 +103,20 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-				
 
+				// // Update speed
+				if (Math.sign(speed) === -1){
+					speed -= 3
+				} else {
+					speed += 3
+				}
+					
+				// Update score
+				score += 1;
+				changeBoxText(score);
+				
+				// Return box to starting position
+				positionX = 0; 
 
 			};
 		})();
