@@ -21,7 +21,12 @@
 		<div class="box">?</div>
 	</div>
 
-	<div class="scoreboard">
+	<div class="walls">
+		<div id="wall_left"></div>
+		<div id="wall_right"></div>
+	</div>
+
+	<div class="scoreboard" id="score-container">
 		<h1>Score: <span id="score">0</span></div>
 	</div>
 
@@ -80,17 +85,35 @@
 			// TODO 2 - Variable declarations 
 
 			// Objects
-			
-			var ScoreCounter = document.getElementById('score')
+				var ScoreContainer = document.getElementById('score-container')
+				var ScoreCounter = document.getElementById('score')
+
+				// Walls
+				var wall_left = document.getElementById('wall_left');
+				var wall_right = document.getElementById('wall_right');
 
 				// Statistics
 				var stats_speed = document.getElementById('stats-speed')
 				var stats_pos = document.getElementById('stats-pos')
 
 			// Values
-			var positionX = 1;
+			var positionX = 10;
 			var speed = 10;
 			var score = 0;
+
+			var randomColor = 'rgb(34, 199, 199)'
+			
+			// Functions
+			function updateCssProperty(object, property, value){
+				console.log(object)
+				object.style[property] = value;
+			}
+
+			function playAnimation(object, css_class, time){
+				// Play css animation
+				object.classList.add(css_class); // Adds class to object
+				setTimeout(() => { object.classList.remove(css_class);}, time); // Delay before removing class
+			}
 
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
@@ -105,9 +128,15 @@
 				moveBoxTo(positionX)
 
 				// Collisions
-				if (positionX > (boardWidth - 70) || (positionX) < 0){
+				if (positionX > (boardWidth - 70)){
 					speed *= -1;
-				} 
+					updateCssProperty(wall_right, 'box-shadow', '-16px 0 32px 0 ' + randomColor)
+					playAnimation(wall_right, 'Touched', 200)
+				} else if ((positionX) < 0){
+					speed *= -1;
+					updateCssProperty(wall_left, 'box-shadow', '16px 0 32px 0 ' + randomColor)
+					playAnimation(wall_left, 'Touched', 200)
+				}
 
 				// Statistics
 				stats_speed.innerHTML = speed + ' pixels/sec';
@@ -127,13 +156,13 @@
 				} else {
 					speed += 3
 				}
-					
-				// Select color
+
+				// Select a random color
 				var hue = Math.random() * 360;
 				var saturation = 90;
 				var lightness = 45;
 
-				var randomColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+				randomColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 
 				// Update color
 				box.css('background-color', randomColor);
@@ -141,8 +170,11 @@
 				// Update score
 				score += 1;
 				changeBoxText(score);
+				playAnimation(ScoreContainer, 'active', 200)
 				ScoreCounter.innerHTML = score
+				ScoreCounter.style.color = randomColor
 				
+
 				// Return box to starting position
 				positionX = 1; 
 

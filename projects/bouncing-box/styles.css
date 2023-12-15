@@ -63,38 +63,25 @@ p {
     overflow: hidden;
 }
 
-.box {   
-    border-radius: 8px;
-    background-color: rgb(34, 199, 199);
-
-    color: #fff;
-    line-height: 66px;
-    font-family: 'Climate Crisis', sans-serif;
-    font-size: 35px;
-    text-align: center;
-
-    display: block;
-    position: absolute;
-
-    overflow: hidden;
-
-    width: 70px;
-    height: 70px;
-    
-    user-select: none;
-    top: calc(50vh - 70px);
-    left: calc(50vw - 35px);  /* <--- Change me! */
-}
-
 .board{
     height: 100vh;
 }
 
+/* Scoreboard */
 .scoreboard {
     position: fixed;
     right: 32px;
     top: 16px;
     user-select: none;
+
+    transition: all 200ms ease-out;
+    -webkit-transition: all 200ms ease-out;
+    -moz-transition: all 200ms ease-out;
+}
+
+.scoreboard.active {
+    transform: scale(125%);
+    right: calc(64px);
 }
 
 .statistics {
@@ -118,4 +105,63 @@ p {
     bottom: 20px;
     left: 16px;
     user-select: none;
+}
+
+
+/* Objects */
+.box {   
+    border-radius: 8px;
+    background-color: rgb(34, 199, 199);
+
+    color: #fff;
+    line-height: 66px;
+    font-family: 'Climate Crisis', sans-serif;
+    font-size: 35px;
+    text-align: center;
+
+    display: block;
+    position: absolute;
+
+    overflow: hidden;
+
+    width: 70px;
+    height: 70px;
+
+    z-index: 100;
+    
+    user-select: none;
+    top: calc(50vh - 35px);
+    left: calc(50vw - 35px);  /* <--- Change me! */
+}
+
+/* Walls */
+#wall_left, #wall_right {
+    
+    background-color: black;
+    border-radius: 100%;
+    box-shadow: 16px 0 32px 0 #00000050;
+    width: 100px;
+    height: 15vh;
+
+    position: fixed;
+    top: calc(50vh - 7.5vh);
+
+    z-index: 2;
+
+    transition: all 100ms ease-out;
+    -webkit-transition: all 100ms ease-out;
+    opacity: 0;
+}
+
+#wall_left.Touched, #wall_right.Touched {
+    opacity: .5;
+}
+
+#wall_left {
+    left: -100px;
+}
+
+#wall_right {
+    box-shadow: -16px 0 32px 0 #00000050;
+    right: -100px;
 }
