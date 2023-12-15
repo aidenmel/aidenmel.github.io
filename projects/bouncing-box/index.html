@@ -34,6 +34,7 @@
 		<h2>Nerdy Stats</h2>
 		<p>SPEED: <span id='stats-speed'>0 pixels/sec</span></p>
 		<p>POSITION: <span id='stats-pos'>0 pixels</span></p>
+		<div class="graph"></div>
 	</div>
 
 	<script>
@@ -173,7 +174,9 @@
 				playAnimation(ScoreContainer, 'active', 200)
 				ScoreCounter.innerHTML = score
 				ScoreCounter.style.color = randomColor
-				
+
+				// Store clicked position
+				var ClickLocationPercent = positionX / boardWidth
 
 				// Return box to starting position
 				positionX = 1; 
