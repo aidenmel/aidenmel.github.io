@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Gabarito:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --cartoon-dropshadow: 4px 4px #000;
+    --cartoon-text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
+    1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000, 6px 6px #000;
+    
+    --small-cartoon-dropshadow: 2px 2px #000;
+    
+}
+
+* {
+    cursor: url(./assets/cartoon-cursor.png), auto;
+}
+
+body {
+    margin: 0;
+}
+
+/* Text Styles */
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+}
+
+h1 {
+    color: #fff;
+    font-family: 'Climate Crisis', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    -webkit-text-stroke: .5px #000;
+    text-shadow: var(--cartoon-text-shadow);
+}
+
+h2 {
+    color: #fff;
+    -webkit-text-stroke: 1px #000;
+    text-shadow: var(--small-cartoon-dropshadow);
+
+    font-family: 'Climate Crisis', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+
+    margin-bottom: 6px;
+}
+
+p {
+    font-family: 'Noto Sans Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Containers */
+.box-container {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+.box {   
+    border-radius: 8px;
+    background-color: rgb(34, 199, 199);
+
+    color: #fff;
+    line-height: 66px;
+    font-family: 'Climate Crisis', sans-serif;
+    font-size: 35px;
+    text-align: center;
+
+    display: block;
+    position: absolute;
+
+    overflow: hidden;
+
+    width: 70px;
+    height: 70px;
+    
+    user-select: none;
+    top: calc(50vh - 70px);
+    left: calc(50vw - 35px);  /* <--- Change me! */
+}
+
+.board{
+    height: 100vh;
+}
+
+.scoreboard {
+    position: fixed;
+    right: 32px;
+    top: 16px;
+    user-select: none;
+}
+
+.statistics {
+
+    box-shadow: var(--cartoon-dropshadow);
+
+    border-radius: 16px;
+    border: solid 4px #000;
+
+    padding: 16px 16px;
+    padding-right: 20px;
+    max-width: 400px;
+    width: auto;
+    
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+
+    position: fixed;
+    bottom: 20px;
+    left: 16px;
+    user-select: none;
+}

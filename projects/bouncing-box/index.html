@@ -3,41 +3,33 @@
 <head>
 	<meta charset="utf-8">
 	<title>Bouncing Box</title>
+	
+	<link rel="stylesheet" href="./styles.css">
+	<link rel="icon" href="/assets/logo-gen1.png">
+	
+	<meta name="theme-color" content="#929292">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+	
 	<script src="jquery.min.js"></script>
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Gabarito:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-		
-		.box {
-			
-			border-radius: 8px;
-			background-color: teal;
-
-			color: #fff;
-			line-height: 66px;
-			font-family: 'Climate Crisis', sans-serif;
-			font-size: 35px;
-			text-align: center;
-
-			display: block;
-			position: absolute;
-
-			width: 70px;
-			height: 70px;
-			
-			user-select: none;
-			top: 100px;
-			left: calc(50vw - 35px);  /* <--- Change me! */
-		}
-		.board{
-			height: 100vh;
-		}
-	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 
 </head>
 <body class="board">
 	<!-- HTML for the box -->
-	<div class="box">?</div>
+	<div class="box-container">
+		<div class="box">?</div>
+	</div>
+
+	<div class="scoreboard">
+		<h1>Score: <span id="score">0</span></div>
+	</div>
+
+	<div class="statistics">
+		<h2>Nerdy Stats</h2>
+		<p>SPEED: <span id='stats-speed'>0 pixels/sec</span></p>
+		<p>POSITION: <span id='stats-pos'>0 pixels</span></p>
+	</div>
 
 	<script>
 		(function(){
@@ -50,10 +42,10 @@
 			
 			var box = jQuery('.box');	// reference to the HTML .box element
 			var board = jQuery('.board');	// reference to the HTML .board element
-			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
+			var boardWidth = innerWidth;	// the maximum X-Coordinate of the screen
 
 			// Every 50 milliseconds, call the update Function (see below)
-			setInterval(update, 50);
+			setInterval(update, 30); // 60 fps
 			
 			// Every time the box is clicked, call the handleBoxClick Function (see below)
 			box.on('click', handleBoxClick);
@@ -72,12 +64,33 @@
 			/////////////////// YOUR CODE BELOW HERE /////////////////////////
 			//////////////////////////////////////////////////////////////////
 			
+			/*
+
+			[IDEA BOARD]
+			- Game mode support (Standard, Chaos, Infinite)
+			- Random events (Stored in a array, maybe?)
+			- Instructions/start screen
+			- Collision effects
+			- Score effects
+			- Milestone effects (w/ confetti?) (25, 50, 100??)
+
+			*/
+
+
 			// TODO 2 - Variable declarations 
-			var positionX = 0;
-			var speed = 1;
-			var score = 0;
+
+			// Objects
 			
-			moveBoxTo(10)
+			var ScoreCounter = document.getElementById('score')
+
+				// Statistics
+				var stats_speed = document.getElementById('stats-speed')
+				var stats_pos = document.getElementById('stats-pos')
+
+			// Values
+			var positionX = 1;
+			var speed = 10;
+			var score = 0;
 
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
@@ -86,15 +99,19 @@
 			*/
 			function update() {
 
-				// Collisions
-				if (positionX >= boardWidth || positionX <= 0){
-					speed *= -1;
-				} 
-
-				positionX = positionX + speed + 10
+				positionX = positionX + speed
 
 				// Update frame
 				moveBoxTo(positionX)
+
+				// Collisions
+				if (positionX > (boardWidth - 70) || (positionX) < 0){
+					speed *= -1;
+				} 
+
+				// Statistics
+				stats_speed.innerHTML = speed + ' pixels/sec';
+				stats_pos.innerHTML = positionX + ' pixels';
 			};
 
 			/* 
@@ -104,19 +121,30 @@
 			*/
 			function handleBoxClick() {
 
-				// // Update speed
+				// Update speed depending on whether the value is positive or negative
 				if (Math.sign(speed) === -1){
 					speed -= 3
 				} else {
 					speed += 3
 				}
 					
+				// Select color
+				var hue = Math.random() * 360;
+				var saturation = 90;
+				var lightness = 45;
+
+				var randomColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+
+				// Update color
+				box.css('background-color', randomColor);
+
 				// Update score
 				score += 1;
 				changeBoxText(score);
+				ScoreCounter.innerHTML = score
 				
 				// Return box to starting position
-				positionX = 0; 
+				positionX = 1; 
 
 			};
 		})();
