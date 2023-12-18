@@ -37,16 +37,20 @@
 		<div class="graph" id="clicked-graph"></div>
 	</div>
 
-	<div class="errors" style="display: none;">
-		<div class="prompt">
-			<div class="content">
+	<div class="all-prompts">
+
+		<!-- Prompt -->
+		<div id="prompt" class="cartoon-container">
+			<div class="content" id="prompt-content">
 				<h2>Uh Oh!</h2>
 				<p>We detected that you resized your tab. Hit the button below to restart the game.</p>
 			</div>
 			<div class="actions">
-				<button>Restart</button>
+				<button id="p-restart">Restart</button>
+				<button id="p-close">Close</button>
 			</div>
 		</div>
+
 	</div>
 
 	<script>
@@ -110,6 +114,10 @@
 				var stats_pos = document.getElementById('stats-pos')
 				var stats_graph = document.getElementById('clicked-graph')
 
+				// Prompt
+				var promptContainer = document.getElementById('prompt');
+				var promptContent = document.getElementById('prompt-content');
+
 			// Values
 			var positionX = 10;
 			var speed = 10;
@@ -127,6 +135,57 @@
 				object.classList.add(css_class); // Adds class to object
 				setTimeout(() => { object.classList.remove(css_class);}, time); // Delay before removing class
 			}
+
+			// Prompts
+			var prompt_close = document.getElementById('p-close');
+			var prompt_restart = document.getElementById('p-restart');
+
+			function makePrompt(title, desc, fullscreen, cancelButton, restartButton){
+				
+				// Clear previous prompt
+				while(promptContent.firstChild){
+					promptContent.removeChild(promptContent.firstChild)
+				}
+
+				// Create new prompt
+				if (title){
+					var prompt_title = document.createElement('h2')
+					prompt_title.innerHTML = title;
+					promptContent.appendChild(prompt_title)
+				}
+
+				// Description
+				if (desc){
+					var prompt_desc = document.createElement('p');
+					prompt_desc.innerHTML = desc;
+					promptContent.appendChild(prompt_desc)
+				}
+
+				// Settings
+
+					// Fullscreen
+					if (fullscreen){
+						prompts.classList.add('fullscreen')
+					} else {
+						prompts.classList.remove('fullscreen')
+					}
+
+					// Close
+					if (closeButton){
+						updateCssProperty(prompt_close, 'Display', 'block')
+					} else {
+						updateCssProperty(prompt_close, 'Display', 'none')
+					}
+
+					// Restart
+					if (restartButton === true){
+						updateCssProperty(prompt_restart, 'Display', 'block')
+					} else {
+						updateCssProperty(prompt_restart, 'Display', 'none')
+					}
+			}
+
+			makePrompt('Notification', 'This is a test bottom notification, there is no issue at hand currently.', true, false, false)
 
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
