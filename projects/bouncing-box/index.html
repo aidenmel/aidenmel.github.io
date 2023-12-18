@@ -30,11 +30,23 @@
 		<h1>Score: <span id="score">0</span></div>
 	</div>
 
-	<div class="statistics">
+	<div class="prompt statistics">
 		<h2>Nerdy Stats</h2>
 		<p>SPEED: <span id='stats-speed'>0 pixels/sec</span></p>
 		<p>POSITION: <span id='stats-pos'>0 pixels</span></p>
-		<div class="graph"></div>
+		<div class="graph" id="clicked-graph"></div>
+	</div>
+
+	<div class="errors" style="display: none;">
+		<div class="prompt">
+			<div class="content">
+				<h2>Uh Oh!</h2>
+				<p>We detected that you resized your tab. Hit the button below to restart the game.</p>
+			</div>
+			<div class="actions">
+				<button>Restart</button>
+			</div>
+		</div>
 	</div>
 
 	<script>
@@ -96,6 +108,7 @@
 				// Statistics
 				var stats_speed = document.getElementById('stats-speed')
 				var stats_pos = document.getElementById('stats-pos')
+				var stats_graph = document.getElementById('clicked-graph')
 
 			// Values
 			var positionX = 10;
@@ -106,7 +119,6 @@
 			
 			// Functions
 			function updateCssProperty(object, property, value){
-				console.log(object)
 				object.style[property] = value;
 			}
 
@@ -158,6 +170,16 @@
 					speed += 3
 				}
 
+				// Store clicked position
+				var ClickLocationPercent = positionX / boardWidth
+
+					// Add marker
+					var NewMarker = document.createElement('div')
+					stats_graph.appendChild(NewMarker)
+
+					NewMarker.style['left'] = String(ClickLocationPercent * 100) + '%';
+					NewMarker.style['background-color'] = randomColor;
+
 				// Select a random color
 				var hue = Math.random() * 360;
 				var saturation = 90;
@@ -175,13 +197,15 @@
 				ScoreCounter.innerHTML = score
 				ScoreCounter.style.color = randomColor
 
-				// Store clicked position
-				var ClickLocationPercent = positionX / boardWidth
-
 				// Return box to starting position
 				positionX = 1; 
 
 			};
+
+
+			// If the tab width changes, make a prompt appear
+
+
 		})();
 	</script>
 </body>
