@@ -3,6 +3,8 @@
 
 :root {
     --cartoon-dropshadow: 4px 4px #000;
+        --hover-cartoon-dropshadow: 2px 2px #000;
+
     --cartoon-text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
     1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000, 6px 6px #000;
     
@@ -22,18 +24,6 @@ body {
 
     margin: 0;
     animation: 8s linear 0s infinite running RepeatingBackground;
-}
-
-@keyframes RepeatingBackground {
-    0% {
-        background-position-x: 0;
-        background-position-y: 0;
-    }
-
-    100% {
-        background-position-x: 120px;
-        background-position-y: 120px;
-    }
 }
 
 /* Text Styles */
@@ -62,6 +52,13 @@ h2 {
     margin-bottom: 6px;
 }
 
+h6 {
+    font-family: 'Noto Sans Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
 p {
     font-family: 'Noto Sans Mono', monospace;
     font-size: 0.8rem;
@@ -84,6 +81,24 @@ button {
     margin-right: 4px;
     padding: 4px 16px;
     padding-right: 20px;
+
+    transition: all 200ms ease-out;
+    -webkit-transition: all 200ms ease-out;
+    -moz-transition: all 200ms ease-out;
+}
+
+button:hover {
+    box-shadow: var(--hover-cartoon-dropshadow);
+    transform: translate(2px, 2px);
+    -webkit-transform: translate(2px, 2px);
+    -moz-transform: translate(2px, 2px);
+}
+
+button.active {
+    box-shadow: 0 0 #000;
+    transform: translate(4px, 4px);
+    -webkit-transform: translate(4px, 4px);
+    -moz-transform: translate(4px, 4px);
 }
 
 .credit {
@@ -109,10 +124,6 @@ button {
     overflow: hidden;
 }
 
-.board{
-    height: 100vh;
-}
-
 .cartoon-container {
     background-color: #fff;
     box-shadow: var(--cartoon-dropshadow);
@@ -122,6 +133,60 @@ button {
 
     padding: 16px 16px;
     padding-right: 20px;
+}
+
+/* Menu */
+#game-menu {
+    position: fixed;
+
+    background-color: #fff;
+    background-image: url(./assets/TileBackground.png);
+    background-repeat: repeat;
+    background-size: 120px;
+    background-position-x: 0;
+
+    animation: 8s linear 0s infinite running RepeatingBackground;
+    animation-duration: 8s;
+
+    width: 100vw;
+    height: 100vh;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   
+    z-index: 1000;
+
+    transition: opacity, animation-duration, 400ms ease-out;
+    -webkit-transition: opacity, animation-duration, 400ms ease-out;
+    -moz-transition: opacity, animation-duration, 400ms ease-out;
+}
+
+    #game-menu.hide {
+        opacity: 0;
+    }
+
+#game-menu div {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+
+    transition: all 400ms ease-out;
+    -webkit-transition: all 400ms ease-out;
+    -moz-transition: all 400ms ease-out;
+}
+
+#game-menu div.hide {
+    transform: scale(75%);
+    -webkit-transform: scale(75%);
+    -moz-transform: scale(75%);
+    opacity: 0;
+}
+
+#game-menu.bg-fast {
+    animation-duration: 1s;
 }
 
 /* Scoreboard */
@@ -292,4 +357,17 @@ div.all-prompts {
 #wall_right {
     box-shadow: -16px 0 32px 0 #00000050;
     right: -100px;
+}
+
+/* Animations */
+@keyframes RepeatingBackground {
+    0% {
+        background-position-x: 0;
+        background-position-y: 0;
+    }
+
+    100% {
+        background-position-x: 120px;
+        background-position-y: 120px;
+    }
 }

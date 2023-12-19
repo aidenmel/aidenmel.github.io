@@ -16,7 +16,15 @@
 
 </head>
 <body class="board">
-	<!-- HTML for the box -->
+
+	<div id="game-menu">
+		<div>
+			<h1>Bouncing Box</h1>
+			<h6>Aiden Melton</h6>
+			<button id="play-button">Play</button>
+		</div>
+	</div>
+
 	<div class="box-container">
 		<div class="box">?</div>
 	</div>
@@ -211,7 +219,7 @@
 
 				// Statistics
 				stats_speed.innerHTML = speed + ' pixels/sec';
-				stats_pos.innerHTML = positionX + ' pixels';
+				stats_pos.innerHTML = Math.ceil(positionX) + ' pixels';
 			};
 
 			/* 
@@ -259,6 +267,35 @@
 				positionX = 1; 
 
 			};
+
+			// GAME MENU
+
+				// Variables
+				var menu_container = document.getElementById('game-menu');
+				var menu_content = menu_container.childNodes[1];
+				var menu_play = document.getElementById('play-button');
+				var menu_debounce = false;
+
+				// Events
+				menu_play.addEventListener('click', () => {
+					if (menu_debounce === false){
+
+						menu_debounce = true; // Set debounce
+
+						// Add classes
+						menu_play.classList.add('active');
+						menu_container.classList.add('bg-fast');
+						menu_content.classList.add('hide');
+
+						setTimeout(() => {
+							menu_container.classList.add('hide');
+						}, 4000);
+				
+						setTimeout(() => {
+							menu_container.style['display'] = 'none'
+						}, 4001);
+					}
+				})
 
 
 			// If the tab width changes, make a prompt appear
