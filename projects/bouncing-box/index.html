@@ -37,21 +37,23 @@
 		<div class="graph" id="clicked-graph"></div>
 	</div>
 
-	<div class="all-prompts">
+	<div class="all-prompts" id="prompts-container">
 
 		<!-- Prompt -->
-		<div id="prompt" class="cartoon-container">
-			<div class="content" id="prompt-content">
+		<div id="prompt-template" class="prompt-template cartoon-container">
+			<div>
 				<h2>Uh Oh!</h2>
-				<p>We detected that you resized your tab. Hit the button below to restart the game.</p>
+				<p>An error occured while prompting a notification.</p>
 			</div>
-			<div class="actions">
-				<button id="p-restart">Restart</button>
-				<button id="p-close">Close</button>
+			<div>
+				<!-- <button id="p-restart">Restart</button> -->
+				<!-- <button id="p-close">Close</button> -->
 			</div>
 		</div>
 
 	</div>
+
+	<h6 class="credit">PROJECT BY: Aiden Melton</h6>
 
 	<script>
 		(function(){
@@ -115,8 +117,8 @@
 				var stats_graph = document.getElementById('clicked-graph')
 
 				// Prompt
-				var promptContainer = document.getElementById('prompt');
-				var promptContent = document.getElementById('prompt-content');
+				var promptContainer = document.getElementById('prompts-container');
+				var promptTemplate = document.getElementById('prompt-template');
 
 			// Values
 			var positionX = 10;
@@ -136,40 +138,53 @@
 				setTimeout(() => { object.classList.remove(css_class);}, time); // Delay before removing class
 			}
 
-			// Prompts
-			var prompt_close = document.getElementById('p-close');
-			var prompt_restart = document.getElementById('p-restart');
-
 			function notify(title, desc, elapsedTime){
 				
-				// Clone notification prompt
-				var newNotification = promptContainer.cloneNode(true);
+				// Variables
+				var newNotification = promptTemplate.cloneNode(true);
+				var notificationContent = newNotification.childNodes[1]
+				
+				// Append and remove Id
+				promptContainer.appendChild(newNotification);
+				newNotification.removeAttribute('id');
 
 				// Clear previous prompt
-				while(promptContent.firstChild){
-					promptContent.removeChild(promptContent.firstChild)
+				while(notificationContent.firstChild){
+					notificationContent.removeChild(notificationContent.firstChild)
 				}
 
 				// Create new prompt
 				if (title){
 					var prompt_title = document.createElement('h2')
 					prompt_title.innerHTML = title;
-					promptContent.appendChild(prompt_title)
+					notificationContent.appendChild(prompt_title)
 				}
 
 				// Description
 				if (desc){
 					var prompt_desc = document.createElement('p');
 					prompt_desc.innerHTML = desc;
-					promptContent.appendChild(prompt_desc)
+					notificationContent.appendChild(prompt_desc)
 				}
 
 				// Execute Notification
-				newNotification.classList.add['notify-active'];
+				newNotification.style.display = 'block'
+
+				// Delay by 10 miliseconds to avoid a buggy look
+				setTimeout(() => {
+					newNotification.classList.add('notify-active');
+				}, 10);
+
+				// Remove if time is set
+				if (elapsedTime !== null){
+					setTimeout(() => {newNotification.classList.remove('notify-active');}, (elapsedTime * 1000))
+				}
+
+				newNotification.addEventListener('click', () => {
+					newNotification.classList.remove('notify-active');
+				})
 
 			}
-
-			// makePrompt('Notification', 'This is a test bottom notification, there is no issue at hand currently.', true, true, true)
 
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
@@ -247,7 +262,25 @@
 
 
 			// If the tab width changes, make a prompt appear
+			var ResizeTabDebounce = false;
 
+			window.addEventListener('resize', () => {
+
+				// Set block to starting position
+				positionX = 0.1;
+				boardWidth = innerWidth
+				
+				// Send alert (w/ debounce to avoid disruption of notifications)
+				if (ResizeTabDebounce !== true){ 
+					ResizeTabDebounce = true;
+					
+					notify('Tab Resized', 'We detected that the tab was resized, block set to starting position. Click to dismiss notification.', 4)
+					
+					setTimeout(() => {
+						ResizeTabDebounce = false;
+					}, 4000);
+				}
+			})
 
 		})();
 	</script>
