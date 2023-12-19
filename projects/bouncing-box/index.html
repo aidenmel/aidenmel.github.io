@@ -140,8 +140,11 @@
 			var prompt_close = document.getElementById('p-close');
 			var prompt_restart = document.getElementById('p-restart');
 
-			function makePrompt(title, desc, fullscreen, cancelButton, restartButton){
+			function notify(title, desc, elapsedTime){
 				
+				// Clone notification prompt
+				var newNotification = promptContainer.cloneNode(true);
+
 				// Clear previous prompt
 				while(promptContent.firstChild){
 					promptContent.removeChild(promptContent.firstChild)
@@ -161,35 +164,16 @@
 					promptContent.appendChild(prompt_desc)
 				}
 
-				// Settings
+				// Execute Notification
+				newNotification.classList.add['notify-active'];
 
-					// Fullscreen
-					if (fullscreen){
-						prompts.classList.add('fullscreen')
-					} else {
-						prompts.classList.remove('fullscreen')
-					}
-
-					// Close
-					if (closeButton){
-						updateCssProperty(prompt_close, 'Display', 'block')
-					} else {
-						updateCssProperty(prompt_close, 'Display', 'none')
-					}
-
-					// Restart
-					if (restartButton === true){
-						updateCssProperty(prompt_restart, 'Display', 'block')
-					} else {
-						updateCssProperty(prompt_restart, 'Display', 'none')
-					}
 			}
 
-			makePrompt('Notification', 'This is a test bottom notification, there is no issue at hand currently.', true, false, false)
+			// makePrompt('Notification', 'This is a test bottom notification, there is no issue at hand currently.', true, true, true)
 
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
-			it should move the Box to a new location. If the box drifts off the screen
+			it should move  Box to a new location. If the box drifts off the screen
 			turn it around! 
 			*/
 			function update() {

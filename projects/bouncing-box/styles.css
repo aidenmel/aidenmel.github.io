@@ -210,8 +210,32 @@ div.all-prompts {
 }
 
 #prompt {
+
+    display: none;
+
     max-width: 1200px;
     height: auto;
+
+    transform: translateY(32px) scale(75%);
+    -webkit-transform: translateY(32px) scale(75%);
+    -moz-transform: translateY(32px) scale(75%);
+
+    opacity: 0;
+
+    transition: 250ms ease-out;
+    -webkit-transition: 250ms ease-out;
+    -moz-transition: 250ms ease-out;
+}
+
+#prompt.notify-active {
+    opacity: 1;
+    transform: translateY(0) scale(100%);
+    -webkit-transform: translateY(0) scale(100%);
+    -moz-transform: translateY(0) scale(100%);
+}
+
+#prompt button {
+    display: none;
 }
 
 /* Objects */
