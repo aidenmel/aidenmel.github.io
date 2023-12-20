@@ -23,10 +23,29 @@
 		<div>
 			<h5>Works on Mobile!</h5>
 			<h1>Bouncing Box</h1>
-			<h6>Aiden Melton | v1.09</h6>
+			<h6>Aiden Melton | v1.10</h6>
 			<button id="play-button">Play</button>
 		</div>
 	</div>
+
+	<div class="instructions" id="game-instructions">
+		<h1>How To Play</h1>
+		<ul>
+			<li><p>A block will travel across the screen, your objective is to <b>click it</b>.</p></li>
+			<li><img src="./assets/ClickBlockInstruction.png" alt="Clicking box example."></li>
+		</ul>
+		<ul>
+			<li><p>For each click, the block will gradually get <i>faster</i>. Your objective is to acquire the <b>highest score</b>.</p></li>
+		</ul>
+
+		<button id="hide-instructions">Start</button>
+	</div>
+
+	<!-- <nav>
+		<ul>
+			<li id='help'><img></li>
+		</ul>
+	</nav> -->
 
 	<div class="box-container">
 		<div class="box">?</div>
@@ -51,7 +70,7 @@
 	<div class="all-prompts" id="prompts-container">
 
 		<!-- Prompt -->
-		<div id="prompt-template" class="prompt-template cartoon-container">
+		<div id="prompt-template" class="prompt-template cartoon-container" style="display: none;">
 			<div>
 				<h2>Uh Oh!</h2>
 				<p>An error occured while prompting a notification.</p>
@@ -313,7 +332,21 @@
 					}
 				})
 
+		// INSTRUCTIONS
 
+			var GameInstructions = document.getElementById('game-instructions')
+			var HideInstructionsButton = document.getElementById('hide-instructions')
+
+			HideInstructionsButton.addEventListener('click', () => {
+				HideInstructionsButton.classList.add('active');
+				GameInstructions.classList.add('hide');
+				setTimeout(() => {
+					GameInstructions.style['display'] = 'none';
+				}, 401);
+			})
+
+		// TAB RESIZING
+			
 			// If the tab width changes, make a prompt appear
 			var ResizeTabDebounce = false;
 

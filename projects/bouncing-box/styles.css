@@ -118,7 +118,7 @@ button.active {
     right: 16px;
     
     font-family: 'Noto Sans Mono', monospace;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     font-weight: 600;
 
     z-index: 99;
@@ -238,6 +238,63 @@ button.active {
     position: relative;
     margin-left: -2px;
     margin-bottom: -2px;
+}
+
+/* Instructions */
+.instructions {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 80;
+    
+    gap: 16px;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    transition: all, 400ms ease-out;
+    -webkit-transition: all, 400ms ease-out;
+    -moz-transition: all, 400ms ease-out;
+
+}
+
+.instructions.hide {
+    opacity: 0;
+    
+    transform: scale(125%);
+    -webkit-transform: scale(125%);
+    -moz-transform: scale(125%);
+
+}
+
+.instructions ul {
+    box-shadow: var(--cartoon-dropshadow);
+    border: 4px solid #000;
+    background-color: #fff;
+    border-radius: 8px;
+
+    max-width: 300px;
+    list-style: none;
+
+    padding: 16px 22px 16px 16px;
+    margin: 0;
+}
+
+.instructions li {
+    list-style: none;
+}
+
+.instructions img {
+    width: 100%;
+    object-fit: cover;
+    border: solid 4px #000;
+    border-radius: 8px;
+    margin-top: 12px;
 }
 
 /* Scoreboard */
@@ -393,8 +450,10 @@ div.all-prompts {
 
 /* Objects */
 .box {   
+    border: 3px solid #000;
     border-radius: 8px;
     background-color: rgb(34, 199, 199);
+    -webkit-text-stroke: 2px #000;
 
     color: #fff;
     line-height: 66px;
