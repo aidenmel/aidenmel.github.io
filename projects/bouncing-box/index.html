@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="./styles.css">
 	<link rel="icon" href="/assets/logo-gen1.png">
 	
-	<meta name="theme-color" content="#929292">
+	<meta name="theme-color" content="#fff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
 	
@@ -17,10 +17,12 @@
 </head>
 <body class="board">
 
+	<div id="loading-screen"></div>
+
 	<div id="game-menu">
 		<div>
 			<h1>Bouncing Box</h1>
-			<h6>Aiden Melton</h6>
+			<h6>Aiden Melton | v1.08</h6>
 			<button id="play-button">Play</button>
 		</div>
 	</div>
@@ -53,10 +55,7 @@
 				<h2>Uh Oh!</h2>
 				<p>An error occured while prompting a notification.</p>
 			</div>
-			<div>
-				<!-- <button id="p-restart">Restart</button> -->
-				<!-- <button id="p-close">Close</button> -->
-			</div>
+			<div class="dot">!</div>
 		</div>
 
 	</div>
@@ -109,11 +108,16 @@
 			*/
 
 
-			// TODO 2 - Variable declarations 
+	// VARIABLES
 
 			// Objects
+				
+				// Score
 				var ScoreContainer = document.getElementById('score-container')
 				var ScoreCounter = document.getElementById('score')
+
+				// Loading Screen
+				var LoadingScreen = document.getElementById('loading-screen')
 
 				// Walls
 				var wall_left = document.getElementById('wall_left');
@@ -135,7 +139,8 @@
 
 			var randomColor = 'rgb(34, 199, 199)'
 			
-			// Functions
+	// FUNCTIONS
+		
 			function updateCssProperty(object, property, value){
 				object.style[property] = value;
 			}
@@ -145,7 +150,8 @@
 				object.classList.add(css_class); // Adds class to object
 				setTimeout(() => { object.classList.remove(css_class);}, time); // Delay before removing class
 			}
-
+			
+			// Notifications
 			function notify(title, desc, elapsedTime){
 				
 				// Variables
@@ -185,11 +191,23 @@
 
 				// Remove if time is set
 				if (elapsedTime !== null){
-					setTimeout(() => {newNotification.classList.remove('notify-active');}, (elapsedTime * 1000))
+					setTimeout(() => {
+						newNotification.classList.remove('notify-active');
+
+						setTimeout(() => {
+							newNotification.innerHTML = ""
+							newNotification.remove()
+						}, 251);
+					}, (elapsedTime * 1000))
 				}
 
 				newNotification.addEventListener('click', () => {
 					newNotification.classList.remove('notify-active');
+					
+					setTimeout(() => {
+							newNotification.innerHTML = ""
+							newNotification.remove()
+					}, 251);
 				})
 
 			}
@@ -284,16 +302,13 @@
 
 						// Add classes
 						menu_play.classList.add('active');
-						menu_container.classList.add('bg-fast');
-						menu_content.classList.add('hide');
+						menu_content.classList.add('hide')
+						menu_container.classList.add('hide')
 
 						setTimeout(() => {
-							menu_container.classList.add('hide');
-						}, 4000);
-				
-						setTimeout(() => {
 							menu_container.style['display'] = 'none'
-						}, 4001);
+							toggleLoadingScreen(false);
+						}, 251);
 					}
 				})
 

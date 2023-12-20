@@ -4,11 +4,10 @@
 :root {
     --cartoon-dropshadow: 4px 4px #000;
         --hover-cartoon-dropshadow: 2px 2px #000;
-
     --cartoon-text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
     1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000, 6px 6px #000;
-    
     --small-cartoon-dropshadow: 2px 2px #000;
+    --cursor-pointer: url(./assets/cartoon-pointer.png), pointer;
     
 }
 
@@ -88,6 +87,7 @@ button {
 }
 
 button:hover {
+    cursor: var(--cursor-pointer);
     box-shadow: var(--hover-cartoon-dropshadow);
     transform: translate(2px, 2px);
     -webkit-transform: translate(2px, 2px);
@@ -109,6 +109,8 @@ button.active {
     font-family: 'Noto Sans Mono', monospace;
     font-size: 0.8rem;
     font-weight: 600;
+
+    z-index: 99;
 }
 
 /* Containers */
@@ -133,6 +135,38 @@ button.active {
 
     padding: 16px 16px;
     padding-right: 20px;
+}
+
+/* Loading Screen */
+#loading-screen {
+    display: none;
+    position: fixed;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-image: url(./assets/TileBackground.png);
+    background-repeat: repeat;
+    background-size: 120px;
+    background-position-x: 0;
+
+    opacity: 0;
+
+    margin: 0;
+    animation: 400ms linear 0s infinite running RepeatingBackground;
+    z-index: 100;
+
+    transition: opacity 250ms ease-out;
+    -webkit-transition: opacity 250ms ease-out;
+    -moz-transition: opacity 250ms ease-out;
+}
+
+#loading-screen.active::before {
+    display: block;
+}
+
+#loading-screen.active {
+    opacity: 1;
 }
 
 /* Menu */
@@ -185,10 +219,6 @@ button.active {
     opacity: 0;
 }
 
-#game-menu.bg-fast {
-    animation-duration: 1s;
-}
-
 /* Scoreboard */
 .scoreboard {
     position: fixed;
@@ -203,7 +233,8 @@ button.active {
 
 .scoreboard.active {
     transform: scale(125%);
-    right: calc(64px);
+    right: 64px;
+    top: 20px;
 }
 
 /* Stats */
@@ -256,7 +287,7 @@ button.active {
 div.all-prompts {
     position: fixed;
 
-    z-index: 1000;
+    z-index: 100;
     height: auto;
     width: calc(100vw - 32px);
 
@@ -272,15 +303,15 @@ div.all-prompts {
 }
 
 #prompt-template, .prompt-template {
-    cursor: pointer;
-    display: none;
+    cursor: var(--cursor-pointer);
+    display: block;
 
-    max-width: 1200px;
+    max-width: 400px;
     height: auto;
 
-    transform: translateY(32px) scale(75%);
-    -webkit-transform: translateY(32px) scale(75%);
-    -moz-transform: translateY(32px) scale(75%);
+    transform: translateY(64px) scale(75%);
+    -webkit-transform: translateY(64px) scale(75%);
+    -moz-transform: translateY(64px) scale(75%);
 
     opacity: 0;
 
@@ -289,11 +320,50 @@ div.all-prompts {
     -moz-transition: 400ms ease-out;
 }
 
+#prompt-template:hover, .prompt-template:hover {
+    cursor: var(--cursor-pointer);
+    background-color: #ffdcdc;
+    transform: scale(105%) rotate(2deg);
+    -webkit-transform: scale(105%) rotate(2deg);
+    -moz-transform: scale(105%) rotate(2deg);
+}
+
+#prompt-template {
+    cursor: none;
+}
+
 .notify-active {
     opacity: 1;
     transform: translateY(0) scale(100%);
     -webkit-transform: translateY(0) scale(100%);
     -moz-transform: translateY(0) scale(100%);
+}
+
+#prompt-template .dot, .prompt-template .dot {
+    position: absolute;
+
+    color: #fff;
+    
+    padding-top: 8px;
+    text-align: center;
+    font-family: 'Noto Sans Mono', monospace;
+    font-weight: 600;
+    
+    background-color: #c52424;
+    border-radius: 32px;
+
+    top: -16px;
+    right: -16px;
+
+    width: 32px;
+    height: 32px;
+
+    max-width: 32px;
+    height: 32px;
+
+    border: 4px solid #000;
+    box-shadow: var(--cartoon-dropshadow);
+    z-index: 5;
 }
 
 #prompt button {
@@ -319,8 +389,10 @@ div.all-prompts {
     width: 70px;
     height: 70px;
 
-    z-index: 100;
+    z-index: 50;
     
+    cursor: var(--cursor-pointer);
+
     user-select: none;
     top: calc(50vh - 35px);
     left: calc(50vw - 35px);  /* <--- Change me! */
@@ -370,4 +442,37 @@ div.all-prompts {
         background-position-x: 120px;
         background-position-y: 120px;
     }
+}
+
+
+/* Responsiveness */
+@media only screen and (max-width:650px)  {
+    
+    /* Text Styles */
+    h1 {
+        font-size: 2rem;
+        line-height: 2.2rem;
+        margin-bottom: 16px;
+    }
+
+    /* Menu */
+    #game-menu div {
+        align-items: center;
+        padding: 32px;
+        text-align: center;
+    }
+
+    /* Score */
+    .scoreboard {
+        left: 0;
+        width: 100vw;
+        text-align: center;
+        top: 32px;
+    }
+
+    /* Stats */
+    .statistics {
+        display: none;
+    }
+
 }
