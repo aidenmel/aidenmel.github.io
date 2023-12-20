@@ -70,6 +70,13 @@
 		<div id="wall_right"></div>
 	</div>
 
+	<div class="announcement" id="announcements">
+		<!-- <img class="fire" src="./assets/AnimatedFire.gif"> -->
+		<h5>EVENT!</h5>
+		<h2 id="a-title">Event Title</h2>
+		<p id="a-desc">There is no event, play like this never existed.</p>
+	</div>
+
 	<div class="scoreboard" id="score-container">
 		<h1>Score: <span id="score">0</span></div>
 	</div>
@@ -108,6 +115,7 @@
 			var box = jQuery('.box');	// reference to the HTML .box element
 			var board = jQuery('.board');	// reference to the HTML .board element
 			var boardWidth = innerWidth;	// the maximum X-Coordinate of the screen
+			var boardHeight = innerHeight;
 
 			// Every 50 milliseconds, call the update Function (see below)
 			setInterval(update, 30); // 60 fps
@@ -116,8 +124,9 @@
 			box.on('click', handleBoxClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
+			function moveBoxTo(newPositionX, newPositionY) {
 				box.css("left", newPositionX);
+				box.css('top', ((boardHeight/2) - 35 + newPositionY))
 			}
 
 			// changes the text displayed on the Box
@@ -151,6 +160,11 @@
 				var nav_help = document.getElementById('nav-help')
 				var nav_restart = document.getElementById('nav-restart');
 
+				// Event Announcement
+				var announce_container = document.getElementById('announcements')
+				var announce_title = document.getElementById('a-title');
+				var announce_desc = document.getElementById('a-desc')
+
 				// Score
 				var ScoreContainer = document.getElementById('score-container')
 				var ScoreCounter = document.getElementById('score')
@@ -177,10 +191,21 @@
 
 			// Values
 			var positionX = 10;
+			var positionY = 0;
+
 			var speed = 10;
 			var score = 0;
 
+			var ActiveEvent = null;
+			var PreviousEvent = null;
+
 			var randomColor = 'rgb(34, 199, 199)'
+
+			// Tables
+			var Events = [
+				["Wavy", 'Surf onnnn! Try getting the wavy box.', null, function(){return Math.sin(positionX/50) * 50},],
+				// ["Hide and Seek", "The box is hiding, try to find it!", function(){return Math.random() * innerWidth}, function(){return Math.random() * innerHeight}, null, 'HideAndSeek'],
+			]
 			
 	// FUNCTIONS
 		
@@ -260,12 +285,27 @@
 			it should move  Box to a new location. If the box drifts off the screen
 			turn it around! 
 			*/
+		
+		// UPDATE
+
 			function update() {
 
-				positionX = positionX + speed
+				// Position X
+				if (ActiveEvent !== null && ActiveEvent[2] !== null){
+					positionX = ActiveEvent[2]();
+				} else {
+					positionX = positionX + speed
+				}
+
+				// Position Y
+				if (ActiveEvent !== null && ActiveEvent[3] !== null){
+					positionY = ActiveEvent[3]();
+				} else {
+					positionY = 0;
+				}
 
 				// Update frame
-				moveBoxTo(positionX)
+				moveBoxTo(positionX, positionY)
 
 				// Collisions
 				if (positionX > (boardWidth - 70)){
@@ -278,16 +318,16 @@
 					playAnimation(wall_left, 'Touched', 200)
 				}
 
+				// Sine Test
+				// positionY = Math.sin(positionX/50) * 50
+
 				// Statistics
 				stats_speed.innerHTML = speed + ' pixels/sec';
 				stats_pos.innerHTML = Math.ceil(positionX) + ' pixels';
 			};
 
-			/* 
-			This Function will be called each time the box is clicked. Each time it is called,
-			it should increase the points total, increase the speed, and move the box to
-			the left side of the screen.
-			*/
+		// BOX CLICK 
+
 			function handleBoxClick() {
 
 				// Update speed depending on whether the value is positive or negative
@@ -323,6 +363,30 @@
 				playAnimation(ScoreContainer, 'active', 200)
 				ScoreCounter.innerHTML = score
 				ScoreCounter.style.color = randomColor
+
+				// Events
+				if (Math.random() >= 0.80){
+					ActiveEvent = Events[Math.floor(Math.random() * Events.length)]
+				
+					// Announce event
+					console.log(ActiveEvent[1])
+					announce_title.innerHTML = ActiveEvent[0];
+					announce_desc.innerHTML = ActiveEvent[1];
+
+					announce_container.classList.add('active')
+
+					// if (ActiveEvent[5] !== null){
+					// 	box.classList.add(ActiveEvent[5])
+					// } else {
+					// 	if (PreviousEvent !== null && ActiveEvent[5] !== null){
+					// 		box.classList.remove(PreviousEvent[5])
+					// 	}
+					// }
+
+				} else {
+					ActiveEvent = null;
+					announce_container.classList.remove('active')
+				}
 
 				// Return box to starting position
 				positionX = 1; 
@@ -422,8 +486,9 @@
 
 				// Set block to starting position
 				positionX = 0.1;
-				boardWidth = innerWidth
-				
+				boardWidth = innerWidth;
+				boardHeight = innerHeight;
+
 				// Send alert (w/ debounce to avoid disruption of notifications)
 				if (ResizeTabDebounce !== true){ 
 					ResizeTabDebounce = true;

@@ -578,6 +578,50 @@ div.all-prompts {
     left: calc(50vw - 35px);  /* <--- Change me! */
 }
 
+/* Announcements */
+.announcement {
+    position: fixed;
+    top: 20vh;
+    width: 100%;
+
+    opacity: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    transition: all, 400ms ease-out;
+    -webkit-transition: all, 400ms ease-out;
+    -moz-transition: all, 400ms ease-out;
+}
+
+.announcement.active {
+    opacity: 1;
+    transform: scale(100%);
+    -webkit-transform: scale(100%);
+    -moz-transform: scale(100%);
+}
+
+.announcement img {
+    display: inline-block;
+    position: absolute;
+    z-index: -2;
+    filter: saturate(150%);
+}
+
+.announcement h2 {
+    font-style: italic;
+    font-size: 3rem;
+    color: #ff562c;
+
+    animation: IntenseShake 400ms linear infinite ;
+}
+
+.announcement p {
+    font-style: italict;
+}
+
 /* Walls */
 #wall_left, #wall_right {
     
@@ -624,6 +668,19 @@ div.all-prompts {
     }
 }
 
+@keyframes IntenseShake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
 
 /* Responsiveness */
 @media only screen and (max-width:650px)  {
