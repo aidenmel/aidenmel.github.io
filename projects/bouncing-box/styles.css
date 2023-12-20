@@ -51,6 +51,17 @@ h2 {
     margin-bottom: 6px;
 }
 
+h5 {
+    background-color: #000;
+    color: #fff;
+    padding: 0 8px;
+    border-radius: 8px;;
+    font-family: 'Noto Sans Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: lowercase;
+}
+
 h6 {
     font-family: 'Noto Sans Mono', monospace;
     font-size: 0.6rem;
@@ -217,6 +228,16 @@ button.active {
     -webkit-transform: scale(75%);
     -moz-transform: scale(75%);
     opacity: 0;
+}
+
+#game-menu h1 {
+    margin-bottom: 8px;
+}
+
+#game-menu h5 {
+    position: relative;
+    margin-left: -2px;
+    margin-bottom: -2px;
 }
 
 /* Scoreboard */
@@ -460,6 +481,16 @@ div.all-prompts {
         align-items: center;
         padding: 32px;
         text-align: center;
+    }
+
+    #game-menu h1 {
+        margin-bottom: 8px;
+    }
+
+    #game-menu h5 {
+        position: relative;
+        margin-left: 0;
+        margin-bottom: 4px;
     }
 
     /* Score */
