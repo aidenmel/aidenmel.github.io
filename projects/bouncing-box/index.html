@@ -24,7 +24,7 @@
 			<div>
 				<h5>Works on Mobile!</h5>
 				<h1>Bouncing Box</h1>
-				<h6>Aiden Melton | v1.11</h6>
+				<h6>Aiden Melton | v1.12</h6>
 				<button id="play-button">Play</button>
 			</div>
 			<div class="update-log">
@@ -34,6 +34,7 @@
 					<li>Instructions Manual</li>
 					<li>Minor box apperance tweaks</li>
 					<li>Added Update Log <i>(this!)</i></li>
+					<li>Added Navigation</li>
 				</ul>
 			</div>
 		</div>
@@ -54,9 +55,9 @@
 
 	<nav>
 		<ul>
-			<li id='home'><img src="./assets/icons/MenuIcon.png" alt="home"></li>
-			<li id='help'><img src="./assets/icons/HelpIcon.png" alt="help"></li>
-			<li id='restart'><img src="./assets/icons/RestartIcon.png" alt="restart"></li>
+			<li id='nav-home'><img src="./assets/icons/MenuIcon.png" alt="home"></li>
+			<li id='nav-help'><img src="./assets/icons/HelpIcon.png" alt="help"></li>
+			<li id='nav-restart'><img src="./assets/icons/RestartIcon.png" alt="restart"></li>
 		</ul>
 	</nav>
 
@@ -145,6 +146,11 @@
 
 			// Objects
 				
+				// Navigation
+				var nav_home = document.getElementById('nav-home');
+				var nav_help = document.getElementById('nav-help')
+				var nav_restart = document.getElementById('nav-restart');
+
 				// Score
 				var ScoreContainer = document.getElementById('score-container')
 				var ScoreCounter = document.getElementById('score')
@@ -164,6 +170,10 @@
 				// Prompt
 				var promptContainer = document.getElementById('prompts-container');
 				var promptTemplate = document.getElementById('prompt-template');
+
+				// Instructions
+				var GameInstructions = document.getElementById('game-instructions')
+				var HideInstructionsButton = document.getElementById('hide-instructions')
 
 			// Values
 			var positionX = 10;
@@ -340,15 +350,12 @@
 
 						setTimeout(() => {
 							menu_container.style['display'] = 'none'
-							toggleLoadingScreen(false);
+							menu_debounce = false;
 						}, 251);
 					}
 				})
 
 		// INSTRUCTIONS
-
-			var GameInstructions = document.getElementById('game-instructions')
-			var HideInstructionsButton = document.getElementById('hide-instructions')
 
 			HideInstructionsButton.addEventListener('click', () => {
 				HideInstructionsButton.classList.add('active');
@@ -356,6 +363,54 @@
 				setTimeout(() => {
 					GameInstructions.style['display'] = 'none';
 				}, 401);
+			})
+
+		// NAVIGATION
+
+			nav_home.addEventListener('click', () => {
+				menu_container.style['display'] = 'flex';
+
+				setTimeout(() => {
+					
+					// Remove classes
+					menu_play.classList.remove('active');
+					menu_content.classList.remove('hide')
+					menu_container.classList.remove('hide')
+
+				}, 5);
+			})
+
+			nav_help.addEventListener('click', () => {
+				GameInstructions.style['display'] = 'flex';
+				setTimeout(() => {
+					HideInstructionsButton.classList.remove('active');
+				GameInstructions.classList.remove('hide')
+				}, 5);
+			})
+
+			nav_restart.addEventListener('click', () => {
+				
+				// Reset variables
+				positionX = 10;
+				speed = 10;
+				score = 0;
+
+				randomColor = 'rgb(34, 199, 199)'
+				box.css('background-color', randomColor); // Reset box color
+
+				// Update score
+				changeBoxText('?');
+				playAnimation(ScoreContainer, 'active', 200)
+				ScoreCounter.innerHTML = '0'
+				ScoreCounter.style.color = randomColor
+
+				// Remove nerdy stats
+				while(stats_graph.firstChild){
+					stats_graph.removeChild(stats_graph.firstChild)
+				}
+
+				// Notify reset
+				notify('Game Reset', 'Your game has restarted, including your score. This action cannot be undone.', 4)
 			})
 
 		// TAB RESIZING

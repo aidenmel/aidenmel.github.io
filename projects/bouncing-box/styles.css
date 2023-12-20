@@ -286,7 +286,7 @@ button.active {
 nav {
     position: fixed;
     left: 16px;
-    bottom: 16px;
+    top: 16px;
     z-index: 25;
 }
 
@@ -366,9 +366,9 @@ nav img:hover {
 .instructions.hide {
     opacity: 0;
     
-    transform: scale(75%);
-    -webkit-transform: scale(75%);
-    -moz-transform: scale(75%);
+    transform: scale(75%) translateY(-32px);
+    -webkit-transform: scale(75%) translateY(-32px);
+    -moz-transform: scale(75%) translateY(-32px);
 
 }
 
@@ -655,6 +655,16 @@ div.all-prompts {
     #game-menu .update-log {
         width: calc(100vw - 64px);
         bottom: 8px;
+    }
+
+    /* Navigation */
+    nav {
+        left: 50%;
+        top: 88px;
+
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
     }
 
     /* Score */
