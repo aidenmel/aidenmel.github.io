@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Dear Sydnee Melton</title>
+        <title>Bye Sydnee!</title>
         <link rel="stylesheet" href="./christmas.css">
         <link rel="icon" href="./assets/ChristmasTreeIcon.png">
         <meta name="theme-color" content="#929292">
@@ -66,28 +66,60 @@
 
                 <!-- Christmas Letter -->
                 
+                <h6>Scroll for more</h6>
+
                 <div class="mobile-grid-content">
 
                     <div>
-                        <h1>Dear Sydnee</h1>
-                        <p>I have returned from the <i>North Pole</i> to spend this holiday season with <b>YOU</b>!</p>
+                        <h1>See you next year!</h1>
+                        <p>I have returned to the <b>North Pole</b>, but I left you a <b>video</b>.</p>
                     </div>
                     
-                    <div class=""> 
-                        <img src="./assets/ElfOnTheShelf.png" class="Elf transition">
+                    <div class="fullscreen">
+                        <iframe src="https://player.vimeo.com/video/897686560?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1080" height="1920" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="Elf Dec 25th"></iframe></div>
+
+                    <div class="fullscreen"> 
+                        <div class="stat-box transition">
+                            <h2>I moved...</h2>
+                            <div class='result transition'><h1>73</h1></div>
+                            <p>times this holiday season!</p>
+                        </div>
+
+                        <div class="stat-box transition">
+                            <h2>I got touched</h2>
+                            <div class='result transition'><h1>0</h1></div>
+                            <p>There was some close calls!</p>
+                        </div>
                     </div>
 
-                    <div>
-                        <p>I have a ton of fun things planned, so always keep and <b>eye out</b>. Remember, I will report <i>anything bad back to Santa</i>. So be <b>GOOD</b>!</p>
+                    <div class="fullscreen">
+                        <h1>Now you...</h1>
+                        <p>Here are some fun facts about you this holiday season!</p>
                     </div>
 
-                    <div class="">
+                    <div class="fullscreen"> 
+                        <div class="stat-box transition">
+                            <h2>You Were</h2>
+                            <div class='result transition'><h1>Good</h1></div>
+                            <p>You had some downs, but you were generally good most of the times!</p>
+                        </div>
+
+                        <div class="stat-box transition">
+                            <h2>Positivity Ranking</h2>
+                            <div class='margin-bar transition'><div class="margin-perc transition">GOOD</div></div>
+                            <p>Nobodies perfect, not even Santa! You ranked <u><b>GOOD</b></u>.</p>
+                        </div>
+                    </div>
+
+                    <div class="fullscreen">
                         <img src="./assets/SydChristmas.jpeg" alt="" class="Syd transition">
                     </div>
 
-                    <div>
-                        <p><em><b>PS:</b> Don't touch me or I get really hurt!</em></p>
+                    <div class="fullscreen">
+                        <h1>See you next year!</h1>
+                        <p>- The Elf</p>
                     </div>
+                    
 
                 </div>
 
@@ -104,7 +136,25 @@
                     </div> -->
                     
                 <!-- Scripts -->
-                <script src="/scripts/on-scroll-effects.js"></script>
+                <script>
+                    window.addEventListener("scroll", (e) => {
+    var reveals = document.querySelectorAll('.transition');
+
+console.log(reveals.length);
+
+    for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 250;
+
+        if (elementTop < windowHeight - elementVisible - reveals[i].getAttribute('transition-offset')) {
+            reveals[i].classList.add('active');
+        } else {
+            reveals[i].classList.remove('active');
+        }
+    }
+});
+                </script>
 
             </main>
          </div>
