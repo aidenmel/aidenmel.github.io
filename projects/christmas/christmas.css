@@ -46,11 +46,16 @@ h2 {
 }
 
 h6 {
+    background-color: #ff3434;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px 16px #00000025;
     bottom: 32px;
     color: #fff;
     position: fixed;
     font-weight: 600;
     font-size: .8rem;
+    z-index: 40;
 }
 
 p {
