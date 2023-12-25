@@ -144,9 +144,9 @@ iframe {
     margin-left: 0%;
     margin-right: 90%;
 
-    transition: all 400ms ease-out;
-    -webkit-transition: all 400ms ease-out;
-    -moz-transition: all 400ms ease-out;
+    transition: all 800ms ease-out;
+    -webkit-transition: all 800ms ease-out;
+    -moz-transition: all 800ms ease-out;
 }
 
 .margin-perc.active {
