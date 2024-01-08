@@ -85,6 +85,7 @@
 		<h2>Nerdy Stats</h2>
 		<p>SPEED: <span id='stats-speed'>0 pixels/sec</span></p>
 		<p>POSITION: <span id='stats-pos'>0 pixels</span></p>
+		<p>FRAME: <span id='stats-frame'>0</span></p>
 		<div class="graph" id="clicked-graph"></div>
 	</div>
 
@@ -180,6 +181,7 @@
 				var stats_speed = document.getElementById('stats-speed')
 				var stats_pos = document.getElementById('stats-pos')
 				var stats_graph = document.getElementById('clicked-graph')
+				var stats_frame = document.getElementById('stats-frame')
 
 				// Prompt
 				var promptContainer = document.getElementById('prompts-container');
@@ -196,6 +198,10 @@
 			var speed = 10;
 			var score = 0;
 
+			var frameCount = 0;
+
+			var previousEventData = {};
+
 			var ActiveEvent = null;
 			var PreviousEvent = null;
 
@@ -203,8 +209,8 @@
 
 			// Tables
 			var Events = [
-				["Wavy", 'Surf onnnn! Try getting the wavy box.', null, function(){return Math.sin(positionX/50) * 50},],
-				// ["Hide and Seek", "The box is hiding, try to find it!", function(){return Math.random() * innerWidth}, function(){return Math.random() * innerHeight}, null, 'HideAndSeek'],
+				["Wavy", 'Surf onnnn! Try getting the wavy box.', null, function(){return (Math.sin(positionX/50) * 50)}],
+				// ["Catch Me", "The box is moving periodically, try to catch it!", function(){if(frameCount % 100 === 0){return Math.random() * innerWidth} else {return null}}, function(){if(frameCount % 100){return Math.random() * innerHeight}else{return null}}, null, 'HideAndSeek'],
 			]
 			
 	// FUNCTIONS
@@ -290,6 +296,7 @@
 
 			function update() {
 
+				
 				// Position X
 				if (ActiveEvent !== null && ActiveEvent[2] !== null){
 					positionX = ActiveEvent[2]();
@@ -303,6 +310,7 @@
 				} else {
 					positionY = 0;
 				}
+
 
 				// Update frame
 				moveBoxTo(positionX, positionY)
@@ -318,8 +326,9 @@
 					playAnimation(wall_left, 'Touched', 200)
 				}
 
-				// Sine Test
-				// positionY = Math.sin(positionX/50) * 50
+				// Frame
+				frameCount +=1
+				stats_frame.innerHTML = frameCount
 
 				// Statistics
 				stats_speed.innerHTML = speed + ' pixels/sec';
