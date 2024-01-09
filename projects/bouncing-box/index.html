@@ -22,19 +22,18 @@
 	<div id="game-menu">
 		<div class="menu">
 			<div>
-				<h5>Works on Mobile!</h5>
+				<h5>round Events!</h5>
 				<h1>Bouncing Box</h1>
-				<h6>Aiden Melton | v1.12</h6>
+				<h6>Aiden Melton | v1.13</h6>
 				<button id="play-button">Play</button>
 			</div>
 			<div class="update-log">
 				<h5>What's new?</h5>
 				<ul>
-					<li>Mobile support</li>
-					<li>Instructions Manual</li>
-					<li>Minor box apperance tweaks</li>
-					<li>Added Update Log <i>(this!)</i></li>
-					<li>Added Navigation</li>
+					<li>Added 'Catch Me' Event</li>
+					<li>Added Frame Counter</li>
+					<li>Reworked Events</li>
+					<li>Minor style fix</li>
 				</ul>
 			</div>
 		</div>
@@ -209,8 +208,8 @@
 
 			// Tables
 			var Events = [
-				["Wavy", 'Surf onnnn! Try getting the wavy box.', null, function(){return (Math.sin(positionX/50) * 50)}],
-				// ["Catch Me", "The box is moving periodically, try to catch it!", function(){if(frameCount % 100 === 0){return Math.random() * innerWidth} else {return null}}, function(){if(frameCount % 100){return Math.random() * innerHeight}else{return null}}, null, 'HideAndSeek'],
+				["Wavy", 'Surf onnnn! Try getting the wavy box.', null, function(){return (Math.sin(positionX/50) * 50)}, null],
+				["Catch Me", "The box is moving periodically, try to catch it!", function(){if(frameCount % 25 === 0){return Math.random() * innerWidth}else{return 'skip'}}, function(){if(frameCount % 25 === 0){return Math.random() * innerHeight  - (innerHeight/2)}else{return 'skip'}}, 'CatchMe'],
 			]
 			
 	// FUNCTIONS
@@ -296,21 +295,49 @@
 
 			function update() {
 
-				
-				// Position X
-				if (ActiveEvent !== null && ActiveEvent[2] !== null){
-					positionX = ActiveEvent[2]();
+				// Calculate pos
+				if (ActiveEvent !== null){
+
+					var returned_posX
+					var returned_posY
+
+					if (ActiveEvent[2] !== null){
+						returned_posX = ActiveEvent[2]();
+					} else {
+						returned_posX = null;
+					}
+
+					if (ActiveEvent[3] !== null){
+						returned_posY = ActiveEvent[3]();
+					} else {
+						returned_posY = null;
+					}
+
+					// Position X
+					if (returned_posX !== null){
+						if (returned_posX !== 'skip'){
+							positionX = returned_posX
+						} else {
+							positionX = positionX
+						}
+					} else {
+						positionX = positionX + speed
+					}
+
+					// Position Y
+					if (returned_posY !== null){
+						if (returned_posY !== 'skip'){ 
+							positionY = returned_posY;
+						} else {
+							positionY = positionY
+						}
+					} else {
+						positionY = 0;
+					}
 				} else {
 					positionX = positionX + speed
-				}
-
-				// Position Y
-				if (ActiveEvent !== null && ActiveEvent[3] !== null){
-					positionY = ActiveEvent[3]();
-				} else {
 					positionY = 0;
 				}
-
 
 				// Update frame
 				moveBoxTo(positionX, positionY)
@@ -338,6 +365,10 @@
 		// BOX CLICK 
 
 			function handleBoxClick() {
+
+				if (PreviousEvent !== null && PreviousEvent[4] !== null){
+					box.removeClass(PreviousEvent[4])
+				}
 
 				// Update speed depending on whether the value is positive or negative
 				if (Math.sign(speed) === -1){
@@ -374,9 +405,11 @@
 				ScoreCounter.style.color = randomColor
 
 				// Events
-				if (Math.random() >= 0.80){
+				if (Math.random() >= 0.8){
+					
 					ActiveEvent = Events[Math.floor(Math.random() * Events.length)]
-				
+					PreviousEvent = ActiveEvent
+
 					// Announce event
 					console.log(ActiveEvent[1])
 					announce_title.innerHTML = ActiveEvent[0];
@@ -384,14 +417,10 @@
 
 					announce_container.classList.add('active')
 
-					// if (ActiveEvent[5] !== null){
-					// 	box.classList.add(ActiveEvent[5])
-					// } else {
-					// 	if (PreviousEvent !== null && ActiveEvent[5] !== null){
-					// 		box.classList.remove(PreviousEvent[5])
-					// 	}
-					// }
-
+					if (ActiveEvent[4] !== null){
+						console.log(ActiveEvent[4])
+						box.addClass(ActiveEvent[4])
+					}
 				} else {
 					ActiveEvent = null;
 					announce_container.classList.remove('active')

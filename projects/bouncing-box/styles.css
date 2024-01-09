@@ -568,10 +568,9 @@ div.all-prompts {
 
     width: 70px;
     height: 70px;
-
-    z-index: 50;
-    
     cursor: var(--cursor-pointer);
+
+    z-index: 1000;
 
     user-select: none;
     top: calc(50vh - 35px);
@@ -737,4 +736,11 @@ div.all-prompts {
         display: none;
     }
 
+}
+
+
+
+/* Event Styles */
+.box.CatchMe {
+    transition: 250ms ease-out;
 }
