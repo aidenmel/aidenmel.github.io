@@ -22,18 +22,17 @@
 	<div id="game-menu">
 		<div class="menu">
 			<div>
-				<h5>round Events!</h5>
+				<h5>new Events!</h5>
 				<h1>Bouncing Box</h1>
-				<h6>Aiden Melton | v1.13</h6>
+				<h6>Aiden Melton | v1.14</h6>
 				<button id="play-button">Play</button>
 			</div>
 			<div class="update-log">
 				<h5>What's new?</h5>
 				<ul>
-					<li>Added 'Catch Me' Event</li>
-					<li>Added Frame Counter</li>
-					<li>Reworked Events</li>
-					<li>Minor style fix</li>
+					<li>Added 'Ghost' Event</li>
+					<li>Added 'Teeny-Tiny' Event</li>
+					<li>Lowered Speed Multiplier</li>
 				</ul>
 			</div>
 		</div>
@@ -210,6 +209,8 @@
 			var Events = [
 				["Wavy", 'Surf onnnn! Try getting the wavy box.', null, function(){return (Math.sin(positionX/50) * 50)}, null],
 				["Catch Me", "The box is moving periodically, try to catch it!", function(){if(frameCount % 25 === 0){return Math.random() * innerWidth}else{return 'skip'}}, function(){if(frameCount % 25 === 0){return Math.random() * innerHeight  - (innerHeight/2)}else{return 'skip'}}, 'CatchMe'],
+				["Teeny-Tiny", "The box is rather small, try getting it now!", null, null, 'TeenyTiny'],
+				["Ghost", "The box now lies beneath the shadows, try clicking it.", null, null, 'GhostMode'],
 			]
 			
 	// FUNCTIONS
@@ -372,9 +373,9 @@
 
 				// Update speed depending on whether the value is positive or negative
 				if (Math.sign(speed) === -1){
-					speed -= 3
+					speed -= 1
 				} else {
-					speed += 3
+					speed += 1
 				}
 
 				// Store clicked position

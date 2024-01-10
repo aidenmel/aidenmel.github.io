@@ -140,6 +140,7 @@ button.active {
     width: 100vw;
     height: 100vh;
 
+    /* z-index: 1000; */
     overflow: hidden;
 }
 
@@ -575,6 +576,8 @@ div.all-prompts {
     user-select: none;
     top: calc(50vh - 35px);
     left: calc(50vw - 35px);  /* <--- Change me! */
+    
+    transition: opacity 1s ease-out;
 }
 
 /* Announcements */
@@ -743,4 +746,12 @@ div.all-prompts {
 /* Event Styles */
 .box.CatchMe {
     transition: 250ms ease-out;
+}
+
+.box.TeenyTiny {
+    transform: Scale(50%);
+}
+
+.box.GhostMode {
+    opacity: 0;
 }
