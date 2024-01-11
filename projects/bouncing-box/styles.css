@@ -231,9 +231,10 @@ button.active {
 }
 
 #game-menu div.hide {
-    transform: scale(75%);
-    -webkit-transform: scale(75%);
-    -moz-transform: scale(75%);
+    display: flex;
+    transform: scale(125%);
+    -webkit-transform: scale(125%);
+    -moz-transform: scale(125%);
     opacity: 0;
 }
 
