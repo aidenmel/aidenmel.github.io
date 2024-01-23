@@ -374,7 +374,7 @@ nav img:hover {
 
 }
 
-.instructions ul {
+.instructions ul, .instructions form {
     box-shadow: var(--cartoon-dropshadow);
     border: 4px solid #000;
     background-color: #fff;
@@ -398,6 +398,34 @@ nav img:hover {
     border-radius: 8px;
     margin-top: 12px;
 }
+
+/* Game Options */
+input.checkbox {
+    opacity: 0;
+    aspect-ratio: 1/1;
+    height: 24px;
+    width: auto;
+
+    border: 8px solid #000 !important;
+    border-radius: 16px;
+}
+
+input.checkbox:hover {
+    cursor: var(--cursor-pointer);
+}
+
+label:hover {
+    cursor: var(--cursor-pointer);
+}
+/* .game-options {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+
+    position: absolute;
+    bottom: 64px;
+} */
 
 /* Scoreboard */
 .scoreboard {
