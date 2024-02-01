@@ -90,12 +90,21 @@
                 <ul id="nav-ul">
                     <li class="nav-li"><a href="index.html">Home</a></li>
                     <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
-                    <li class="nav-li nav-menu" id="osn-menu-btn"><img src="/assets/icons/menu-icon.png" alt="menu"></li>
+                    
                 </ul>
             </nav>
 
             <!-- Implemented for mobile devices (Not included in 'style.css') -->
+            <div class="touch-nav-bar" id="osn-menu-btn">
+                <div class="menu-icon">
+                    <div class="menu-line top"></div>
+                    <div class="menu-line center"></div>
+                    <div class="menu-line bottom"></div>
+                </div>
+            </div>
+
             <div class="on-screen-nav" id="osn-container">
+                <li><h6>NAVIGATION</h6></li>
                 <li class="nav-li"><a class="active_link" href="index.html">Home</a></li>
                 <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
                 <p>Site created by Aiden Melton</p>
@@ -111,9 +120,12 @@
 
                     function ToggleOnScreenMenu() {
                         if (OSNActive == false){
+                            MenuButton.classList.add('m-enabled')
                             OSNContainer.classList.add("active")
+
                             OSNActive = true;
                         } else {
+                            MenuButton.classList.remove('m-enabled')
                             OSNContainer.classList.remove("active")
                             OSNActive = false;
                         }
@@ -122,23 +134,23 @@
             </div>
 
              <!-- Notifications (Not included in 'style.css') -->
-             <span class="notifications">
-                <div class="notify-container" id="notification1">
+             <span class="notifications" id="notifications">
+                <div class="notify-container active" id="notify-template" style="display: none;">
                     <img src="/assets/icons/notification-icon.png" alt="notification-icon"> 
-                    <div>
+                    <div class="prompt-content">
                         <h6>Null</h6>
                         <p>This is a test notification.</p>
                     </div>
                 </div>
 
                 <script type="text/javascript">
-                    const test_notification = document.getElementById("notification1");
-                    
-                    setTimeout(showNotification(true), 10000);
+                    var notificationTemplate = document.getElementById("notify-template");
+                    var notificationContainer = document.getElementById('notifications')
+                    // setTimeout(showNotification(true), 10000);
 
-                    test_notification.addEventListener('click', (e) => {
-                        showNotification(false);
-                    });
+                    // test_notification.addEventListener('click', (e) => {
+                    //     showNotification(false);
+                    // });
 
                     function showNotification(boolean) {
                         if (boolean == true){
@@ -147,6 +159,60 @@
                             test_notification.classList.remove('active');
                         }
                     }
+
+                    // Notifications
+                    function notify(title, desc, elapsedTime){
+                        
+                        // Variables
+                        var newNotification = notificationTemplate.cloneNode(true);
+                        var notificationContent = notificationTemplate.childNodes[1];
+                        
+                        // Append and remove Id
+                        notificationContainer.appendChild(newNotification);
+                        newNotification.removeAttribute('id');
+
+                        // Clear previous prompt
+                        // while(notificationContent.childNodes[0]){
+                        //     notificationContent.removeChild(notificationContent.firstChild)
+                        // }
+
+                        // Create new prompt
+                        if (title){
+                            var prompt_title = document.createElement('h6')
+                            prompt_title.innerHTML = title;
+                            notificationContent.appendChild(prompt_title)
+                        }
+
+                        // Description
+                        if (desc){
+                            var prompt_desc = document.createElement('p');
+                            prompt_desc.innerHTML = desc;
+                            notificationContent.appendChild(prompt_desc)
+                        }
+
+                        // Execute Notification
+                        newNotification.style.display = 'block'
+
+                        // Delay by 10 miliseconds to avoid a buggy look
+                        setTimeout(() => {
+                            newNotification.classList.add('active');
+                        }, 10);
+
+                        // Remove if time is set
+                        if (elapsedTime !== null){
+                            setTimeout(() => {
+                                newNotification.classList.remove('notify-active');
+
+                                setTimeout(() => {
+                                    newNotification.innerHTML = ""
+                                    newNotification.remove()
+                                }, 251);
+                            }, (elapsedTime * 1000))
+                        }  NewNotification = test
+                    }
+
+
+                    // notify('test', 'ok there is nothing', 2500)
                 </script>
             </span>
 
