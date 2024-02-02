@@ -104,30 +104,70 @@
             </div>
 
             <div class="on-screen-nav" id="osn-container">
-                <li><h6>NAVIGATION</h6></li>
+                <li><h6>NAVIGATION (BETA)</h6></li>
                 <li class="nav-li"><a class="active_link" href="index.html">Home</a></li>
                 <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
                 <p>Site created by Aiden Melton</p>
 
                 <script>
+                    
+                    // Objects
                     var MenuButton = document.getElementById("osn-menu-btn");
                     var OSNContainer = document.getElementById("osn-container")
-                    var OSNActive = false;
+                    var OSNChildren = OSNContainer.children
 
+                    // Values
+                    var OSNActive = false;
+                    var debounce = false;
+                    
+                    // Events
                     MenuButton.addEventListener('click', (e) => {
                         ToggleOnScreenMenu();
                     })
 
+                    // Functions
                     function ToggleOnScreenMenu() {
-                        if (OSNActive == false){
-                            MenuButton.classList.add('m-enabled')
-                            OSNContainer.classList.add("active")
 
-                            OSNActive = true;
-                        } else {
-                            MenuButton.classList.remove('m-enabled')
-                            OSNContainer.classList.remove("active")
-                            OSNActive = false;
+                        if (debounce == false){ // Check debounce
+                            debounce = true;
+
+                            if (OSNActive == false){
+
+                                OSNContainer.style.display = 'block';
+                                setTimeout(() => {
+                                    OSNContainer.classList.add("active")
+                                }, 10);
+
+                                MenuButton.classList.add('m-enabled')
+
+                                // Make items appear
+                                for (let i = 0; i < OSNChildren.length; i++){
+                                    console.log(OSNChildren[i])
+                                    setTimeout(() => {
+                                        OSNChildren[i].classList.add('item-appear')
+                                    }, (i + 1) * 150);
+                                }
+
+                                OSNActive = true;
+                            } else {
+                                MenuButton.classList.remove('m-enabled')
+                                OSNContainer.classList.remove("active")
+                                OSNActive = false;
+
+                                // Make items disappear
+                                for (let i = 0; i < OSNChildren.length; i++){
+                                    OSNChildren[i].classList.remove('item-appear')
+                                }
+
+                                // Change display
+                                setTimeout(() => {
+                                    OSNContainer.style.display = 'none';
+                                }, 401);
+                            }
+
+                            setTimeout(() => {
+                                debounce = false;
+                            }, 1000);
                         }
                     }
                 </script>
