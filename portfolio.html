@@ -64,32 +64,94 @@
             <ul id="nav-ul">
                 <li class="nav-li"><a href="index.html">Home</a></li>
                 <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
-                <li class="nav-li nav-menu" id="osn-menu-btn"><img src="/assets/icons/menu-icon.png" alt="menu"></li>
             </ul>
         </nav>
 
-         <!-- Implemented for mobile devices (Not included in 'style.css') -->
-         <div class="on-screen-nav" id="osn-container">
+        <!-- Implemented for mobile devices (Not included in 'style.css') -->
+        <div class="touch-nav-bar" id="osn-menu-btn">
+            <div class="menu-icon">
+                <div class="menu-line top"></div>
+                <div class="menu-line center"></div>
+                <div class="menu-line bottom"></div>
+            </div>
+        </div>
+
+        <div class="on-screen-nav" id="osn-container">
+            <li><h6>NAVIGATION (BETA)</h6></li>
             <li class="nav-li"><a href="index.html">Home</a></li>
             <li class="nav-li"><a class="active_link" href="portfolio.html">Portfolio</a></li>
-            <p>Site created by Aiden Melton</p>
+            <li><p>Site created by Aiden Melton</p></li>
+
+            <div class="notify-container active" id="swap-css">
+                <div>
+                    <h6>Toggle Stylesheet</h6>
+                    <p>Enables the original stylesheet</p>
+                </div>
+                <label class="switch">
+                    <input title="style switch" id="stylesheet-checkbox" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
 
             <script>
+                
+                // Objects
                 var MenuButton = document.getElementById("osn-menu-btn");
                 var OSNContainer = document.getElementById("osn-container")
-                var OSNActive = false;
+                var OSNChildren = OSNContainer.children
 
+                // Values
+                var OSNActive = false;
+                var debounce = false;
+                
+                // Events
                 MenuButton.addEventListener('click', (e) => {
                     ToggleOnScreenMenu();
                 })
 
+                // Functions
                 function ToggleOnScreenMenu() {
-                    if (OSNActive == false){
-                        OSNContainer.classList.add("active")
-                        OSNActive = true;
-                    } else {
-                        OSNContainer.classList.remove("active")
-                        OSNActive = false;
+
+                    if (debounce == false){ // Check debounce
+                        debounce = true;
+
+                        if (OSNActive == false){
+
+                            OSNContainer.style.display = 'block';
+                            setTimeout(() => {
+                                OSNContainer.classList.add("active")
+                            }, 10);
+
+                            MenuButton.classList.add('m-enabled')
+
+                            // Make items appear
+                            for (let i = 0; i < OSNChildren.length; i++){
+                                console.log(OSNChildren[i])
+                                setTimeout(() => {
+                                    OSNChildren[i].classList.add('item-appear')
+                                }, (i + 1) * 150);
+                            }
+
+                            OSNActive = true;
+                        } else {
+                            MenuButton.classList.remove('m-enabled')
+                            OSNContainer.classList.remove("active")
+                            OSNActive = false;
+
+                            // Make items disappear
+                            for (let i = 0; i < OSNChildren.length; i++){
+                                OSNChildren[i].classList.remove('item-appear')
+                            }
+
+                            // Change display
+                            setTimeout(() => {
+                                OSNContainer.style.display = 'none';
+                            }, 401);
+                        }
+
+                        setTimeout(() => {
+                            debounce = false;
+                        }, 1000);
                     }
                 }
             </script>
@@ -145,7 +207,7 @@
                     <li class="section">Coming Soon</li>
                     <a href="projects/circularity/"><li class="disabled">
                         <div class="detail">
-                            <div class="title"><img class="icon" src="/assets/icons/controller.png">Circularity</div>
+                            <div class="title"><img class="icon" src="/assets/icons/controller.png">Circularity<span class='tag'>IN WORKS</span></div>
                             <p>A motion poem using random number generation and velocity applied to circle shapes...</p>
                         </div>
                         <div class="arrow"><img class="arrow icon" src="/assets/icons/arrow.png"></div>

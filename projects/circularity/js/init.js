@@ -20,13 +20,22 @@ var init = function (window) {
         ////////////////////////////////////////////////////////////
         
         // TODO 1 : Declare and initialize our variables
-
+        var circle;
+        var circles = [];
 
         // TODO 2 : Create a function that draws a circle 
-        
+        function drawCircle(){
+            // Code to draw a circle
+            circle = draw.randomCircleInArea(canvas, true, true, "#999", 2);
+            physikz.addRandomVelocity(circle, canvas);
+            view.addChild(circle);
+            circles.push(circle);
+        }
 
         // TODO 3 / 7 : Call the drawCircle() function 
-
+        for (var i = 1; i <= 100; i++){
+            drawCircle();
+        }
 
         ////////////////////////////////////////////////////////////
         ///////////////// PROGRAM LOGIC ////////////////////////////
@@ -38,15 +47,17 @@ var init = function (window) {
         and check to see if it has drifted off the screen.         
         */
         function update() {
-            // TODO 4 : Update the circle's position //
+            for (var i = 0; i < circles.length; i++){
+                
+                 // TODO 4 : Update the circle's position //
+                physikz.updatePosition(circles[i]);
 
-            
-            // TODO 5 / 10 : Call game.checkCirclePosition() on your circles.
-           
+                // TODO 5 / 10 : Call game.checkCirclePosition() on your circles.
+                game.checkCirclePosition(circles[i]);
 
-            // TODO 9 : Iterate over the array
-           
-            
+                // TODO 9 : Iterate over the array
+
+            }
         }
     
         /* 
@@ -57,14 +68,41 @@ var init = function (window) {
         game.checkCirclePosition = function(circle) {
 
             // if the circle has gone past the RIGHT side of the screen then place it on the LEFT
-            if ( circle.x > canvas.width ) {
-                circle.x = 0;
-            }
             
             // TODO 6 : YOUR CODE STARTS HERE //////////////////////
-            
+        
+                // Top
+                if ((circle.y + (circle.radius/2)) < (0 - circle.radius)){
+                    // circle.y = canvas.height + (circle.radius/2)
+                    circle.y = canvas.height + circle.radius
+                } 
 
+                // Bottom
+                if ((circle.y + (circle.radius/2)) > canvas.height + circle.radius){
+                    circle.y = (circle.radius/2)
+                } 
 
+            //     // Left
+            //     if ((circle.x + circle.radius) < 0 -(circle.radius/2)){
+            //         circle.x = canvas.width + (circle.radius/2)
+            //     } 
+
+            //     // Right
+            //     if ((circle.x + circle.radius) > canvas.width + circle.radius){
+            //         circle.x = -(circle.radius)
+            //   }
+
+            // if (CalculatedCircleProperties[0] < -circle.radius){
+            //     circle.x = canvas.width + (circle.radius/2);
+            // }
+
+            // if (CalculatedCircleProperties[1] < -circle.radius){
+            //     circle.y = canvas.height + (circle.radius/2);
+            // }
+
+            // if (CalculatedCircleProperties[1] > canvas.height){
+            //     circle.y = -(circle.radius/2);
+            // }
             // YOUR TODO 6 CODE ENDS HERE //////////////////////////
         }
         
