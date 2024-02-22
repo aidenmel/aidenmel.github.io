@@ -72,25 +72,24 @@ var init = function (window) {
             // TODO 6 : YOUR CODE STARTS HERE //////////////////////
         
                 // Top
-                if ((circle.y + (circle.radius/2)) < (0 - circle.radius)){
-                    // circle.y = canvas.height + (circle.radius/2)
+                if (circle.y + (circle.radius/2) < (0 - (circle.radius * 1.2))){
                     circle.y = canvas.height + circle.radius
                 } 
 
                 // Bottom
-                if ((circle.y + (circle.radius/2)) > canvas.height + circle.radius){
-                    circle.y = (circle.radius/2)
+                if (circle.y - (circle.radius/2) > canvas.height + (circle.radius * 1.2)){
+                    circle.y = - (circle.radius/2)
                 } 
 
-            //     // Left
-            //     if ((circle.x + circle.radius) < 0 -(circle.radius/2)){
-            //         circle.x = canvas.width + (circle.radius/2)
-            //     } 
+                // Left
+                if (circle.x + (circle.radius/2) < 0 - (circle.radius * 1.2)){
+                    circle.x = canvas.width + (circle.radius/2)
+                } 
 
-            //     // Right
-            //     if ((circle.x + circle.radius) > canvas.width + circle.radius){
-            //         circle.x = -(circle.radius)
-            //   }
+                // Right
+                if (circle.x - (circle.radius/2) > canvas.width + (circle.radius * 1.2)){
+                    circle.x = -(circle.radius/2)
+              }
 
             // if (CalculatedCircleProperties[0] < -circle.radius){
             //     circle.x = canvas.width + (circle.radius/2);
