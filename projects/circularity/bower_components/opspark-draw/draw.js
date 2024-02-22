@@ -317,14 +317,13 @@
         blurFilterOn: blurFilterOn,
         
         fps: function (color) {
-            color = (color) ? color : '#FFF';
-            var _textfield = new createjs.Text("-- fps", "bold 15px Arial", color);
-            var _fps = new createjs.Container();
-            _fps.textfield = _textfield;
-            _fps.addChild(_textfield);
-            _fps.update = function (parent) {
-                _textfield.text = Math.round(createjs.Ticker.getMeasuredFPS()) + " fps";
+            var _fps = document.getElementById('fps-tick');
+
+            // Custom FPS Counter
+             _fps.update = function (parent) {
+                _fps.innerText = Math.round(createjs.Ticker.getMeasuredFPS()) + " fps";
             };
+
             return _fps;
         }
     };

@@ -1,0 +1,72 @@
+/* Circularity CSS */
+
+    /* Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+   
+    /* Variables */
+    :root {
+        /* Fonts */
+        --default-font: "Nunito Sans", sans-serif;
+        
+        /* Z-Index */
+        --z-above: 15;
+
+        /* Backgrounds */
+        --backdrop-background: #25252570;
+
+        /* Effects */
+        --backdrop-blur: blur(16px) saturate(125%);
+    }
+
+ /* Content */
+body {
+    font-family: var(--default-font);
+}
+
+    /* Text Styles */
+
+
+    /* Navigation */
+    nav {
+        position: fixed;
+        display: flex;
+
+        left: 32px;
+        top: 32px;
+
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+
+        gap: 16px;
+    }
+
+        nav div {
+            background-color: var(--backdrop-background);
+            padding: 8px 12px;
+
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.8rem;
+            border-radius: 8px;
+
+            border: 1px solid #25252520;
+            
+            backdrop-filter: var(--backdrop-blur);
+            -webkit-backdrop-filter: var(--backdrop-blur);
+
+            height: 48px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav .branding {
+            height: 28px;
+            object-fit: contain;
+        }
+
+    /* Containers */
+
+        /* FPS Counter */

@@ -73,7 +73,7 @@ var init = function (window) {
         
                 // Top
                 if (circle.y + (circle.radius/2) < (0 - (circle.radius * 1.2))){
-                    circle.y = canvas.height + circle.radius
+                    circle.y = canvas.height - (circle.radius/2)
                 } 
 
                 // Bottom
@@ -90,18 +90,6 @@ var init = function (window) {
                 if (circle.x - (circle.radius/2) > canvas.width + (circle.radius * 1.2)){
                     circle.x = -(circle.radius/2)
               }
-
-            // if (CalculatedCircleProperties[0] < -circle.radius){
-            //     circle.x = canvas.width + (circle.radius/2);
-            // }
-
-            // if (CalculatedCircleProperties[1] < -circle.radius){
-            //     circle.y = canvas.height + (circle.radius/2);
-            // }
-
-            // if (CalculatedCircleProperties[1] > canvas.height){
-            //     circle.y = -(circle.radius/2);
-            // }
             // YOUR TODO 6 CODE ENDS HERE //////////////////////////
         }
         
@@ -109,7 +97,7 @@ var init = function (window) {
         // --- NO CODE BELOW HERE  --- DO NOT REMOVE THIS CODE --- //
         /////////////////////////////////////////////////////////////
         
-        view.addChild(fps);
+        // view.addChild(fps);
         app.addUpdateable(fps);
         
         game.circle = circle;
