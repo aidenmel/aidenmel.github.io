@@ -188,7 +188,7 @@ span.tag {
         background: #25252580;
 
         width: 100vw;
-        height: 100vh;
+        height: 100%;
 
         padding-left: 32px;
 
@@ -248,6 +248,12 @@ span.tag {
         .on-screen-nav li.nav-li:hover {
             cursor: pointer;
             background: #ffffff20;
+        }
+
+        .on-screen-nav p {
+            position: fixed;
+            left: 32px;
+            bottom: 32px;
         }
         
 
@@ -978,6 +984,13 @@ main .content {
     #portfolio li:hover {
         box-shadow: 0 0 16px #14141410;
         transform: scale(101%);
+        cursor: pointer;
+    }
+
+    #portfolio li.section:hover {
+        box-shadow: none;
+        cursor: text;
+        transform: scale(100%);
     }
 /* 
     #portfolio li:hover + #portfolio li .arrow .icon {
