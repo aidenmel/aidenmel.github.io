@@ -185,14 +185,15 @@ span.tag {
         display: none;
         opacity: 0;
 
+        left: 0;
+        top: 0;
+
         background: #25252580;
 
-        width: 100vw;
+        width: calc(100vw - 72px);
         height: 100%;
 
-        padding-left: 32px;
-
-        padding-top: 96px;
+        padding: 96px 32px 0 32px;
 
         flex-direction: column;
         justify-content: flex-tart;
@@ -225,7 +226,7 @@ span.tag {
         list-style: none;
         text-align: left;
 
-        width: auto;
+        /* width: auto; */
 
         border-radius: 48px;
         padding: 4px 24px;
@@ -1166,7 +1167,6 @@ footer button:hover {
     .platformer canvas {
         max-height: 80vh;
     }
-
 
 /* Responsive */
 @media only screen and (max-width: 700px) {

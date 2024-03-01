@@ -9,13 +9,11 @@
             function changeTheme(boolean) {
                 var ThemeLink = document.getElementsByTagName('link')[0];
 
-                // if (ThemeLink.getAttribute('href')) {
-                    if (boolean == true) {
-                        ThemeLink.setAttribute('href', "/style.css")
-                    } else {
-                        ThemeLink.setAttribute('href', "/alternative-style.css")
-                    }
-                // }
+                if (boolean == true) {
+                    ThemeLink.setAttribute('href', "/style.css")
+                } else {
+                    ThemeLink.setAttribute('href', "/alternative-style.css")
+                }
             }
         </script>
     <title>Aiden's Portfolio - Portfolio</title>
@@ -81,18 +79,7 @@
             <li class="nav-li"><a href="index.html">Home</a></li>
             <li class="nav-li"><a class="active_link" href="portfolio.html">Portfolio</a></li>
             <!-- <li><p>Site created by Aiden Melton</p></li> -->
-
-            <div class="notify-container active" id="swap-css">
-                <div>
-                    <h6>Toggle Stylesheet</h6>
-                    <p>Enables the original stylesheet</p>
-                </div>
-                <label class="switch">
-                    <input title="style switch" id="stylesheet-checkbox" type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-
+            
             <script>
                 
                 // Objects
@@ -221,6 +208,29 @@
         </main>
     </div>
 
+
+    <!-- Stylesheet Swap  (Not included in 'style.css') (Switches the stylesheet between the standard to custom styling) -->
+    <div class="css-container">
+        <div class="notify-container active" id="swap-css">
+            <div>
+                <h6>Toggle Stylesheet</h6>
+                <p>Enables the original stylesheet</p>
+            </div>
+            <label class="switch">
+                <input title="style switch" id="stylesheet-checkbox" type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <script>
+            var Checkbox = document.getElementById("stylesheet-checkbox");
+                
+            Checkbox.addEventListener('click', (e) => {
+                changeTheme(Checkbox.checked);
+            })
+        </script>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="footer-contents">
@@ -235,32 +245,5 @@
             <a href="#top-of-page"><button>Return to Top</button></a>
         </div>
     </footer>
-
-
-    <!-- Extras (Not required by Greenlight) -->
-
-        <!-- Stylesheet Swap  (Not included in 'style.css') (Switches the stylesheet between the standard to custom styling) -->
-        <div class="css-container">
-            <div class="notify-container active" id="swap-css">
-                <div>
-                    <h6>Toggle Stylesheet</h6>
-                    <p>Enables the original stylesheet</p>
-                </div>
-                <label class="switch">
-                    <input id="stylesheet-checkbox" type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-
-            <script>
-                var Checkbox = document.getElementById("stylesheet-checkbox");
-                    
-                Checkbox.addEventListener('click', (e) => {
-                    changeTheme(Checkbox.checked);
-                })
-
-            </script>
-        </div>
-
 </body>
 </html>
