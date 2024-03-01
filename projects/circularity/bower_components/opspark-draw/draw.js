@@ -154,8 +154,8 @@
             
             var shape = (onShape) ? onShape : new createjs.Shape();
             shape.graphics
-                .setStrokeStyle(strokeStyle)
-                .beginStroke(strokeColor)
+                // .setStrokeStyle(strokeStyle)
+                // .beginStroke(strokeColor)
                 .moveTo(dimensions.xOffset, dimensions.yOffset)
                 .lineTo(toX, toY);
                 
@@ -167,8 +167,8 @@
             
             var shape = (onShape) ? onShape : new createjs.Shape();
             shape.graphics
-                .setStrokeStyle(strokeStyle)
-                .beginStroke(strokeColor)
+                // .setStrokeStyle(strokeStyle)
+                // .beginStroke(strokeColor)
                 .beginFill(color)
                 .drawRect(dimensions.xOffset, dimensions.yOffset, width, height);
                 
@@ -180,8 +180,8 @@
             
             var shape = (onShape) ? onShape : new createjs.Shape();
             shape.graphics
-                .setStrokeStyle(strokeStyle)
-                .beginStroke(strokeColor)
+                // .setStrokeStyle(strokeStyle)
+                // .beginStroke(strokeColor)
                 .beginFill(color)
                 .drawRoundRect(dimensions.xOffset, dimensions.yOffset, width, height, radius);
 
@@ -206,8 +206,8 @@
     	    
         	var shape = (onShape) ? onShape : new createjs.Shape();
         	shape.graphics
-        		.setStrokeStyle(strokeStyle)
-        		.beginStroke(strokeColor)
+        		// .setStrokeStyle(strokeStyle)
+        		// .beginStroke(strokeColor)
         		.beginFill(color)
         		.drawRoundRectComplex(dimensions.xOffset, 
         		                      dimensions.yOffset, 
@@ -231,8 +231,8 @@
         	
         	var shape = (onShape) ? onShape : new createjs.Shape();
         	shape.graphics
-        		.setStrokeStyle(strokeStyle)
-        		.beginStroke(strokeColor)
+        		// .setStrokeStyle(strokeStyle)
+        		// .beginStroke(strokeColor)
         		.beginFill(color)
         		.drawCircle(dimensions.xOffset, dimensions.yOffset, radius);
         	
@@ -246,8 +246,8 @@
             
             var shape = (onShape) ? onShape : new createjs.Shape();
             shape.graphics
-                .setStrokeStyle(strokeStyle)
-                .beginStroke(strokeColor)
+                // .setStrokeStyle(strokeStyle)
+                // .beginStroke(strokeColor)
                 .beginFill(color)
                 .drawEllipse(dimensions.xOffset, dimensions.yOffset, width, height);
                 
@@ -259,8 +259,8 @@
     		
         	var shape = (onShape) ? onShape : new createjs.Shape();
         	shape.graphics
-        		.setStrokeStyle(strokeStyle)
-        		.beginStroke(strokeColor)
+        		// .setStrokeStyle(strokeStyle)
+        		// .beginStroke(strokeColor)
         		.beginFill(color)
         		.drawPolyStar(dimensions.xOffset, dimensions.yOffset, radius, sides, pointSize || 0, angle);
         	
@@ -282,10 +282,10 @@
     		    draw.line(0, -(props.radius), 0, props.radius, borderColor || '#000', 2, circle);
 			}
 			
-			if (borderColor && !borderThickness) { borderThickness = 1; }
+			if (borderColor && !borderThickness) { borderThickness = 0; }
 			
 			// first draw the circle's border - don't use stroke //
-			circle = draw.circle(props.radius+borderThickness, borderColor, null, null, null, null, circle);
+			// circle = draw.circle(props.radius+borderThickness, borderColor, null, null, null, null, circle);
 			draw.circle(props.radius, props.color, null, null, null, null, circle);
 			circle.x = props.x;
 			circle.y = props.y;
@@ -300,7 +300,7 @@
     	randomRadialProps: function (area, radiusMin, radiusMax, redMax, greenMax, blueMax) {
     	    return {
     	        radius: randomIntBetween(radiusMin || 5, radiusMax || 20),
-    	        color: randomColor(redMax || 255, greenMax || 255, blueMax || 255),
+    	        color: randomColor(redMax || 255, greenMax || 255, blueMax || 255, 0),
     	        x: randomIntBetween(0, area.width),
     	        y: randomIntBetween(0, area.height)
     	    };

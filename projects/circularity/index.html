@@ -22,26 +22,75 @@
         <script src="js/opspark.js"></script>
         <script src="js/init.js"></script>
     </head>
-    <body>
+    <body id="body">
         <div>
             <canvas id="canvas" width="500" height="500"></canvas>
         </div>
 
-        <game>
-            <nav>
-                <div>
+        <game class="game">
+            
+            <div class="cursor">
+                <div id="cursor-boundry"></div>
+                <div id="edge-left"></div>
+                <div id="edge-right"></div>
+            </div>
+
+            <nav id="nav">
+                <div class="title">
                     <img class='branding' alt='CIRCULARITY' src="./img/title-branding.svg">
                 </div>
                 <div id="fps-tick"></div>
 
+                <div style='display:none;' id="percent-reader">0%</div>
+
+                <button id="night-mode"><img src="./img/moon-icon.png"> Night Mode</button>
+                <button id="circle-mode"><img src="./img/circle-icon.png"> Push Mode</button>
+                
+                
+                <script>
+
+                    var NightModeButton = document.getElementById('night-mode');
+                    var Body = document.getElementById('body');
+                    var NightMode_On = false;
+
+                    NightModeButton.addEventListener('click', () => {
+
+                        console.log('pressed')
+                        if (NightMode_On !== true){
+                            Body.classList.add('night');
+                            NightModeButton.classList.add('enabled')
+                            NightMode_On = true;
+                        } else {
+                            Body.classList.remove('night');
+                            NightModeButton.classList.remove('enabled')
+                            NightMode_On = false;
+                        }
+                    })
+
+                </script>
+            
             </nav>
+
+            <div class="loading">
+                <img class='branding' alt='CIRCULARITY' src="./img/title-branding.svg">
+                <h6>Created by Aiden Melton</h6>
+            </div>
         </game>
         <script id="motion-poem">
+
             (function(){
                 init(window);
                 window.opspark.makeGame();
             })();
+        
+            setTimeout(() => {
+               document.getElementById('body').classList.add('loaded') 
+
+               setTimeout(() => {
+                document.getElementById('nav').classList.add('loaded')
+               }, 200);
+            }, 3200);
+
         </script>
     </body>
-
 </html>

@@ -3,6 +3,8 @@ var init = function (window) {
     var 
         draw = window.opspark.draw,
         physikz = window.opspark.racket.physikz,
+
+        extras = window.opspark.racket.extras,
         
         app = window.opspark.makeApp(),
         canvas = app.canvas, 
@@ -12,6 +14,8 @@ var init = function (window) {
     
     window.opspark.makeGame = function() {
         
+        extras.runStartUp();
+
         window.opspark.game = {};
         var game = window.opspark.game;
         
@@ -33,7 +37,7 @@ var init = function (window) {
         }
 
         // TODO 3 / 7 : Call the drawCircle() function 
-        for (var i = 1; i <= 100; i++){
+        for (var i = 1; i <= 150; i++){
             drawCircle();
         }
 
@@ -78,7 +82,7 @@ var init = function (window) {
 
                 // Bottom
                 if (circle.y - (circle.radius/2) > canvas.height + (circle.radius * 1.2)){
-                    circle.y = - (circle.radius/2)
+                    circle.y = -(circle.radius)
                 } 
 
                 // Left
@@ -90,6 +94,9 @@ var init = function (window) {
                 if (circle.x - (circle.radius/2) > canvas.width + (circle.radius * 1.2)){
                     circle.x = -(circle.radius/2)
               }
+
+            // CURSOR COLLISIONS
+
             // YOUR TODO 6 CODE ENDS HERE //////////////////////////
         }
         
@@ -104,7 +111,8 @@ var init = function (window) {
         game.circles = circles;
         game.drawCircle = drawCircle;
         game.update = update;
-        
+    
+
         app.addUpdateable(window.opspark.game);
     }
 };
