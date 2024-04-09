@@ -13,4 +13,8 @@ canvas {
     -webkit-user-select: none;
     -ms-user-select: none;
     position:absolute;
+
+    aspect-ratio: 16/9;
+    width: 100vw;
+    height: 100vh;
 }

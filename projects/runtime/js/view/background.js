@@ -29,7 +29,7 @@ var background = function (window) {
         // ANIMATION VARIABLES HERE //////////////////////////////////////
         //////////////////////////////////////////////////////////////////
         // TODO (several):
-      
+        var trees = [];
       
         // called at the start of game and whenever the page is resized
         // add objects for display in background. draws each image added to the background once
@@ -39,18 +39,42 @@ var background = function (window) {
             // TODO 1:
             // this currently fills the background with an obnoxious yellow;
             // you should modify both the height and color to suit your game
-            var backgroundFill = draw.rect(canvasWidth,canvasHeight,'yellow');
+            var backgroundFill = draw.rect(canvasWidth,canvasHeight,"#020D1C");
             background.addChild(backgroundFill);
             
             // TODO 2: - Add a moon and starfield
+            var moon = draw.bitmap("assets/objects/moon.png");
+            moon.x = 0;
+            moon.y = 0;
+            moon.scaleX = .8;
+            moon.scaleY = .8;
+            background.addChild(moon);
             
-            
+            for(var i=0; i < 100; i++){
+                var circle = draw.circle(Math.random() * .8, "white", "LightGray", 2);
+                circle.x = canvasWidth * Math.random();
+                circle.y = groundY * Math.random();
+                background.addChild(circle);
+            }
             // TODO 4: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
             
             
             // TODO 3: Part 1 - Add a tree
-            
-            
+            for (var i = 0; i < 6; i++){
+                
+                // Variables
+                var newTree = draw.bitmap("assets/objects/pine-tree.png");
+                var randomScale = (Math.random() * .4);
+                
+                newTree.x = Math.random() * canvasWidth;
+                newTree.y = groundY - (350 * (.6 + randomScale));
+                newTree.scaleX = .6 + randomScale;
+                newTree.scaleY = .6 + randomScale;
+                // newTree.alpha = Math.random() * .8;
+                background.addChild(newTree)
+                trees.push(newTree)
+            }
+
         } // end of render function - DO NOT DELETE
         
         
@@ -63,8 +87,8 @@ var background = function (window) {
             var groundY = ground.y;
             
             // TODO 3: Part 2 - Move the tree!
-            
-            
+
+
             // TODO 4: Part 2 - Parallax
             
 
