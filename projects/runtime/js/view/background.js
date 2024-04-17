@@ -83,6 +83,27 @@ var background = function (window) {
                 trees.push(newTree)
             }
 
+            // Bushes
+            for (var i = 0; i < 8; i++){
+                
+                // Variables
+                var newTree = draw.bitmap("assets/objects/Bush.png");
+                var randomScale = (Math.random() * .4);
+                
+                newTree.x = Math.random() * canvasWidth;
+                newTree.y = groundY -(150 * (.6 + randomScale));
+                newTree.scaleX = .6 + randomScale;
+                newTree.scaleY = .6 + randomScale;
+                newTree.alpha = 1 - (Math.random() * .2);
+                background.addChild(newTree)
+                trees.push(newTree)
+            }
+
+            // Ground
+            var Ground = draw.rect(canvasWidth,25,"#000");
+            Ground.y = groundY;
+            background.addChild(Ground);
+
         } // end of render function - DO NOT DELETE
         
         
