@@ -100,7 +100,7 @@ var background = function (window) {
             }
 
             // Ground
-            var Ground = draw.rect(canvasWidth,25,"#000");
+            var Ground = draw.rect(canvasWidth, canvasHeight,"#000");
             Ground.y = groundY;
             background.addChild(Ground);
 

@@ -20,12 +20,12 @@ var runLevels = function (window) {
     // BEGIN EDITING YOUR CODE HERE
         
     // Saw Blades
-    for(var i = 0; i < 5; i++){
+    function createSawblade(startX, startY, speed){
       var hitZoneSize = 25;
       var damageFromObstacle = 10;
       var sawBladeHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
       
-      sawBladeHitZone.x = 400 + (800 * i);
+      sawBladeHitZone.x = startX;
       sawBladeHitZone.y = groundY - (300 * Math.random());
       game.addGameItem(sawBladeHitZone);
 
@@ -49,7 +49,7 @@ var runLevels = function (window) {
 
       enemy.onPlayerCollision = function(){
         game.changeIntegrity(-10);
-        game.increaseScore(100);
+        // game.increaseScore(100);
         enemy.fadeOut();
         enemy.shrink();
       };
@@ -57,15 +57,40 @@ var runLevels = function (window) {
 
     }
 
+    // Rewards
+    function createReward(startX, startY, speed){
+      var reward = game.createGameItem('reward', 20);
+      var icon = draw.bitmap('assets/objects/star.png');
+      icon.x = -25;
+      icon.y = -25;
+      icon.scaleX = .6;
+      icon.scaleY = .6;
+      reward.addChild(icon);
 
-    createEnemy(0, groundY -15, 1);
-    createEnemy(400, groundY - 10, 1);
-    createEnemy(800, groundY - 100, 1);
-    createEnemy(1200, groundY - 50, 1);
-    function startLevel() {
+      reward.x = startX;
+      reward.y = startY - 50;
+      reward.velocityX = -1 * speed;
+
+      reward.onPlayerCollision = function(){
+        game.increaseScore(100);
+        reward.fadeOut();
+        reward.shrink();
+      }
+
+      game.addGameItem(reward);
+    }
+
+
+
+    function startLevel(startFrom) {
       // TODO 13 goes below here
       
+        // Update level counter
+        currentLevel += 1;
 
+        // Loop through game items
+        // for(levelData)
+        console.log(levelData)
 
       //////////////////////////////////////////////
       // DO NOT EDIT CODE BELOW HERE
@@ -77,6 +102,39 @@ var runLevels = function (window) {
       }
     }
     startLevel();
+
+
+    // Markers
+    function createMarker(startX, startY, speed) {
+      var reward = game.createGameItem('reward', 20);
+      var icon = draw.bitmap('assets/objects/finish.png');
+      icon.x = -25;
+      icon.y = -25;
+      icon.scaleX = .6;
+      icon.scaleY = .6;
+      reward.addChild(icon);
+
+      reward.x = startX;
+      reward.y = startY - 50;
+      reward.velocityX = -1 * speed;
+
+      reward.onPlayerCollision = function(){
+        game.increaseScore(250);
+        reward.fadeOut();
+        reward.shrink();
+        startLevel(reward.x);
+      }
+
+      reward.OnProjectileCollision = function(){
+        game.increaseScore(250);
+        reward.fadeOut();
+        startLevel();
+      }
+
+      game.addGameItem(reward);
+    }
+
+    createMarker(1400, groundY, 1)
   };
 };
 
