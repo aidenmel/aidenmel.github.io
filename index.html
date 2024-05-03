@@ -33,20 +33,22 @@
         </div>
 
         <script>
-            var loadingScreen = document.getElementById('LoadingScreen')
+            // var loadingScreen = document.getElementById('LoadingScreen')
+            
 
-            document.onreadystatechange = () => {
-                if (document.readyState === 'complete') {
-                    setTimeout(() => {
-                    loadingScreen.classList.add('complete');
+            // document.onreadystatechange = () => {
+            //     if (document.readyState === 'complete') {
+            //         setTimeout(() => {
+            //         loadingScreen.classList.add('complete');
                     
-                    setTimeout(() => {
-                        loadingScreen.classList.add('disabled')
-                    }, 400)    
+            //         setTimeout(() => {
+            //             loadingScreen.classList.add('disabled')
+                        
+            //         }, 400)    
 
-                    }, 200);
-                }
-            }
+            //         }, 200);
+            //     }
+            // }
 
             // Redirects
             // document.addEventListener('beforeunload', () => {
@@ -81,7 +83,7 @@
             </div>
 
             <!-- Navigation  (Not included in 'style.css') -->
-            <nav>
+            <nav class="blur active" id="top-nav">
                 <h1 id="default-header-title">Aiden's Portfolio</h1>
                 <a href="/index.html" id="manipulated-header"><div class="nav-header">
                     <img class="nav-logo" alt="Aiden Portfolio Logo" src="/assets/logo-gen1.png"/>
@@ -93,6 +95,28 @@
                     
                 </ul>
             </nav>
+
+            <script>
+                var loadingScreen = document.getElementById('LoadingScreen')
+                var navBar = document.getElementById('top-nav');
+
+                document.onreadystatechange = () => {
+                    if (document.readyState === 'complete') {
+                        setTimeout(() => {
+                        loadingScreen.classList.add('complete');
+                        
+                        setTimeout(() => {
+                            loadingScreen.classList.add('disabled')
+                            
+                            setTimeout(() => {
+                                navBar.classList.remove('active')
+                            }, 400);
+                        }, 400)    
+
+                        }, 200);
+                    }
+                }
+            </script>
 
             <!-- Implemented for mobile devices (Not included in 'style.css') -->
             <div class="touch-nav-bar" id="osn-menu-btn">
