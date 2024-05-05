@@ -173,7 +173,7 @@ span.tag {
     .menu-line {
         width: 32px;
         height: 2px;
-        background-color: var(--default-white);
+        background-color: #fff;
         border-radius: 2px;
         position: absolute;
 
