@@ -6,7 +6,7 @@
 // Variables
 var Offset = 150; // The offset before an animation starts in pixels
 var ScrollResponsiveObjects = document.getElementsByClassName('scroll-responsive');
-console.log(ScrollResponsiveObjects.length, ScrollResponsiveObjects[0])
+// console.log(ScrollResponsiveObjects.length, ScrollResponsiveObjects[0])
 
 // Collect Positions
 var StoredPositions = [];
@@ -27,7 +27,7 @@ window.addEventListener('scroll', (e) => {
             var Object = ScrollResponsiveObjects[i];
             var DataObject = Object; // Object used to collect data from
 
-            console.log(Number(Object.getAttribute('UseParentData')))
+            // console.log(Number(Object.getAttribute('UseParentData')))
 
             if (Object.getAttribute('UseParentData')){
                 
@@ -43,17 +43,22 @@ window.addEventListener('scroll', (e) => {
             var ObjectStart = DataObject.getBoundingClientRect().top + window.scrollY - (DataObject.getBoundingClientRect().height) + Offset;
             var ObjectEnd = DataObject.getBoundingClientRect().top + window.scrollY + Offset;
 
+            // Additional offset
+            if (Object.getAttribute('scroll-offset')){
+                ObjectStart += Number(Object.getAttribute('scroll-offset'));
+            }
+
             // Debug
-            console.log(ObjectStart, ObjectEnd, scrollY)
+            // console.log(ObjectStart, ObjectEnd, scrollY)
 
             if (ScrollPos > ObjectStart && ScrollPos < ObjectEnd){
                 
                 var Percentage = (ScrollPos - ObjectStart)/(ObjectEnd - ObjectStart);
 
-                console.log('%' + (Percentage * 100)) // Debug
+                // console.log('%' + (Percentage * 100)) // Debug
 
                 // Set restrictions to percents
-                if (Percentage <= 0.2){
+                if (Percentage <= 0.02){
                     Percentage == -0;
                 } else if (Percentage >= .98){
                     Percentage == -999.99;

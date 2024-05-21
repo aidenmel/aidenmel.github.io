@@ -1,88 +1,83 @@
-<!DOCTYPE html>
+<!-- 
+    
+👋 Hey, I'm Aiden and this is my site! 
+    
+I've been generous enough to provide some comments to help you view my code more easily (if you ever do). 
+
+All of the code is handwritten with the exception of imported assets (like Google Maps).
+
+| Aiden M.
+| Class of 2026
+
+-->
 <html lang="en">
     <head>
         <title>Aiden's Portfolio - Home</title>
         <link rel="stylesheet" href="/alternative-style.css">
-        <script>
-            function changeTheme(boolean) {
-                var ThemeLink = document.getElementsByTagName('link')[0];
-
-                // if (ThemeLink.getAttribute('href')) {
-                    if (boolean === true) {
-                        ThemeLink.setAttribute('href', "/style.css")
-                    } else {
-                        ThemeLink.setAttribute('href', "/alternative-style.css")
-                    }
-                // }
-            }
-        </script>
+        
         <link rel="icon" href="/assets/logo-gen1.png">
         <meta name="theme-color" content="#929292">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
 
-        <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
+        <!-- 🎨 Theme Changing Script: Used to incorporate two or more stylesheets (.css files)  -->
+        <script>
+            function changeTheme(boolean) {
+                var ThemeLink = document.getElementsByTagName('link')[0];
+                if (boolean === true) {
+                    ThemeLink.setAttribute('href', "/style.css")
+                } else {
+                    ThemeLink.setAttribute('href', "/alternative-style.css")
+                }
+            }
+        </script>
     </head>
     <body id="top-of-page">
 
-
-        <!-- Loading Screen -->
+<!-- 
+    
+    
+📡 Loading Screen: Covers the screen with the elements below until the site has completely loaded. -->
+        
         <div id="LoadingScreen">
             <div class="loadingBlock"></div>
             <p class="loadingMsg">We're getting everything ready.</p>
         </div>
 
-        <script>
-            // var loadingScreen = document.getElementById('LoadingScreen')
+<!-- 
             
-
-            // document.onreadystatechange = () => {
-            //     if (document.readyState === 'complete') {
-            //         setTimeout(() => {
-            //         loadingScreen.classList.add('complete');
-                    
-            //         setTimeout(() => {
-            //             loadingScreen.classList.add('disabled')
-                        
-            //         }, 400)    
-
-            //         }, 200);
-            //     }
-            // }
-
-            // Redirects
-            // document.addEventListener('beforeunload', () => {
-            //     loadingScreen.classList.remove('disabled')
-            //     loadingScreen.classList.remove('complete')
-            // })
-        </script>
-
-        <!-- Notifications, On-Screen Fixed Containers -->
-
-            <!-- Stylesheet Swap  (Not included in 'style.css') (Switches the stylesheet between the standard to custom styling) -->
-            <div class="css-container">
-                <div class="notify-container active" id="swap-css">
-                    <div>
-                        <h6>Toggle Stylesheet</h6>
-                        <p>Enables the original stylesheet</p>
-                    </div>
-                    <label class="switch">
-                        <input title="style switch" id="stylesheet-checkbox" type="checkbox">
-                        <span class="slider"></span>
-                    </label>
+            
+🎨 Stylesheet Swap: Switches the stylesheet between the standard to custom styling 
+-->
+        <div class="css-container">
+            <div class="notify-container active" id="swap-css">
+                <div>
+                    <h6>Toggle Stylesheet</h6>
+                    <p>Enables the original stylesheet</p>
                 </div>
-
-                <script>
-                    var Checkbox = document.getElementById("stylesheet-checkbox");
-                        
-                    Checkbox.addEventListener('click', (e) => {
-                        changeTheme(Checkbox.checked);
-                    })
-
-                </script>
+                <label class="switch">
+                    <input title="style switch" id="stylesheet-checkbox" type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
 
-            <!-- Navigation  (Not included in 'style.css') -->
+            <!-- 🎨 Theme Changing Event: When a user click the toggle, it will fire ("send a message") to the script in <head> -->
+            <script>
+                var Checkbox = document.getElementById("stylesheet-checkbox");
+                    
+                Checkbox.addEventListener('click', (e) => {
+                    changeTheme(Checkbox.checked);
+                })
+
+            </script>
+        </div>
+
+<!-- 
+    
+    
+📑 Navigation: Used to navigate between pages (includes both standard & mobile versions) 
+
+↓ Default Navigation Bar ↓ -->
             <nav class="blur active" id="top-nav">
                 <h1 id="default-header-title">Aiden's Portfolio</h1>
                 <a href="/index.html" id="manipulated-header"><div class="nav-header">
@@ -96,29 +91,12 @@
                 </ul>
             </nav>
 
-            <script>
-                var loadingScreen = document.getElementById('LoadingScreen')
-                var navBar = document.getElementById('top-nav');
-
-                document.onreadystatechange = () => {
-                    if (document.readyState === 'complete') {
-                        setTimeout(() => {
-                        loadingScreen.classList.add('complete');
-                        
-                        setTimeout(() => {
-                            loadingScreen.classList.add('disabled')
-                            
-                            setTimeout(() => {
-                                navBar.classList.remove('active')
-                            }, 400);
-                        }, 400)    
-
-                        }, 200);
-                    }
-                }
+            <script src="/scripts/loading-module.js">
+                // Why is this here?
+                // For my loading screen, I incorporate a navigation animation therefore I must also load the navigation content before I set the loading screen. 
             </script>
 
-            <!-- Implemented for mobile devices (Not included in 'style.css') -->
+            <!-- ↓ Mobile Navigation Center ↓ -->
             <div class="touch-nav-bar" id="osn-menu-btn">
                 <div class="menu-icon">
                     <div class="menu-line top"></div>
@@ -131,18 +109,6 @@
                 <li><h6>NAVIGATION (BETA)</h6></li>
                 <li class="nav-li"><a class="active_link" href="index.html">Home</a></li>
                 <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
-
-                <div class="notify-container active" id="swap-css">
-                    <div>
-                        <h6>Toggle Stylesheet</h6>
-                        <p>Enables the original stylesheet</p>
-                    </div>
-                    <label class="switch">
-                        <input title="style switch" id="stylesheet-checkbox" type="checkbox">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
                 <script>
                     
                     // Objects
@@ -207,7 +173,12 @@
                 </script>
             </div>
 
-             <!-- Notifications (Not included in 'style.css') -->
+<!-- 
+    
+    
+🔔 Notifications: On-screen notifications (not used). -->
+        
+
              <span class="notifications" id="notifications">
                 <div class="notify-container active" id="notify-template" style="display: none;">
                     <img src="/assets/icons/notification-icon.png" alt="notification-icon"> 
@@ -292,11 +263,19 @@
 
 
         
-    <!-- Page Content -->
+<!-- 
+    
+    
+📄 Page Content -->
+        
+
     <div id="all-contents">
 
-        <!-- Header (Not included in 'style.css') -->
-        <header>
+        <!-- 
+    
+    
+👋 Header: The first thing a user sees, includes mouse effect. -->
+       <header>
             <div class="cutout-container">
                 <img class="cutout-img" id="header_hover_object" alt="Aiden Melton" src="/assets/cutout-header-name.svg"/>
                 
@@ -306,7 +285,11 @@
             </div>
         </header>
 
-        <!-- Main Content -->
+        <!-- 
+    
+    
+📝 Main: Rest of the page's content. -->
+       
         <main>
 
             <!-- Sidebar Section -->
@@ -314,18 +297,28 @@
                 <img class="sidebar-img" src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
             </div>
 
-            <!-- Full Screen Image Container -->
-            <div class="fs-container" id="locked-frame1" transition-offset="400">
-                <span class="fs-img">
-                    <img class="scroll-responsive" UseParentData="2" src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
-                </span>
-                <div class="fs-details scroll-responsive" UseParentData="1" >
-                    <h1>Aiden Melton</h1>
-                    <h6>Photo Captured by <strong>Aiden Melton</strong></h6>
+<!-- 
+    
+    
+🖼️ Full Screen Photo: An interactive photo that manipulates as the user scrolls. -->
+       
+            <section class="fs-container" id="locked-frame1">
+                <div class="fs-sticky">
+                    <span class="fs-img">
+                        <img class="scroll-responsive" UseParentData="3" src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
+                    </span>
+                    <div class="fs-details scroll-responsive" UseParentData="2">
+                        <h1>Aiden Melton</h1>
+                        <h6>Photo Captured by <strong>Aiden Melton</strong></h6>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Content Section -->
+<!-- 
+    
+    
+➕ More Content -->
+       
             <div class="content">
 
                 <!-- Location -->
@@ -349,7 +342,12 @@
                     </ul>
                 </div>
 
-                <!-- Interests Section -->
+
+                <!-- 
+    
+    
+🕹️ Interests: A grid structure that displays three personal interests. -->
+       
                 <div id="Interests">
                     <h3>Interests</h3>
                     <p>Change window size to expand menu.</p>
@@ -361,7 +359,11 @@
                 </div>
             </div>
 
-            <!-- Footer -->
+<!-- 
+    
+    
+👋 Footer: End of page content. Consists primarly of return buttons and redirects. -->
+       
             <footer>
                 <div class="footer-contents">
                     <a href="/index.html">
@@ -376,8 +378,11 @@
                 </div>
             </footer>
 
-            <!-- Scripts -->
-            <script src="/scripts/on-scroll-effects.js"></script>
+<!-- 
+    
+    
+⚙️ Scripts: Where scripts for site functionality is called. -->    
+            <script src="/scripts/reveal-module.js"></script>
             <script src="/scripts/scroll-module.js"></script>
 
         </main>
