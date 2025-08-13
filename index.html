@@ -275,15 +275,48 @@ All of the code is handwritten with the exception of imported assets (like Googl
     
     
 👋 Header: The first thing a user sees, includes mouse effect. -->
-       <header>
+       
+
+        <header>
+            <div class="responsive-region">
+                <h1 id="dynamic-header">AIDEN</h1>
+                <h1>MELTON</h1>
+            </div>
+
+            <script>
+                var header = document.getElementById('dynamic-header')
+
+                function spanTextAcross() {
+                    // Ratios
+                    let widthRatio = window.innerWidth / header.scrollWidth;
+                    let heightRatio = window.innerHeight / header.scrollHeight;
+                    // Set Scale
+                    var scale = Math.min(widthRatio, heightRatio) * 100;
+
+                    
+                    // Update properties
+                    header.style.fontSize = scale + 'px';
+                    header.style.fontVariationSettings = '"wght" 800, "wdth" ' + scale + ' !important';
+                    console.log(header.style.fontSize, header.style.fontVariationSettings)
+                }
+
+                window.addEventListener('resize', spanTextAcross);
+                spanTextAcross();
+            </script>
+        </header>
+
+
+        <!--
+        LEGACY HEADER
+        <header>
             <div class="cutout-container">
                 <img class="cutout-img" id="header_hover_object" alt="Aiden Melton" src="/assets/cutout-header-name.svg"/>
                 
-                <!-- Cursor Reveal Effect -->
+                Cursor Reveal Effect 
                 <div class="header_cursor" id="header_cursor"></div>
                 <script src="/scripts/header-cursor.js"></script>
             </div>
-        </header>
+        </header> -->
 
         <!-- 
     

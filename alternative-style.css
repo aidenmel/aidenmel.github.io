@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 /* Roots */
 :root {
     --fonts: 'Poppins', Arial, Helvetica, sans-serif;
     --nav-height: 56px;
     --full-screen-height: calc(100vh - 64px);
-    --max-full-screen-height: 1200px;
+    --max-full-screen-height: 1080px;
     --default-transition: 250ms ease-out;
 
     /* Sizing */
@@ -16,6 +17,7 @@
 
     --primary: #f8f8f8;
     --secondary: #ffffff;
+    --black: #252525;
     --transparency-black: #25252580;
 }
 
@@ -368,15 +370,35 @@ span.tag {
 /* Header */
 header {
     background-color: #fff;
-    height: calc(90vh - 32px);
     padding: 32px 0;
-    padding-top: 48px;
-    max-height: 1200px;
-    overflow-x: hidden;
-    margin-left: -48px;
+
+    height: calc(100vh - 1.2rem);
+    max-height: var(--max-full-screen-height);
 }
 
-    /* Header Content */
+    .dm-sans.varFont {
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 242;
+        font-style: normal;
+    }
+
+
+    header .responsive-region h1 {
+        
+        color: var(--black);
+
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        /* font-variation-settings: "BASE" 500, "SPAC" 200, "wght" 322, "HEIG" 456; */
+        font-size: 25vw;
+        height: 50%;
+        
+    }
+
+
+
+/* 
     header .content {
         display: flex;
         justify-content: center;
@@ -395,7 +417,6 @@ header {
         z-index: 10001;
     }
 
-    /* Cursor Cutout */
     .cutout-container {
         background-color: #f4f4f4;
         height: 100%;
@@ -431,10 +452,6 @@ header {
             transform: translateX(0%);
         }
 
-        /* 1% {
-            background-color: #fff;
-        } */
-
         2% {
             background-color: #f4f4f4;
         }
@@ -466,7 +483,7 @@ header {
 
         z-index: 80;
         transition: 200ms;
-    }
+    } */
 
 /* Notifications */
 .notifications, .css-container {
