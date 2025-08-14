@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 
 /* Roots */
 :root {
@@ -376,24 +377,30 @@ header {
     max-height: var(--max-full-screen-height);
 }
 
-    .dm-sans.varFont {
-        font-family: "DM Sans", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 242;
-        font-style: normal;
+    .responsive-region { 
+        max-height: 95vh, var(--max-full-screen-height);
     }
-
 
     header .responsive-region h1 {
         
         color: var(--black);
-
-        font-family: "DM Sans", sans-serif;
-        font-optical-sizing: auto;
-        /* font-variation-settings: "BASE" 500, "SPAC" 200, "wght" 322, "HEIG" 456; */
-        font-size: 25vw;
-        height: 50%;
         
+        height: 50%;
+        background: red;
+        
+        font-family: "Roboto Flex", sans-serif;
+        font-optical-sizing: auto;
+        font-size: 0;
+/* 
+        height: 50%;
+        max-height: 40vh; */
+
+        /* line-height: 80%; */
+        
+    }
+
+    #dynamic-header2 {
+        background: blue !important;
     }
 
 

@@ -279,29 +279,47 @@ All of the code is handwritten with the exception of imported assets (like Googl
 
         <header>
             <div class="responsive-region">
-                <h1 id="dynamic-header">AIDEN</h1>
-                <h1>MELTON</h1>
+                <h1 id="dynamic-header1">SHORT</h1>
+                <h1 id="dynamic-header2">LONGER</h1>
             </div>
 
             <script>
-                var header = document.getElementById('dynamic-header')
 
-                function spanTextAcross() {
-                    // Ratios
-                    let widthRatio = window.innerWidth / header.scrollWidth;
-                    let heightRatio = window.innerHeight / header.scrollHeight;
-                    // Set Scale
-                    var scale = Math.min(widthRatio, heightRatio) * 100;
+                var topHeader = document.getElementById('dynamic-header1');
+                var bottomHeader = document.getElementById('dynamic-header2');
 
+                let targetSplitPercent = 50;
+                let currentSplitPercent = 50; // sets the starting position
+
+                window.addEventListener('mousemove', (e) => {
+                    var viewportHeight = window.innerHeight;
+                    var mouseY = e.clientY;
+                    targetSplitPercent = (mouseY / viewportHeight) * 100;
                     
-                    // Update properties
-                    header.style.fontSize = scale + 'px';
-                    header.style.fontVariationSettings = '"wght" 800, "wdth" ' + scale + ' !important';
-                    console.log(header.style.fontSize, header.style.fontVariationSettings)
-                }
+                    if (targetSplitPercent < 30){
+                        targetSplitPercent = 30;
+                    } else if (targetSplitPercent > 70){
+                        targetSplitPercent = 70;
+                    }
 
-                window.addEventListener('resize', spanTextAcross);
-                spanTextAcross();
+
+                    // Manipulate heights
+                    topHeader.style.height = targetSplitPercent + "%"; 
+                    bottomHeader.style.height = (100 - targetSplitPercent) + "%"
+                    
+                    // Manipulate variable fonts
+                    
+                    topHeader.style.fontSize = (topHeader.clientHeight) + 'px'; 
+                    topHeader.style.fontVariationSettings = `"wdth" 25, "wght" 500, "XOPQ" = 150 ` ;
+
+                    bottomHeader.style.fontSize = (bottomHeader.clientHeight) + 'px'; 
+
+                    // Debug
+                    console.log(topHeader, bottomHeader);
+                })
+
+
+                
             </script>
         </header>
 
