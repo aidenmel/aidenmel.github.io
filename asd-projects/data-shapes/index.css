@@ -1,29 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+/* Variables */
+:root {
+  
+  /* Color Pallete */
+  --black: #000;
+  --green: #3adb5d;
+  --soft-green: #031607;
+}
+
+body {
+  font-family: "Source Code Pro", monospace;
+  font-size: 16px;
+  background: var(--black);
+  color: var(--green);
+  margin: 0;
+}
+
+/* Text Styles */
+h1 {
+  margin: 0; 
+}
+
+h2 {
+  font-size: 2.4em;
+  font-weight: 300;
+  height: auto;
+  margin: 0;
+}
+
+h6 {
+  text-transform: uppercase;
+  font-size: .7em;
+  margin: 0;
+}
+
+button {
+  width: 100%;
+  height: auto;
+
+  background: var(--soft-green);
+  border: var(--green) dashed 2px;
+  color: var(--green);
+
+  font-family: "Source Code Pro", monospace;
+  font-weight: 600;
+  font-size: 1.2em;
+
+  border-radius: 8px;
+  text-align: left;
+  padding-left: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 48px;
+}
+
+  button:hover {
+    padding-right: 12px;
+    padding-left: 48px;
+    cursor: pointer;
+  }
+
+/* Containers */
 #board {
-  width: 400px;
-  margin: auto;
-  border: silver ridge 4px;
-}
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
 
-#info-bar {
-  width: 400px;
-  height: 40px;
-  background: lightgray;
-  font-size: 40px;
-  text-align: center;
-}
-
-#shape-container {
-  width: 400px;
-  height: 400px;
-  background: black;
-  border-top: silver ridge 4px;
-  border-bottom: silver ridge 4px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
 }
 
 #button-box {
-  width: 400px;
-  height: 40px;
-  background: darkgray;
+  max-width: 256px;
+  margin-top: 8px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+  flex-direction: column;
+}
+
+aside {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#info-box {
+  border-left: var(--green) 2px solid;
+  height: auto;
+  padding: 4px 12px;
+}
+
+#shape-container {
+  width: 600px;
+  height: 400px;
+  background: var(--soft-green);
+  border: var(--green) 2px solid;
+  border-radius: 8px;
 }
 
 #shape {
@@ -37,14 +119,17 @@
   display: block;
 }
 
-button {
-  width: auto;
-  height: auto;
-  margin: auto;
-  margin-top: 10px;
-  margin-left: 9px;
-}
-
 p {
   margin: 5px;
+}
+
+/* Mobile Configuration */
+@media only screen and (max-width: 800px) {
+
+  #board {
+    flex-direction: column-reverse;
+  }
+
+  
+
 }

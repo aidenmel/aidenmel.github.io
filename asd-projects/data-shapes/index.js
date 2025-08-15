@@ -170,7 +170,7 @@ $(document).ready(function () {
       `<p>${shapeData.color}</p> <p>${shapeData.shape}</p> <p>${shapeData.repeat}x${shapeData.repeat}</p> <p>${shapeData.goodBehavior}</p>`
     );
 
-    $("#info-bar").text(`Current index: ${currentIndex}`);
+    $("#info-bar").text(`${currentIndex}`);
 
     // Reset the JavaScript Data
     animationDetails = {
@@ -284,4 +284,50 @@ $(document).ready(function () {
     animationDetails.angle += 4;
     $("#shape").css("transform", `rotate(${animationDetails.angle}deg)`);
   }
+
+  // Text scrambling
+  var ScrambledDirectory = 'ABCDEFGHIJKLMNOP!@#$%^&*';
+  function scrambleText(element, targetString){
+    var currentIndex = 0;
+    var interval;
+    var splitString = targetString.split('');
+
+    const unscrambleString = () => {
+      var scrambledString = "";
+
+      for (var i = 0; i < splitString.length; i++){
+        if (i < currentIndex){
+          scrambledString += splitString[i];
+        } else {
+          scrambledString += ScrambledDirectory.charAt(Math.floor(Math.random() * ScrambledDirectory.length));
+        }
+      }
+
+      element.textContent = scrambledString;
+    
+      if (currentIndex < targetString.length){
+        currentIndex++;
+      } else {
+        clearInterval(interval)
+      }
+    }
+
+    console.log(element, targetString)
+    interval = setInterval(unscrambleString, 40);
+  }
+
+  // Scramble Title
+  scrambleText(document.getElementById('title'), 'Data Shapes')
+
+  // Scramble Buttons on Hover
+  var buttons = document.getElementsByClassName('animated-button');
+
+  for (var button in buttons){
+    var originalText = buttons[button].innerText
+
+    buttons[button].addEventListener('mouseover', (e) => {
+      scrambleText(buttons[button], toString(originalText))
+    })
+  }
+
 });

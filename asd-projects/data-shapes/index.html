@@ -10,16 +10,22 @@
   </head>
   <body>
     <div id="board">
-      <div id="info-bar">Current index: 0</div>
+      <aside>
+        <h1 id="title">Data Shapes</h1>
+        <div id="info-box">
+          <h6>Current Index</h6>
+          <h2 id="info-bar">0</h2>
+        </div>
+        <div id="button-box">
+          <button class="animated-button" id="cycle-left">Prev</button>
+          <button class="animated-button" id="cycle-right">Next</button>
+          <button class="animated-button" id="execute1">Display</button>
+          <button class="animated-button" id="execute2">Display Good</button>
+          <button class="animated-button" id="execute3">Display Bad</button>
+        </div>
+      </aside>
       <div id="shape-container">
         <div id="shape"></div>
-      </div>
-      <div id="button-box">
-        <button id="cycle-left">Prev</button>
-        <button id="cycle-right">Next</button>
-        <button id="execute1">Display</button>
-        <button id="execute2">Display Good</button>
-        <button id="execute3">Display Bad</button>
       </div>
     </div>
   </body>
