@@ -313,7 +313,7 @@ $(document).ready(function () {
     }
 
     console.log(element, targetString)
-    interval = setInterval(unscrambleString, 40);
+    interval = setInterval(unscrambleString, 60);
   }
 
   // Scramble Title
@@ -323,10 +323,16 @@ $(document).ready(function () {
   var buttons = document.getElementsByClassName('animated-button');
 
   for (var button in buttons){
-    var originalText = buttons[button].innerText
+    let Button = buttons[button]
+    var originalText = buttons[button].textContent
+    var hoverActive = false;
+    buttons[button]['org-string'] = originalText;
 
-    buttons[button].addEventListener('mouseover', (e) => {
-      scrambleText(buttons[button], toString(originalText))
+    buttons[button].addEventListener('mouseover', function() {
+      if (hoverActive === false){
+        hoverActive = true;
+        scrambleText(Button, Button['org-string'])
+      }
     })
   }
 

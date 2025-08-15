@@ -39,6 +39,8 @@ button {
   width: 100%;
   height: auto;
 
+  white-space: nowrap;
+
   background: var(--soft-green);
   border: var(--green) dashed 2px;
   color: var(--green);
@@ -127,9 +129,44 @@ p {
 @media only screen and (max-width: 800px) {
 
   #board {
+    display: flex;
+    justify-content:space-around;
+    align-items: flex-start;
     flex-direction: column-reverse;
+
+    width: 100vw;
+    height: 100vh;
+    
+    padding: 32px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    transform: translate(0,0);
+    -webkit-transform: translate(0,0);
   }
 
-  
+  #button-box {
+    flex-direction: row;
+    overflow-x: scroll;
+    width: 100vw;
+  }
+
+  #shape-container {
+    width: calc(100vw - 64px);
+    height: calc(100% -64px);
+    position: relative;
+    top: 0;
+
+  }
+
+  button {
+    height: 100%;
+  }
+
+  aside {
+    width: 100%;
+  }
 
 }
