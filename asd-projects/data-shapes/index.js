@@ -318,20 +318,28 @@ $(document).ready(function () {
 
   // Scramble Title
   scrambleText(document.getElementById('title'), 'Data Shapes')
+  scrambleText(document.getElementById('mobile-title'), 'Data Shapes')
 
   // Scramble Buttons on Hover
   var buttons = document.getElementsByClassName('animated-button');
 
-  for (var button in buttons){
-    let Button = buttons[button]
-    var originalText = buttons[button].textContent
+  for (const Button of buttons){
     var hoverActive = false;
-    buttons[button]['org-string'] = originalText;
 
-    buttons[button].addEventListener('mouseover', function() {
+    var originalText = Button.textContent
+    Button['org-string'] = originalText;
+
+    Button.addEventListener('click', function() {
       if (hoverActive === false){
         hoverActive = true;
         scrambleText(Button, Button['org-string'])
+
+        var splitString = Button['org-string'].split('');
+
+
+        setTimeout(() => {
+          hoverActive = false;
+        }, splitString.length * 60);
       }
     })
   }

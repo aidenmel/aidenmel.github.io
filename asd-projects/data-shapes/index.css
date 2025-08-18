@@ -24,6 +24,10 @@ h1 {
   margin: 0; 
 }
 
+  h1.mobile {
+    display: none;
+  }
+
 h2 {
   font-size: 2.4em;
   font-weight: 300;
@@ -135,30 +139,45 @@ p {
 /* Mobile Configuration */
 @media only screen and (max-width: 800px) {
 
+  h1 {
+    display: none;
+  }
+
+  h1#mobile-title {
+    display: block !important;
+  }
+
   #board {
     display: flex;
-    justify-content:space-around;
+    justify-content:center;
     align-items: flex-start;
     flex-direction: column-reverse;
 
-    width: 100vw;
-    height: 100vh;
+    gap: 12px;
+    width: calc(100vw - 64px);
+    height: calc(100vh - 64px) !important;
+    max-height: none;
     
+    overflow: hidden;
+
     padding: 32px;
 
     position: absolute;
     top: 0;
     left: 0;
+    margin: 0;
     
     transform: translate(0,0);
     -webkit-transform: translate(0,0);
   }
 
   #button-box {
+    width: 100%;
     max-width: 100vw;
+
     flex-direction: row;
-    overflow-x: scroll;
-    width: 100vw;
+    /* overflow-x: scroll; */
+    flex-wrap: wrap;
   }
 
   #shape-container {
@@ -170,7 +189,8 @@ p {
   }
 
   button {
-    height: 100%;
+    /* height: 100%; */
+    width: auto;
   }
 
   aside {
