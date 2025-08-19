@@ -171,6 +171,7 @@ $(document).ready(function () {
     );
 
     $("#info-bar").text(`${currentIndex}`);
+    $("#mobile-info-bar").text(`${currentIndex}`)
 
     // Reset the JavaScript Data
     animationDetails = {
@@ -320,12 +321,20 @@ $(document).ready(function () {
   scrambleText(document.getElementById('title'), 'Data Shapes')
   scrambleText(document.getElementById('mobile-title'), 'Data Shapes')
 
-  // Scramble Buttons on Hover
+  // Button Functions
   var buttons = document.getElementsByClassName('animated-button');
+  var buttonIndex = 0;
 
   for (const Button of buttons){
     var hoverActive = false;
 
+    // Enable buttons
+    setTimeout(() => {
+      Button.classList.add('active')
+    }, buttonIndex * 50);
+    buttonIndex++;
+
+    // Scramble if clicked
     var originalText = Button.textContent
     Button['org-string'] = originalText;
 
@@ -344,4 +353,5 @@ $(document).ready(function () {
     })
   }
 
+  
 });
