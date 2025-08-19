@@ -386,11 +386,12 @@ header {
         color: var(--black);
         
         height: 50%;
-        background: red;
         
         font-family: "Roboto Flex", sans-serif;
         font-optical-sizing: auto;
         font-size: 0;
+        margin: 0;
+
 /* 
         height: 50%;
         max-height: 40vh; */
@@ -399,8 +400,11 @@ header {
         
     }
 
+    #dynamic-header1 path, #dynamic-header2 path {
+        fill: var(--black) !important;
+    }
+
     #dynamic-header2 {
-        background: blue !important;
     }
 
 
