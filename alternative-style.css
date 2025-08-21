@@ -76,9 +76,9 @@ span.tag {
 
         border-radius: 120px;
         color: var(--default-white);
-        border: 2px solid #ffffff50;
+        border: 2px solid #ffffff0c;
 
-        z-index: 999;
+        z-index: 10;
         backdrop-filter: blur(16px) saturate(120%);
         -webkit-backdrop-filter: blur(16px) saturate(120%);
     }
@@ -335,7 +335,6 @@ span.tag {
     .nav-logo  {
         width: 32px;
         height: 32px;
-        margin-top: 6px;
         margin-right: -24px;
     }
 
