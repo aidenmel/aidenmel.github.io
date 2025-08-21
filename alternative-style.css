@@ -2,7 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 
-/* Roots */
+/* 
+
+    0. VARIABLES
+
+*/
+
 :root {
     --fonts: 'Poppins', Arial, Helvetica, sans-serif;
     --nav-height: 56px;
@@ -15,42 +20,102 @@
     --container-max-width: 1600px;
 
     /* Color Pallete */
-
     --primary: #f8f8f8;
     --secondary: #ffffff;
     --black: #252525;
-    --transparency-black: #25252580;
+    --transparency-black: #25252550;
+
+    /* Misc */
+    --border: 2px solid #ffffff25;
+    --bezier-curve: cubic-bezier(.11,.89,.41,1.36);
 }
 
-/* Body */
-body {
-    font-family: var(--fonts);
-    background: var(--primary);
-    margin: 0;
-    color: #252525;
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-}
+/* 
+
+    1. ESSENTIALS
+
+*/
 
 * {
     scroll-behavior: smooth;
 }
 
-/* Text Styles */
+body {
+    background: var(--primary);
+    margin: 0;
+    
+    font-family: var(--fonts);
+    font-size: 16px;
+    color: #252525;
+
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* 
+
+    2. TEXT STYLES
+
+*/
+
 h1 {
-    color: #fff;
+    color: var(--secondary);
     margin: 0;
 }
 
-span.tag {
-    background-color: #00000075;
-    color: #fff;
-    border-radius: 8px;
-    padding: 0 8px;
-    font-size: .8rem;
-    margin-left: 8px;
-    padding-top: 1px;
+h2 {
+    color: var(--black);
+    font-size: 2.4rem;
+    margin: 0;
+    line-height: 2.4rem;
 }
+
+h3 {
+    color: var(--secondary);
+    font-size: .8rem;
+    margin: 0;
+    line-height: 1rem;
+}
+
+    span.tag {
+        background-color: #00000075;
+        color: #fff;
+        border-radius: 8px;
+        padding: 0 8px;
+        font-size: .8rem;
+        margin-left: 8px;
+        padding-top: 1px;
+    }
+
+/* 
+
+    3. CONTAINERS
+
+*/
+
+/* 
+
+    4. CONTENT & IMAGES
+
+*/
+
+.thumbnails img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* 
+
+    5. PROPERTIES
+
+*/
+
+.full-page {
+    height: 95vh;
+}
+
+
 
 /* Navigation */
 
@@ -72,11 +137,11 @@ span.tag {
         width: auto;
 
         height: var(--nav-height);
-        padding: 0 12px 0 24px;
+        padding: 0 8px 0 20px;
 
         border-radius: 120px;
         color: var(--default-white);
-        border: 2px solid #ffffff0c;
+        border: var(--border);
 
         z-index: 10;
         backdrop-filter: blur(16px) saturate(120%);
@@ -84,8 +149,8 @@ span.tag {
     }
 
     nav.blur {
-        transition: all 400ms ease-out;
-        -webkit-transition: all 400ms ease-out;
+        transition: all 400ms var(--bezier-curve);
+        -webkit-transition: all 400ms var(--bezier-curve);
         opacity: 1;
     }
 
@@ -93,6 +158,7 @@ span.tag {
         margin-top: -16px;
         filter: blur(8px);
         -webkit-filter: blur(8px);
+        padding: 0 12px 0 24px;
         opacity: 0;
      }
 
@@ -116,10 +182,10 @@ span.tag {
         transition: 400ms ease-out;
     }
 
-    nav li:hover {
-        cursor: pointer;
-        background: #ffffff20;
-    }
+        nav li:hover {
+            cursor: pointer;
+            background: #ffffff20;
+        }
 
 
     /* Touch-Navigation Bar */
@@ -132,7 +198,7 @@ span.tag {
         width: 64px;
         height: 64px;
         
-        border: 2px solid #ffffff50;
+        border: var(--border);
 
         aspect-ratio: 1/1;
 
@@ -369,10 +435,8 @@ span.tag {
 
 /* Header */
 header {
-    background-color: #fff;
-    padding: 32px 0;
-
-    height: calc(100vh - 1.2rem);
+    background-color: var(--secondary);
+    height: calc(95vh - 1.2rem);
     max-height: var(--max-full-screen-height);
 }
 
@@ -446,9 +510,9 @@ header {
 .notify-container {
     background: var(--transparency-black);
     color: var(--default-white);
-    border: 2px solid #ffffff50;
+    border: var(--border);
 
-    border-radius: 16px;
+    border-radius: 36px;
     backdrop-filter: blur(16px) saturate(120%);
     -webkit-backdrop-filter: blur(16px) saturate(120%);
 
@@ -456,7 +520,7 @@ header {
     align-items: center;
     justify-content: center;
 
-    padding: 12px 16px 12px 16px;
+    padding: 12px 24px;
     width: auto;
     transition: 350ms ease-out;
 
@@ -656,6 +720,14 @@ header {
         font-size: 32px;
     }
 
+/* Containers */
+.side-by-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-content: center;
+
+}
+
 /* Notices */
 .notice {
     margin-top: 64px;
@@ -812,21 +884,26 @@ main .content {
 /* CSS Changer */
 .css-container {
     justify-content: space-around;
-    z-index: 10000;
-    margin-left: 16px;
-    max-width: 250px;
+    z-index: 10;
+    margin-left: 24px;
+    width: auto;
+    max-width: 280px;
 }
 
-.css-container p {
-    margin-top: 0;
-}
+    .css-container p {
+        margin-top: 0;
+    }
+
+    .css-container div {
+        max-width: 192px;
+    }
 
     /* Switch */
     .switch {
-        z-index: 100000;
+        z-index: 10;
         display: inline-block;
         position: relative;
-        width: 62px;
+        width: 64px;
         height: 34px;
     }
 

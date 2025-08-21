@@ -52,9 +52,9 @@ All of the code is handwritten with the exception of imported assets (like Googl
         <div class="css-container">
             <div class="notify-container active" id="swap-css">
                 <div>
-                    <h6>Toggle Stylesheet</h6>
-                    <p>Enables the original stylesheet</p>
-                </div>
+                    <h3>Remove Stylesheet</h3>
+                    <p>See how styling can make a difference.</p>
+                </div> 
                 <label class="switch">
                     <input title="style switch" id="stylesheet-checkbox" type="checkbox">
                     <span class="slider"></span>
@@ -172,111 +172,15 @@ All of the code is handwritten with the exception of imported assets (like Googl
                     }
                 </script>
             </div>
-
-<!-- 
     
     
-🔔 Notifications: On-screen notifications (not used). -->
+<!-- 📄 Page Content -->
         
 
-             <span class="notifications" id="notifications">
-                <div class="notify-container active" id="notify-template" style="display: none;">
-                    <img src="/assets/icons/notification-icon.png" alt="notification-icon"> 
-                    <div class="prompt-content">
-                        <h6>Null</h6>
-                        <p>This is a test notification.</p>
-                    </div>
-                </div>
+    <article id="all-contents">
 
-                <script type="text/javascript">
-                    var notificationTemplate = document.getElementById("notify-template");
-                    var notificationContainer = document.getElementById('notifications')
-                    // setTimeout(showNotification(true), 10000);
-
-                    // test_notification.addEventListener('click', (e) => {
-                    //     showNotification(false);
-                    // });
-
-                    function showNotification(boolean) {
-                        if (boolean == true){
-                            test_notification.classList.add('active');
-                        } else {
-                            test_notification.classList.remove('active');
-                        }
-                    }
-
-                    // Notifications
-                    function notify(title, desc, elapsedTime){
-                        
-                        // Variables
-                        var newNotification = notificationTemplate.cloneNode(true);
-                        var notificationContent = notificationTemplate.childNodes[1];
-                        
-                        // Append and remove Id
-                        notificationContainer.appendChild(newNotification);
-                        newNotification.removeAttribute('id');
-
-                        // Clear previous prompt
-                        // while(notificationContent.childNodes[0]){
-                        //     notificationContent.removeChild(notificationContent.firstChild)
-                        // }
-
-                        // Create new prompt
-                        if (title){
-                            var prompt_title = document.createElement('h6')
-                            prompt_title.innerHTML = title;
-                            notificationContent.appendChild(prompt_title)
-                        }
-
-                        // Description
-                        if (desc){
-                            var prompt_desc = document.createElement('p');
-                            prompt_desc.innerHTML = desc;
-                            notificationContent.appendChild(prompt_desc)
-                        }
-
-                        // Execute Notification
-                        newNotification.style.display = 'block'
-
-                        // Delay by 10 miliseconds to avoid a buggy look
-                        setTimeout(() => {
-                            newNotification.classList.add('active');
-                        }, 10);
-
-                        // Remove if time is set
-                        if (elapsedTime !== null){
-                            setTimeout(() => {
-                                newNotification.classList.remove('notify-active');
-
-                                setTimeout(() => {
-                                    newNotification.innerHTML = ""
-                                    newNotification.remove()
-                                }, 251);
-                            }, (elapsedTime * 1000))
-                        }  NewNotification = test
-                    }
-
-
-                    // notify('test', 'ok there is nothing', 2500)
-                </script>
-            </span>
-
-
-        
-<!-- 
-    
-    
-📄 Page Content -->
-        
-
-    <div id="all-contents">
-
-        <!-- 
-    
-    
-👋 Header: The first thing a user sees, includes mouse effect. -->
+        <!-- 👋 Header: The first thing a user sets their eyes on. -->
        
-
         <header>
             <div class="responsive-region">
                 <!-- Cursor Reveal Effect  -->
@@ -333,41 +237,38 @@ All of the code is handwritten with the exception of imported assets (like Googl
                 bottomHeader.setAttribute('width', bottomHeader.parentElement.clientWidth);
             })
 
-                
+                topHeader.style.height = "40%"; 
+                bottomHeader.style.height =  "60%"
+                topHeader.setAttribute('width', topHeader.parentElement.clientWidth);
+                bottomHeader.setAttribute('width', bottomHeader.parentElement.clientWidth);
             </script>
         </header>
     
     
-<!-- 📝 Main: Rest of the page's content. -->
+    <!-- 📝 Main: Rest of the page's content. -->
        
-        <main>
+    <main>
 
-            <!-- Sidebar Section -->
-            <div class="sidebar">
-                <img class="sidebar-img" src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
-            </div>
+        <!-- Sidebar Section -->
+        <div class="sidebar">
+            <img class="sidebar-img" src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
+        </div>
 
-<!-- 
-    
-    
-🖼️ Full Screen Photo: An interactive photo that manipulates as the user scrolls. -->
+        <!-- 🖼️ Full Screen Photo: An interactive photo that manipulates as the user scrolls. -->
        
-            <section class="fs-container" id="locked-frame1">
-                <div class="fs-sticky">
-                    <span class="fs-img">
-                        <img class="scroll-responsive" UseParentData="3" src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
-                    </span>
-                    <div class="fs-details scroll-responsive" UseParentData="2">
-                        <h1>Aiden Melton</h1>
-                        <h6>Photo Captured by <strong>Aiden Melton</strong></h6>
-                    </div>
+        <section class="fs-container" id="locked-frame1">
+            <div class="fs-sticky">
+                <span class="fs-img">
+                    <img class="scroll-responsive" UseParentData="3" src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
+                </span>
+                <div class="fs-details scroll-responsive" UseParentData="2">
+                    <h1>Hi, I'm Aiden</h1>
+                    <h6>An inspiring software engineer.</h6>
                 </div>
-            </section>
+            </div>
+        </section>
 
-<!-- 
-    
-    
-➕ More Content -->
+<!-- ➕ More Content -->
        
             <div class="content">
 
@@ -378,11 +279,22 @@ All of the code is handwritten with the exception of imported assets (like Googl
                 </div>
 
                 <!-- Location -->
-                <div id="Location">
+                <div style="display: none;" id="on-campus" class="side-by-container full-page">
+                    <aside class="details">
+                        <h2>Life On Campus</h2>
+                        <h6>"Once a lion, always a lion"</h6>
+                        <p>When I am campus at Covington High School.</p>
+                    </aisde>
+                    <div class="thumbnails">
+                        <img src="./assets/thumbnails/ava-stage-photo.jpeg">
+                    </div>
+                </div>
+
+                <div class="display: none;" id="Location">
                     <ul>
                         <li class="details">
-                            <h3>Location</h3>
-                                <p>A student who attends Covington High School</p>
+                            <h2 style="margin-top: 8px;">On-Campus</h2>
+                                <p>"One a lion, always a lion" when I am on campus at Covington High School.</p>
                         </li>
                         <li class="map">
                             <!-- <div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Covington%20High%20School.%2073030%20Lion%20Drive.%20Covington.%20LA+(Covington%20High%20School)&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.maps.ie/population/">Population mapping</a></iframe></div> -->
@@ -399,7 +311,7 @@ All of the code is handwritten with the exception of imported assets (like Googl
 🕹️ Interests: A grid structure that displays three personal interests. -->
        
                 <div id="Interests">
-                    <h3>Interests</h3>
+                    <h2>Interests</h2>
                     <p>Change window size to expand menu.</p>
                     <ul>
                         <li class="transition"><img src="https://daily.jstor.org/wp-content/uploads/2023/01/good_times_with_bad_music_1050x700.jpg" /><span>Music</span></li>
@@ -436,6 +348,6 @@ All of the code is handwritten with the exception of imported assets (like Googl
             <script src="/scripts/scroll-module.js"></script>
 
         </main>
-        </div>
+    </article>
     </body>
 </html>
