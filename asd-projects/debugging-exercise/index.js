@@ -70,6 +70,8 @@ function makeGhost(id) {
   ];
   ghost.color = colors[Math.floor(Math.random() * colors.length)];
 
+  // If mouse enters, make ghost appear briefly
+
   return ghost;
 }
 
@@ -133,6 +135,16 @@ function moveGhost(ghost) {
   ghost.y += ghost.speedY;
 }
 
+// Determine whether ghost is within a circle radius
+var cursorX = 0;
+var cursorY = 0;
+
+function insideCircle(ghost){
+  var distanceSquared = Math.pow(pointX - centerX, 2) + Math.pow(pointY - centerY, 2);
+  var radiusSquared = Math.pow(radius, 2);
+  return distanceSquared <= radiusSquared;
+}
+
 // this bounces ghosts if they hit a wall
 function bounceGhost(ghost) {
   // this bounces off the left wall
@@ -164,13 +176,14 @@ function updateGhostOnScreen(ghost) {
   // these lines redraw the ghost's position
   $(ghost.id).css("left", ghost.x);
   $(ghost.id).css("top", ghost.y);
+  $(ghost.id).css('opacity', '5%');
 
   // these lines add a glow around the ghost
   $(ghost.id).css("transition", "left 0.2s linear, top 0.2s linear, filter 0.2s");
-  $(ghost.id).css(
-    "filter",
-    `drop-shadow(0 0 4px #fff) drop-shadow(0 0 8px ${ghost.color}) drop-shadow(0 0 12px ${ghost.color})`
-  );
+  // $(ghost.id).css(
+  //   "filter",
+  //   `drop-shadow(0 0 4px #fff) drop-shadow(0 0 8px ${ghost.color}) drop-shadow(0 0 12px ${ghost.color})`
+  // );
   
 }
 
@@ -214,7 +227,7 @@ function startProgram() {
     transform: "translate(-50%, -50%)",
     color: "red",
     "font-weight": "bold",
-    "font-size": "5em",
+    "font-size": "3em",
     "text-align": "center",
     "z-index": 9999,
     "pointer-events": "none",
@@ -226,12 +239,12 @@ function startProgram() {
   $countdown.appendTo($board);
 
   var countdownSeconds = initialDelay / 1000;
-  $countdown.text("Starting in: " + countdownSeconds);
+  $countdown.text("Prepare your hunt...");
 
   var countdownInterval = setInterval(function () {
     countdownSeconds--;
     if (countdownSeconds > 0) {
-      $countdown.text("Starting in: " + countdownSeconds);
+      $countdown.text(countdownSeconds);
     } else {
       $countdown.text("Go!");
       clearInterval(countdownInterval);
@@ -247,3 +260,33 @@ function startProgram() {
 }
 
 });
+
+
+// Effects
+// function shakeScreen(){
+//  $board.
+// }
+
+// Cursor
+var cursor = document.getElementById('cursor');
+var timeout;
+
+function toggleFlashlight(){
+  if (cursor.classList.contains('active') === true){
+    cursor.classList.remove('active');
+  } else {
+    cursor.classList.add('active')
+  }
+}
+
+window.addEventListener('mousemove', (e) => {
+  clearTimeout(timeout);
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+
+  timeout = setTimeout(() => {
+    cursor.classList.remove('active')
+  }, 2000);
+})
+
+window.addEventListener('click', toggleFlashlight)

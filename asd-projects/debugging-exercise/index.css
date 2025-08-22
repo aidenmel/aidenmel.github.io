@@ -1,7 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Schoolbell&display=swap');
+* {
+  cursor: none;
+}
+
+body {
+  font-family: "Rubik Wet Paint", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+
+  margin: 0;
+  overflow: hidden;
+  background: black;
+}
+
+h6 {
+  position: absolute;
+  bottom: 16px;
+
+  font-family: "Schoolbell", cursive;
+  font-size: .8rem;
+  color: #6e6e6e;
+  z-index: 2;
+  text-align: center;
+  width: 100vw;
+}
+
 #board {
   background: black;
-  width: 650px;
-  height: 525px;
+  width: 100vw;
+  height: 100vh;
   left: 0px;
   top: 0px;
 }
@@ -11,4 +40,37 @@
   height: 50px;
   z-index: 100;
   position: absolute;
+  opacity: 5%;
+  background: red;
 }
+
+  .ghost:hover {
+    opacity: 0;
+  }
+
+#cursor {
+  box-shadow: 0 0 8px 32px #fffef7;
+  background-color: #fffef7;
+
+  position: absolute;
+  z-index: 2;
+
+  left: 25vw;
+  top: 25vh;
+
+  width: 128px;
+  height: 128px;
+
+  opacity: 0;
+
+  border-radius: 100%;
+
+  pointer-events: none;
+
+  transition: opacity 150ms ease-out;
+  -webkit-transition: opacity 150ms ease-out;
+}
+
+  #cursor.active {
+    opacity: .2;
+  }
