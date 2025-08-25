@@ -136,14 +136,7 @@ function moveGhost(ghost) {
 }
 
 // Determine whether ghost is within a circle radius
-var cursorX = 0;
-var cursorY = 0;
-
-function insideCircle(ghost){
-  var distanceSquared = Math.pow(pointX - centerX, 2) + Math.pow(pointY - centerY, 2);
-  var radiusSquared = Math.pow(radius, 2);
-  return distanceSquared <= radiusSquared;
-}
+var flashlightPos;
 
 // this bounces ghosts if they hit a wall
 function bounceGhost(ghost) {
@@ -169,9 +162,11 @@ function bounceGhost(ghost) {
   }
 }
 
+
+var cursor = document.getElementById('cursor'); // This will help dictate the location of the cursor
+
 // this redraws the ghost's position on the screen
-function updateGhostOnScreen(ghost) {
-  // maxGhosts = 0;
+function updateGhostOnScreen(ghost, flashlightPos) {
 
   // these lines redraw the ghost's position
   $(ghost.id).css("left", ghost.x);
@@ -180,11 +175,31 @@ function updateGhostOnScreen(ghost) {
 
   // these lines add a glow around the ghost
   $(ghost.id).css("transition", "left 0.2s linear, top 0.2s linear, filter 0.2s");
-  // $(ghost.id).css(
-  //   "filter",
-  //   `drop-shadow(0 0 4px #fff) drop-shadow(0 0 8px ${ghost.color}) drop-shadow(0 0 12px ${ghost.color})`
-  // );
   
+  // If ghost is in a certain region, appear
+  var flashlight = cursor.getBoundingClientRect();
+  var flashlightPos = {
+    x: flashlight.left,
+    y: flashlight.top,
+  }
+
+  if (ghost.x > (flashlightPos.x + 24) && ghost.x < (flashlightPos.x + 104) && ghost.y < (flashlightPos.y + 24) && ghost.y > (flashlightPos.y - 104)){
+    
+    console.log(ghost.x, flashlightPos.x)
+    console.log('y', ghost.y, flashlight.y)
+    $(ghost.id).css(
+      "filter",
+      `drop-shadow(0 0 4px #fff) drop-shadow(0 0 8px ${ghost.color}) drop-shadow(0 0 12px ${ghost.color})`
+    );
+    
+    $(ghost.id).css('opacity', '100%');
+  } else {
+    $(ghost.id).css(
+      "filter",
+      `drop-shadow(0 0 4px #ffffff00) drop-shadow(0 0 8px #ffffff00) drop-shadow(0 0 12px #ffffff00)`
+    );
+    $(ghost.id).css('opacity', '5%');
+  }
 }
 
 ////////////////////////////////////////////
@@ -268,7 +283,6 @@ function startProgram() {
 // }
 
 // Cursor
-var cursor = document.getElementById('cursor');
 var timeout;
 
 function toggleFlashlight(){
@@ -280,7 +294,9 @@ function toggleFlashlight(){
 }
 
 window.addEventListener('mousemove', (e) => {
+  flashlightPos = e;
   clearTimeout(timeout);
+
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
 
