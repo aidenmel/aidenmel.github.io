@@ -9,16 +9,14 @@ var navBar = document.getElementById('top-nav');
 document.onreadystatechange = () => {
     if (document.readyState === 'complete') {
         setTimeout(() => {
-        loadingScreen.classList.add('complete');
-        
-        setTimeout(() => {
-            loadingScreen.classList.add('disabled')
+            // Fade & complete
+            loadingScreen.classList.add('complete');
             
+            // Set display to none
             setTimeout(() => {
+                loadingScreen.style = "display: none !important;";
                 navBar.classList.remove('active')
-            }, 400);
-        }, 400)    
-
+            }, 400)    
         }, 200);
     }
 }

@@ -1203,10 +1203,6 @@ main .content {
     opacity: 0;
 }
 
-#LoadingScreen.disabled {
-    display: none;
-}
-
 #LoadingScreen .loadingBlock {
     background-color: #141414;
     width: 48px;
