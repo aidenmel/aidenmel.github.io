@@ -2,7 +2,7 @@
 // Covers the screen with a container until the site has loaded completely.
 
 // Variables
-var loadingScreen = document.getElementById('LoadingScreen')
+var loadingScreen = document.getElementById('LoadingScreen');
 var navBar = document.getElementById('top-nav');
 
 // Events
