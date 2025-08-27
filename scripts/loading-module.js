@@ -15,7 +15,7 @@ document.onreadystatechange = () => {
             // Set display to none
             setTimeout(() => {
                 loadingScreen.style = "display: none !important;";
-                navBar.classList.remove('active')
+                navBar.classList.remove('hide')
             }, 400)    
         }, 200);
     }

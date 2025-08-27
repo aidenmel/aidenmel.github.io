@@ -178,7 +178,6 @@ h2, h3 {
     flex-direction: column;
     justify-content: space-around;
     margin-left: 16px;
-    max-width: 250px;
 
     transition: 400ms ease-out;
 }
@@ -194,6 +193,10 @@ h2, h3 {
     margin: 2px;
 }
 
+.css-container h3 {
+    font-size: 1.2em;
+}
+
 .css-container p {
     margin-top: 0;
 }
@@ -203,7 +206,7 @@ h2, h3 {
     z-index: 100000;
     display: inline-block;
     position: relative;
-    width: 64px;
+    width: 54px;
     height: 34px;
 }
 
