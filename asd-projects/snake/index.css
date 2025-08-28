@@ -35,10 +35,10 @@ main {
   left: 0; 
   top:0; 
   
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column; */
 }
 
 #board {
