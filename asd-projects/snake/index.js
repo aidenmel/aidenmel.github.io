@@ -58,6 +58,9 @@ function init() {
   // TODO 4, Part 3: initialize the apple
   makeApple();
 
+  // Update textures immediately
+  updateSnakeTextures();
+
   // TODO 6, Part 1: Initialize the intervalf
   updateInterval = setInterval(update, 100);
 
@@ -84,6 +87,8 @@ function update() {
   if (hasCollidedWithApple()){
     handleAppleCollision();
   }
+
+  updateSnakeTextures(); // Updates the appearance of the snake
 }
 
 function checkForNewDirection(event) {
@@ -156,6 +161,125 @@ function moveSnake() {
 function moveBodyAToBodyB(bodyA, bodyB){
   bodyA.row = bodyB.row;
   bodyA.column = bodyB.column;
+}
+
+// Snake Texture Updater
+function calculateBlockDistances(current, previous){
+  if (current && previous){
+    return {
+      column: previous.column - current.column,
+      row: previous.row - current.row,
+    }
+  }
+}
+
+function updateSnakeTextures(){
+  for (var i = snake.body.length - 1; i >= 0; i--){
+    var snakeSquare = snake.body[i];
+    var previousBlock = calculateBlockDistances(snakeSquare, snake.body[i + 1])
+    var forwardBlock = calculateBlockDistances(snakeSquare, snake.body[i - 1])
+
+    // Texture the head
+    if (i === 0){
+      snakeSquare.texture.attr('src', 'assets/body-pieces/head.png')
+      
+      // Determine where the head is to the left or right of the next body piece
+      if (previousBlock.column === -1){ // The snake is in front of the block
+        snakeSquare.texture.css({
+          "transform": "scaleX(-1)",
+        })
+      } else if (previousBlock.column === 1) {
+        snakeSquare.texture.css({
+          "transform": "scaleX(1)",
+        })
+      }
+      // Determine whether the snake is above or below the next body piece
+      else if (previousBlock.row === -1){ // The snake is in front of the block
+        snakeSquare.texture.css({
+          "transform": "scaleX(1) rotateZ(-90deg)",
+        })
+      } else if (previousBlock.row === 1) {
+        snakeSquare.texture.css({
+          "transform": "scaleX(1) rotateZ(90deg)",
+        })
+      }
+
+    // The tail of the body  
+    } else if (i === snake.body.length - 1) {
+      snakeSquare.texture.attr('src', 'assets/body-pieces/end.png')
+      
+      // Determine where the tail is to the left or right of the next body piece
+      if (forwardBlock.column === -1){ // The snake is to the right of the block
+        snakeSquare.texture.css({
+          "transform": "scaleX(-1)",
+        })
+      } else if (forwardBlock.column === 1) {
+        snakeSquare.texture.css({
+          "transform": "scaleX(1)",
+        })
+      }
+      // Determine whether the snake is above or below the next body piece
+      else if (forwardBlock.row === -1){ // The snake is in front of the block
+        snakeSquare.texture.css({
+          "transform": "scaleX(1) rotateZ(-90deg)",
+        })
+      } else if (forwardBlock.row === 1) {
+        snakeSquare.texture.css({
+          "transform": "scaleX(1) rotateZ(90deg)",
+        })
+      }
+
+    } else {
+
+// Corner pieces
+
+      if (previousBlock.row === 1 && previousBlock.column === 0 && forwardBlock.row === 0 && forwardBlock.column === 1){
+        snakeSquare.texture.attr('src', 'assets/body-pieces/body-corner.png')
+        snakeSquare.texture.css({
+          "transform": "scaleX(1) rotateZ(180deg)",
+        })
+      } else if (previousBlock.row === -1 && previousBlock.column === 0 && forwardBlock.row === 0 && forwardBlock.column === 1){
+        snakeSquare.texture.attr('src', 'assets/body-pieces/body-corner.png')
+        snakeSquare.texture.css({
+          "transform": "scaleX(-1) rotateZ(0deg)",
+        })
+      } else if (previousBlock.row === 1 && previousBlock.column === 0 && forwardBlock.row === 0 && forwardBlock.column === -1){        snakeSquare.texture.attr('src', 'assets/body-pieces/body-corner.png')
+        snakeSquare.texture.css({
+          "transform": "scaleX(1) rotateZ(270deg)",
+        })
+      } else if (previousBlock.row === -1 && previousBlock.column === 0 && forwardBlock.row === 0 && forwardBlock.column === -1){
+        snakeSquare.texture.attr('src', 'assets/body-pieces/body-corner.png')
+        snakeSquare.texture.css({
+          "transform": "scaleX(1) rotateZ(0deg)",
+        })
+      } 
+      
+  // Straight pieces
+      else if (previousBlock.column === -1){ // The snake is in front of the block
+        snakeSquare.texture.attr('src', 'assets/body-pieces/body-straight.png');
+        snakeSquare.texture.css({
+          "transform": "scaleX(-1)",
+        })
+      } else if (previousBlock.column === 1) {
+        snakeSquare.texture.attr('src', 'assets/body-pieces/body-straight.png');
+        snakeSquare.texture.css({
+          "transform": "scaleX(1)",
+        })
+      } else if (previousBlock.row === -1){ // The snake is in front of the block
+        snakeSquare.texture.attr('src', 'assets/body-pieces/body-straight.png');
+        snakeSquare.texture.css({
+          "transform": "scaleX(1) rotateZ(-90deg)",
+        })
+      } else if (previousBlock.row === 1) {
+        snakeSquare.texture.attr('src', 'assets/body-pieces/body-straight.png');
+        snakeSquare.texture.css({
+          "transform": "scaleX(1) rotateZ(90deg)",
+        })
+      }
+      
+    }
+
+  }
 }
 
 function hasHitWall() {
@@ -287,7 +411,10 @@ function makeSnakeSquare(row, column) {
     snakeSquare.element.attr("id", "snake-head");
   }
 
-  // Add the square to teh snake's body and update its tail
+  // Add texture piece
+  snakeSquare.texture = $("<img>").addClass("snake-texture").appendTo(snakeSquare.element);
+
+  // Add the square to the snake's body and update its tail
   snake.body.push(snakeSquare);
   snake.tail  = snakeSquare;
 }
