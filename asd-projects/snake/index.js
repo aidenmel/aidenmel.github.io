@@ -21,9 +21,9 @@ const snakeSquare = {};
 const snake = {};
 
 // Constant Variables
-var ROWS = 20;
-var COLUMNS = 20;
-var SQUARE_SIZE = 20;
+var ROWS = 10;
+var COLUMNS = 10;
+var SQUARE_SIZE = 40;
 var KEY = {
   LEFT: 37,
   UP: 38,
@@ -50,9 +50,9 @@ init();
 function init() {
   // TODO 5, Part 2: initialize the snake
   snake.body = []; // Begins with a empty body
-  makeSnakeSquare(10,10);
-  makeSnakeSquare(10,9);
-  makeSnakeSquare(10,8);
+  makeSnakeSquare(0,0);
+  makeSnakeSquare(0,1);
+  makeSnakeSquare(0,2);
   snake.head = snake.body[0]; // Mark the first segment
   
   // TODO 4, Part 3: initialize the apple
@@ -453,7 +453,7 @@ function repositionSquare(square) {
   var row = square.row;
   var column = square.column;
 
-  var buffer = 20;
+  var buffer = 0;
 
   // position the square on the screen according to the row and column
   squareElement.css("left", column * SQUARE_SIZE + buffer);
