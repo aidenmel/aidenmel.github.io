@@ -50,9 +50,9 @@ init();
 function init() {
   // TODO 5, Part 2: initialize the snake
   snake.body = []; // Begins with a empty body
-  makeSnakeSquare(0,0);
-  makeSnakeSquare(0,1);
-  makeSnakeSquare(0,2);
+  makeSnakeSquare(5,4);
+  makeSnakeSquare(5,5);
+  makeSnakeSquare(5,6);
   snake.head = snake.body[0]; // Mark the first segment
   
   // TODO 4, Part 3: initialize the apple
