@@ -10,9 +10,37 @@
 
 /* Essentials */
 body {
-  background-color: #75ffb1;
+  background-color: #18006d;
   font-size: 12px;
+  
+  animation: 1000s responsive-sky linear infinite;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+  animation-delay: -250s;
+
+  overflow: hidden;
 }
+
+@keyframes responsive-sky {
+    0% {
+      background-color: #010306;
+    }
+    25% {
+      background-color: #549bff;
+    }
+    40% {
+      background-color: #3083f7;
+    }
+    45% {
+      background-color: #14113f;
+    }
+    50% {      
+      background-color: #100e29;
+    }
+    100% {
+      background-color: #010306;
+    }
+  }
 
 header {
   display: flex;
@@ -164,4 +192,110 @@ main {
 .apple {
   background-color: red;
   z-index: 1;
+}
+
+/* Sky */
+.sky span {
+  position: absolute;
+  left: 0; 
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  image-rendering: pixelated;
+  background-size: cover;
+  z-index: -2;
+  /* object-position: 0%; */
+}
+
+  #cloud {
+    z-index: -3 !important;
+    opacity: 25%;
+    animation: 60s infinite moving-sky linear;
+  }
+
+  #grass {
+    animation: 80s infinite moving-sky linear;
+  }
+
+  #sun {
+    padding-top: 5vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    z-index: -4;
+
+    animation: 1000s time-anim linear infinite;
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+    animation-delay: -1000s;
+  }
+
+  @keyframes time-anim {
+    0% {
+      transform: translateY(70vh) rotateZ(180deg);
+    }
+    25% {
+      transform: rotateZ(180deg) translateY(-5vh);
+    }
+    49% {
+      transform: translateY(70vh) rotateZ(180deg);
+    }
+    50% {      
+      transform: translateY(70vh) rotateZ(0deg);
+    }
+    75% {
+      transform: translateY(5vh);
+    }
+    100% {
+      transform: translateY(70vh) rotateZ(0deg);
+    }
+  }
+
+@keyframes moving-sky {
+  0% {
+    background-position: 0%;
+  }
+
+  100% {
+    background-position: 100%;
+  } 
+}
+
+/* Label */
+input {
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+}
+
+input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0px;
+  height: 0px;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+input::-moz-range-thumb {
+  border: none;
+  width: 0px;
+  height: 0px;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+input {
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none;
+  height: 8px;
+  background: #000000;
+  border-radius: 5px;
+  outline: none;
+  opacity: 0.1;
+  transition: opacity 0.2s;
 }

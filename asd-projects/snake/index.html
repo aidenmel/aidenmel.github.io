@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="index.css"/>
     <script src="jquery.min.js"></script>
   </head>
-  <body>
+  <body id="sky-color">
     <main>
       <header>
         <img src="assets/misc/Apple.png">
@@ -19,6 +19,46 @@
         <h1 id="highScore">High Score: 0</h1>
       </div>
     </main>
+    <div class="sky">
+      <span style="background-image: url(assets/landscape/grass.png);" id="grass"></span>
+      <span style="background-image: url(assets/landscape/cloud.png);" id="cloud"></span>
+      <span style="background-image: url(assets/landscape/sun.png);" id="sun"></span>
+    </div>
+    <input type="range" min="1" max="1000" value="50" id="slider">
+    <script>
+      // Day/Night Cycle
+      function getDayPercentage(){
+        var currentTime = new Date();
+        var secondsSinceMidnight = (currentTime.getHours() * 3600) + (currentTime.getMinutes() * 60) + currentTime.getSeconds();
+        var totalSecondsInDay = 24 * 3600;
+        var Percentage = (secondsSinceMidnight / totalSecondsInDay) * 100;
+
+        if (active === false){
+          slider.setAttribute('value', Percentage);
+        }
+
+        return Percentage.toFixed(2);
+      }
+
+      var sun = document.getElementById('sun');
+      var sky = document.getElementById('sky-color');
+      var slider = document.getElementById('slider');
+      var active = false;
+
+
+      sun.style.animationDelay = '-' + getDayPercentage() + 's'
+      sky.style.animationDelay = '-' + getDayPercentage() + 's'
+
+      setInterval(() => {
+        sun.style.animationDelay = '-' + getDayPercentage() + 's'
+        sky.style.animationDelay = '-' + getDayPercentage() + 's'
+      }, 60 * 1000);
+
+      slider.addEventListener("input", () => {
+        sun.style.animationDelay = '-' + (slider.value) + 's'
+        sky.style.animationDelay = '-' + (slider.value) + 's'
+      })
+    </script>
   </body>
   
   <!-- Link index.js here -->
