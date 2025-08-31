@@ -24,36 +24,48 @@
       <span style="background-image: url(assets/landscape/cloud.png);" id="cloud"></span>
       <span style="background-image: url(assets/landscape/sun.png);" id="sun"></span>
     </div>
+
+    <div class="debug">
+      <h6 id="debugger">00:00</h6>
+    </div>
     <input type="range" min="1" max="1000" value="50" id="slider">
     <script>
       // Day/Night Cycle
+
+      // Variables
+      var sun = document.getElementById('sun');
+      var sky = document.getElementById('sky-color');
+      var slider = document.getElementById('slider');
+      var debugTimer = document.getElementById('debugger')
+      var active = false;
+
+      // Functions
       function getDayPercentage(){
         var currentTime = new Date();
         var secondsSinceMidnight = (currentTime.getHours() * 3600) + (currentTime.getMinutes() * 60) + currentTime.getSeconds();
         var totalSecondsInDay = 24 * 3600;
-        var Percentage = (secondsSinceMidnight / totalSecondsInDay) * 100;
+        var Percentage = (secondsSinceMidnight / totalSecondsInDay);
 
         if (active === false){
           slider.setAttribute('value', Percentage);
         }
 
-        return Percentage.toFixed(2);
+        debugTimer.innerHTML = currentTime.getHours() + ':' + currentTime.getMinutes();
+
+        return Percentage
       }
 
-      var sun = document.getElementById('sun');
-      var sky = document.getElementById('sky-color');
-      var slider = document.getElementById('slider');
-      var active = false;
+      // On load
+      sun.style.animationDelay = '-' + (getDayPercentage() * 1000) + 's'
+      sky.style.animationDelay = '-' + (getDayPercentage() * 1000) + 's'
 
-
-      sun.style.animationDelay = '-' + getDayPercentage() + 's'
-      sky.style.animationDelay = '-' + getDayPercentage() + 's'
-
+      // Updates every minute
       setInterval(() => {
         sun.style.animationDelay = '-' + getDayPercentage() + 's'
         sky.style.animationDelay = '-' + getDayPercentage() + 's'
       }, 60 * 1000);
 
+      // Easter egg slider
       slider.addEventListener("input", () => {
         sun.style.animationDelay = '-' + (slider.value) + 's'
         sky.style.animationDelay = '-' + (slider.value) + 's'
