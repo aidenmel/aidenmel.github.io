@@ -8,6 +8,7 @@
 var board = $("#board");
 var scoreElement = $("#score");
 var highScoreElement = $("#highScore");
+var debugString = $("#debugger");
 
 // Game Variables
 var score = 0; // variable to keep track of the score
@@ -25,10 +26,10 @@ var ROWS = 10;
 var COLUMNS = 10;
 var SQUARE_SIZE = 40;
 var KEY = {
-  LEFT: 37,
-  UP: 38,
-  RIGHT: 39,
-  DOWN: 40,
+  LEFT: [37, 65],
+  UP: [38, 87],
+  RIGHT: [39, 68],
+  DOWN: [40, 83],
 };
 
 // interval variable required for stopping the update function when the game ends
@@ -98,6 +99,8 @@ function checkForNewDirection(event) {
   BONUS: Only allow direction changes to take place if the new direction is
   perpendicular to the current direction
   */
+
+  // $("#debugger").text(KEY.LEFT[activeKey]);
 
   if (activeKey === KEY.LEFT) {
     snake.head.direction = "left";
@@ -437,7 +440,6 @@ function handleKeyDown(event) {
   // If a valid direction key is pressed, start the game
   if (
     event.which === KEY.LEFT ||
-    event.which === KEY.RIGHT ||
     event.which === KEY.UP ||
     event.which === KEY.DOWN
   ) {

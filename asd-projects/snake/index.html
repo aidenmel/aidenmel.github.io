@@ -61,8 +61,8 @@
 
       // Updates every minute
       setInterval(() => {
-        sun.style.animationDelay = '-' + getDayPercentage() + 's'
-        sky.style.animationDelay = '-' + getDayPercentage() + 's'
+      sun.style.animationDelay = '-' + (getDayPercentage() * 1000) + 's'
+      sky.style.animationDelay = '-' + (getDayPercentage() * 1000) + 's'
       }, 60 * 1000);
 
       // Easter egg slider
