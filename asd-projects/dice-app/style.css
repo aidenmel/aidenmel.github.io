@@ -1,0 +1,77 @@
+/* Variables */
+:root {
+    /* Color Pallete */
+    --white: #fff;
+    --grey: #f0f0f0;
+    --black: #252525;
+}
+
+/* Essentials */
+body {
+    background: var(--grey);
+}
+
+/* Dice Styling */
+main {
+    width: 100vw;
+    height: 100vh;
+    
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+.die {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    background-color: var(--white); /* Feel free to customize */
+    border-radius: 8px;
+    box-shadow: 0 0 16px 0 #00000010;
+    padding: 0;
+    margin: 0;
+}
+
+.dot {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: var(--black);
+    border-radius: 100%;
+    margin: calc(-1 * (15px/2));
+}
+
+/* Controls */
+nav {
+    position: fixed;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px;
+    background-color: var(--white); /* Feel free to customize */
+    border-radius: 48px;
+    box-shadow: 0 0 16px 0 #00000010;
+}
+
+    nav ul {
+        list-style: none;
+        padding-inline: 0;
+        margin-block: 0;
+    }
+
+    nav button {
+        background: var(--grey);
+        font-size: 1.2em;
+        padding: 16px 24px;
+        border-radius: 48px;
+        border: none;
+        cursor: pointer;
+    }
