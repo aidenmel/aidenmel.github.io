@@ -52,15 +52,20 @@ function rollDie($dice){
   }
 
   // Adds an animation
+  var ranRotation = ((Math.random() * 80)/10) - 5;
   $dice.css({
     "opacity": 0,
-    "margin-top": '4px',
+    "transform": 'rotate(' + ranRotation + 'deg) translateY(4px)',
   })
   .animate({
     "opacity": 1,
-    "margin-top": '0',
   }, 200)
 
+  setTimeout(() => {
+    $dice.css({
+    "transform": 'translateY(0)',
+  })
+  }, 200);
 
 }
 
@@ -82,6 +87,22 @@ function removeDie(){
   }
 }
 
+// function delayColor(dice, color, delay){
+//   setTimeout(() => {
+//     rollDie(dice)
+//   }, delay);
+// }
+
+// function setColor(){
+//   var red = Math.random() * 255;
+//   var green = Math.random() * 255;
+//   var blue = Math.random() * 255;
+  
+//   for (i = 0; i < Dice.length; i++){
+//     delayRoll(Dice[i], (i - 1) * 100);
+//   }
+// }
+
 // Buttons
 
 // Rolls all visible dice (w/ a slight delay)
@@ -102,6 +123,9 @@ $('#add').on('click', createDie)
 
 // Removes a die
 $('#remove').on('click', removeDie)
+
+// Removes a die
+// $('#set-color').on('click', setColor)
 
 // Creates a single dice on load
 createDie();
