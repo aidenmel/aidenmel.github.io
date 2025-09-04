@@ -87,21 +87,21 @@ function removeDie(){
   }
 }
 
-// function delayColor(dice, color, delay){
-//   setTimeout(() => {
-//     rollDie(dice)
-//   }, delay);
-// }
+function delayColor(dice, color, delay){
+  setTimeout(() => {
+    dice.animate({"background-color": color,}, 200)
+  }, delay);
+}
 
-// function setColor(){
-//   var red = Math.random() * 255;
-//   var green = Math.random() * 255;
-//   var blue = Math.random() * 255;
+function setColor(){
+  var red = Math.random() * 255;
+  var green = Math.random() * 255;
+  var blue = Math.random() * 255;
   
-//   for (i = 0; i < Dice.length; i++){
-//     delayRoll(Dice[i], (i - 1) * 100);
-//   }
-// }
+  for (i = 0; i < Dice.length; i++){
+    delayColor(Dice[i], 'rgb(' + red + ',' + green + ',' + blue + ')')
+  }
+}
 
 // Buttons
 
