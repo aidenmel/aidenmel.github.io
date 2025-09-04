@@ -150,6 +150,12 @@ h3 {
                 z-index: 4;
             }
 
+            .carousel li:hover span.details {
+                filter: blur(0);
+                -webkit-filter: blur(0);
+                opacity: 1;
+            }
+
     .carousel .controls {
         height: 24px;
         display: flex;

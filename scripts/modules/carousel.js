@@ -18,22 +18,25 @@ function createCarousel(carouselData, $where){
         
             // Adds a title
             if (itemData.title){
-                $("<h2>").text(itemData.title).appendTo($details)
+                $("<h2>").text(itemData.title).appendTo($details);
             }
 
             // Adds a description
             if (itemData.desc){
-                $("<p>").text(itemData.desc).appendTo($details)
+                $("<p>").text(itemData.desc).appendTo($details);
             }
-        }  
 
-}
+            // Set a image (if able)
+            if (itemData.images){
+                $("<img>").attr('src', itemData.images[0]).appendTo($item);
+            }
+    }  
 
-// Function Calls
-createCarousel([
-    {
-        title: 'Test Title',
-        desc: 'This is a temporary description that will be filled in later.',
-        images: ['assets/thumbnails/white-house-thumb.jpeg'],
+    // Creates a set of controls
+    var $controls = $("<div>").addClass("controls").appendTo($list);
+
+    // Create a dot per item in list   
+    for (var i = 0; i < carouselData.length; i++){
+        $("<div>").addClass("dot").appendTo($controls)
     }
-], $('#past-work-carousel'));
+}
