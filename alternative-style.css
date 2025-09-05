@@ -14,7 +14,10 @@
     --full-screen-height: calc(100vh - 64px);
     --max-full-screen-height: 1080px;
 
+    /* Limitations */
     --max-height: 1080px;
+    --mobile-width: 800px;
+
     --default-transition: 250ms ease-out;
     --border-radius: 3.6em;
 
@@ -105,12 +108,15 @@ h3 {
 
     .carousel ul {
         display: flex;
+        transition: transform 250ms ease-in;
     }
 
         .carousel li {
             width: 50vw;
             aspect-ratio: 4/3;
             flex-shrink: 0;
+
+            position: relative;
 
             list-style: none;
             margin-right: 16px;
@@ -129,16 +135,14 @@ h3 {
                 border-radius: var(--border-radius);
             }
 
-            .carousel span.details {
+            .carousel .details {
                 position: absolute;
                 bottom: 0;
-                left: 8px;
+                left: 0;
+
+                padding: 2.4em;
 
                 width: 100%;
-                height: auto;
-
-                margin: 16px 24px;
-                gap: -8px;
 
                 filter: blur(24px);
                 -webkit-filter: blur(24px);
@@ -150,13 +154,20 @@ h3 {
                 z-index: 4;
             }
 
-            .carousel li:hover span.details {
+                .carousel .details h2, .carousel .details p {
+                    color: var(--primary) !important;
+                    text-wrap-mode: wrap;
+                    margin: .2rem;
+                }
+
+            .carousel li:hover .details {
                 filter: blur(0);
                 -webkit-filter: blur(0);
                 opacity: 1;
             }
 
     .carousel .controls {
+        left: 0;
         height: 24px;
         display: flex;
         justify-content: center;
@@ -165,11 +176,16 @@ h3 {
     }
 
         .dot {
-            width: 14px;
-            height: 14px;
-            border: 1px solid var(--black);
+            width: 12px;
+            height: 12px;
+            border: 1px solid var(--transparency-black);
             border-radius: 100%;
+            cursor: pointer;
         }
+
+            .dot.active {
+                background: var(--black);
+            }
 /* 
 
     4. CONTENT & IMAGES
@@ -1468,7 +1484,12 @@ footer button:hover {
     }
 
 /* Responsive */
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 800px) {
+
+    /* Carousel */
+    .carousel li {
+        width: calc(100vw - 80px) !important;
+    }
 
     /* Mobile Navigation */
     nav {
