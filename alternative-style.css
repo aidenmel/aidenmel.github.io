@@ -17,6 +17,7 @@
     /* Limitations */
     --max-height: 1080px;
     --mobile-width: 800px;
+    --mobile-height: 90vh;
 
     --default-transition: 250ms ease-out;
     --border-radius: 3.6em;
@@ -104,6 +105,7 @@ h3 {
     width: 100vw;
     height: auto;
     max-height: var(--max-full-screen-height);
+    overflow-x: hidden;
 }
 
     .carousel ul {
@@ -144,8 +146,9 @@ h3 {
 
                 width: 100%;
 
-                filter: blur(24px);
-                -webkit-filter: blur(24px);
+                filter: blur(4px);
+                -webkit-filter: blur(4px);
+                margin-bottom: -8px;
                 opacity: 0;
 
                 transition: var(--default-transition);
@@ -163,6 +166,7 @@ h3 {
             .carousel li:hover .details {
                 filter: blur(0);
                 -webkit-filter: blur(0);
+                margin-bottom: 0;
                 opacity: 1;
             }
 
@@ -181,6 +185,7 @@ h3 {
             border: 1px solid var(--transparency-black);
             border-radius: 100%;
             cursor: pointer;
+            transition: background 250ms ease-out;
         }
 
             .dot.active {
@@ -1489,6 +1494,7 @@ footer button:hover {
     /* Carousel */
     .carousel li {
         width: calc(100vw - 80px) !important;
+        height: var(--mobile-height);
     }
 
     /* Mobile Navigation */

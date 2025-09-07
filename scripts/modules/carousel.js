@@ -8,11 +8,14 @@ function createCarousel(carouselData, $where){
     // Variables
     var $list = $("<ul>").appendTo($where);
     var $controls = $("<div>").addClass("controls").appendTo($where);
+    var items = [];
     var navDots = [];
     var lastPressed;
 
     // Carousel-Specific Functions
-    function navigateTo(){
+    function navigateTo(event){
+        console.log(event)
+
         var index;
 
         // Disable all navigation dots except the dot selected
@@ -30,7 +33,6 @@ function createCarousel(carouselData, $where){
         var centerOfScreen = window.innerWidth / 2;
         var calculatedPos = (centerOfScreen - $itemToMove.position().left - ($itemToMove.width()/2));
 
-        console.log(calculatedPos, ($itemToMove.position().left + ($itemToMove.width()/2)))
         if (index === 0){
             $list.css({
                 'transform': 'translateX(0)',
@@ -66,7 +68,10 @@ function createCarousel(carouselData, $where){
             if (itemData.images){
                 $("<img>").attr('src', itemData.images[0]).appendTo($item);
             }
-        
+            
+        // If item pressed, navigate to it (if not already)
+        $item.on('click', navigateTo)
+
         // Create navigation dot
         var $navigationDot = $("<div>").addClass("dot").appendTo($controls)
 
@@ -75,6 +80,7 @@ function createCarousel(carouselData, $where){
             lastPressed = $navigationDot
         }
         
+        $navigationDot.attr('bind', i)
         $navigationDot.on('click', navigateTo) // If clicked, run navigateTo function
         navDots.push($navigationDot) // Add to array
     }  
