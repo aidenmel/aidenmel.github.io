@@ -259,7 +259,7 @@ All of the code is handwritten with the exception of imported assets (like Googl
             </div>
         </section>
 
-        <section class="carousel" id="past-work-carousel">
+        <div class="is-sticky"><section class="carousel" id="past-work-carousel">
             <script>
                 createCarousel([
                     {
@@ -277,9 +277,13 @@ All of the code is handwritten with the exception of imported assets (like Googl
                         desc: 'This is a third temporary description that will be filled in later.',
                         images: ['assets/thumbnails/white-house-thumb.jpeg'],
                     },
-                ], $('#past-work-carousel'));
+                ], 
+                $('#past-work-carousel'), 
+                {
+                    cycleOnScroll: true,
+                });
             </script>
-        </section>
+        </section></div>
 
 <!-- ➕ More Content -->
        

@@ -100,7 +100,7 @@ h3 {
 
 */
 
-/* Carousel */
+/* Carousels */
 .carousel {
     width: 100vw;
     height: auto;
@@ -115,7 +115,8 @@ h3 {
 
         .carousel li {
             width: 50vw;
-            aspect-ratio: 4/3;
+            max-height: 90vh;
+            /* aspect-ratio: 4/3; */
             flex-shrink: 0;
 
             position: relative;
@@ -143,8 +144,6 @@ h3 {
                 left: 0;
 
                 padding: 2.4em;
-
-                width: 100%;
 
                 filter: blur(4px);
                 -webkit-filter: blur(4px);
@@ -213,6 +212,15 @@ h3 {
     height: 95vh;
 }
 
+.is-sticky {
+    width: 100vw;
+    height: 200vh;
+}
+
+    .is-sticky section {
+        top: 5vh;
+        position: sticky;
+    }
 
 
 /* Navigation */

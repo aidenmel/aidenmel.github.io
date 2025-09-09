@@ -3,7 +3,7 @@
 // Variables
 
 // Functions
-function createCarousel(carouselData, $where){
+function createCarousel(carouselData, $where, properties){
 
     // Variables
     var $list = $("<ul>").appendTo($where);
@@ -87,4 +87,19 @@ function createCarousel(carouselData, $where){
 
     // If the screen size updates, fix carousel position
     // window.addEventListener('resize', navigateTo())
+
+    // Adding Unique Effects & Properties
+    if (properties.cycleOnScroll === true){
+        var topOfParent = $where.parent().offset().top; // Gets top of the sticky section
+        var parentHeight = $where.parent().height(); // Gets the total height of available scrolling
+
+        $(window).scroll(function() {
+            var scrollPercent = (window.scrollY - topOfParent)/(parentHeight - $where.height());
+            if (scrollPercent < 1 && scrollPercent > 0){
+                console.log(scrollPercent * 100)
+            }
+        })
+
+
+    }
 }
