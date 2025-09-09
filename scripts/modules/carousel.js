@@ -8,32 +8,32 @@ function createCarousel(carouselData, $where, properties){
     // Variables
     var $list = $("<ul>").appendTo($where);
     var $controls = $("<div>").addClass("controls").appendTo($where);
+    
     var items = [];
     var navDots = [];
-    var lastPressed;
+    var currentIndex = 0;
 
     // Carousel-Specific Functions
-    function navigateTo(event){
-        console.log(event)
+    function navigateTo(redirect){
 
-        var index;
+        if (!redirect) { redirect = currentIndex; } // If redirect is undefined, set it to current index
+        else if (redirect instanceof jQuery.Event) { redirect = redirect.data.itemIndex }
 
         // Disable all navigation dots except the dot selected
         for (var i = 0; i < navDots.length; i++){
-            if (navDots[i][0] !== $(this)[0]){
+            if (i !== redirect){
                 navDots[i].removeClass('active');
             } else {
-                index = i;
                 navDots[i].addClass('active');
             }
         }
         
         // Move item to center
-        var $itemToMove = $list.children(':eq(' + index + ')');
+        var $itemToMove = items[redirect];
         var centerOfScreen = window.innerWidth / 2;
         var calculatedPos = (centerOfScreen - $itemToMove.position().left - ($itemToMove.width()/2));
 
-        if (index === 0){
+        if (redirect === 0){
             $list.css({
                 'transform': 'translateX(0)',
             })
@@ -43,6 +43,7 @@ function createCarousel(carouselData, $where, properties){
             })
         }   
 
+        currentIndex = redirect;
         
     }
 
@@ -69,34 +70,44 @@ function createCarousel(carouselData, $where, properties){
                 $("<img>").attr('src', itemData.images[0]).appendTo($item);
             }
             
-        // If item pressed, navigate to it (if not already)
-        $item.on('click', navigateTo)
+            // Adds item to carousel array
+            items.push($item)
+
+            // If item pressed, navigate to it (if not already)
+            $item.on('click', {itemIndex: i}, navigateTo)
 
         // Create navigation dot
         var $navigationDot = $("<div>").addClass("dot").appendTo($controls)
 
-        if (i === 0){
-            $navigationDot.addClass('active');
-            lastPressed = $navigationDot
-        }
+            if (i === 0){
+                $navigationDot.addClass('active');
+            }
         
-        $navigationDot.attr('bind', i)
-        $navigationDot.on('click', navigateTo) // If clicked, run navigateTo function
-        navDots.push($navigationDot) // Add to array
+            // Click event
+            $navigationDot.on('click', {itemIndex: i}, navigateTo) // If clicked, run navigateTo function
+            
+            // Push to end of array
+            navDots.push($navigationDot) // Add to array
     }  
 
     // If the screen size updates, fix carousel position
-    // window.addEventListener('resize', navigateTo())
+    window.addEventListener('resize', navigateTo(currentIndex))
 
     // Adding Unique Effects & Properties
-    if (properties.cycleOnScroll === true){
+    if (properties.cycleOnScroll === true){ // Cycles through all available items as the user scrolls pass
         var topOfParent = $where.parent().offset().top; // Gets top of the sticky section
         var parentHeight = $where.parent().height(); // Gets the total height of available scrolling
 
         $(window).scroll(function() {
+            
+            // Calculate percent & determine object to index
             var scrollPercent = (window.scrollY - topOfParent)/(parentHeight - $where.height());
-            if (scrollPercent < 1 && scrollPercent > 0){
-                console.log(scrollPercent * 100)
+            var toIndex = Math.floor(scrollPercent * items.length);
+            
+            // Only update if 
+            if (currentIndex !== toIndex && scrollPercent < 1 && scrollPercent > 0){
+                navigateTo(toIndex)
+                console.log(toIndex, currentIndex - 1)
             }
         })
 
