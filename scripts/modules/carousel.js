@@ -16,7 +16,8 @@ function createCarousel(carouselData, $where, properties){
     // Carousel-Specific Functions
     function navigateTo(redirect){
 
-        if (!redirect) { redirect = currentIndex; } // If redirect is undefined, set it to current index
+        if (redirect === 0){redirect = 0}
+        else if (!redirect) { redirect = currentIndex; } // If redirect is undefined, set it to current index
         else if (redirect instanceof jQuery.Event) { redirect = redirect.data.itemIndex }
 
         // Disable all navigation dots except the dot selected

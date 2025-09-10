@@ -103,7 +103,7 @@ h3 {
 /* Carousels */
 .carousel {
     width: 100vw;
-    height: auto;
+    height: 100vh;
     max-height: var(--max-full-screen-height);
     overflow-x: hidden;
 }
@@ -115,7 +115,8 @@ h3 {
 
         .carousel li {
             width: 50vw;
-            max-height: 90vh;
+            /* height: calc(100vh - 24px); */
+            /* max-height: 90vh; */
             /* aspect-ratio: 4/3; */
             flex-shrink: 0;
 
@@ -1500,10 +1501,10 @@ footer button:hover {
 @media only screen and (max-width: 800px) {
 
     /* Carousel */
-    .carousel li {
+    /* .carousel li {
         width: calc(100vw - 80px) !important;
-        height: var(--mobile-height);
-    }
+        /* height: var(--mobile-height); */
+    } */
 
     /* Mobile Navigation */
     nav {
