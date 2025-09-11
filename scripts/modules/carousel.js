@@ -108,7 +108,6 @@ function createCarousel(carouselData, $where, properties){
             // Only update if 
             if (currentIndex !== toIndex && scrollPercent < 1 && scrollPercent > 0){
                 navigateTo(toIndex)
-                console.log(toIndex, currentIndex - 1)
             }
         })
 

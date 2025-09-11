@@ -18,6 +18,7 @@
     --max-height: 1080px;
     --mobile-width: 800px;
     --mobile-height: 90vh;
+    --section-height: calc(100vh - 32px - var(--nav-height));
 
     --default-transition: 250ms ease-out;
     --border-radius: 3.6em;
@@ -84,6 +85,12 @@ h3 {
     line-height: 1rem;
 }
 
+h4 {
+    color: var(--secondary);
+    margin-block-start: 0;
+    margin-block-end: .8em;
+}
+
     span.tag {
         background-color: #00000075;
         color: #fff;
@@ -100,17 +107,27 @@ h3 {
 
 */
 
-/* Carousels */
+/* Descriptors */
+.descriptor {
+    text-align: center;
+    padding: 10vh 10vw 0 10vw;
+}
+
+/* Carousel */
 .carousel {
     width: 100vw;
     height: 100vh;
     max-height: var(--max-full-screen-height);
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
     .carousel ul {
         display: flex;
         transition: transform 250ms ease-in;
+        padding-inline: 5vw;
+        height: calc(var(--section-height) - var(--nav-height));
+        margin: 0;
+        padding-top: 16px;
     }
 
         .carousel li {
@@ -172,7 +189,7 @@ h3 {
 
     .carousel .controls {
         left: 0;
-        height: 24px;
+        height: var(--nav-height);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -213,13 +230,17 @@ h3 {
     height: 95vh;
 }
 
+.fs {
+    height: var(--section-height);
+}
+
 .is-sticky {
     width: 100vw;
     height: 200vh;
 }
 
     .is-sticky section {
-        top: 5vh;
+        top: calc(var(--nav-height) + 16px);
         position: sticky;
     }
 
@@ -315,7 +336,7 @@ h3 {
     .touch-nav-bar {
         display: none !important;
         position: fixed;
-        bottom: 32px;
+        bottom: 24px;
         right: 0;
 
         width: 64px;
@@ -751,33 +772,19 @@ header {
         }
 
     .fs-details {
-        width: calc(-48px + 100%);
-        max-width:         }
-
-    .fs-details {
-        width: calc        }
-
-    .fs-details {
-        width: calcvar(--container-max-width);
-
+        width: var(--container-max-width);
         color: #fff;
-
         position: absolute;
-
         height: calc(var(--full-screen-height) - 48px);
         max-height: var(--container-max-height);
-
         z-index: 5;
         opacity: 0;
-
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-
         transition: 600ms ease-out;
         left: 50%;
-
         animation: 1000s linear infinite home-cruisephotodetails;
         -webkit-animation-play-state: paused;
         animation-play-state: paused;
@@ -1471,7 +1478,7 @@ footer button:hover {
     padding-left: 32px;
     padding-right: 32px;
 
-    width: calc(100% - 64px)
+    width: calc(100% - 64px);
     height: auto;
     /* max-width: var(--container-max-width); */
 
@@ -1500,11 +1507,11 @@ footer button:hover {
 /* Responsive */
 @media only screen and (max-width: 800px) {
 
-    /* Carousel */
-    /* .carousel li {
-        width: calc(100vw - 80px) !important;
-        /* height: var(--mobile-height); */
-    } */
+    /* Root Changes */
+    :root {
+        --section-height: 100vh;
+        --nav-height: calc(84px + 32px);
+    }
 
     /* Mobile Navigation */
     nav {
@@ -1551,6 +1558,20 @@ footer button:hover {
 
     .on-screen-nav #swap-css {
         display: flex !important;
+    }
+
+    /* Carousel */
+    .carousel li {
+        width: 80vw;
+    }
+
+    .carousel .controls {
+        height: calc(var(--nav-height) - 16px);
+    }
+
+    /* Properties */
+    .is-sticky section {
+        top: 0;
     }
 
 }
