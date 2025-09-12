@@ -2,6 +2,11 @@
 
 // Variables
 var Root = document.documentElement;
+    var PreviousPallete = {
+        '--primary': '#f8f8f8',
+        '--secondary': '#ffffff',
+        '--black': '#252525',
+    }
 var Buffer = 16; // Adds some wiggle room
 
 // Functions
@@ -12,7 +17,8 @@ function addEffect($object, effect, data){
         var objectStart = $object.offset().top;
         
         document.addEventListener('scroll', (e) => {
-            if (window.scrollY >= (objectStart - Buffer)){
+            if (window.scrollY >= (objectStart - (window.innerHeight / 3) - Buffer) && window.scrollY < $object.height() - Buffer - (window.innerHeight / 3)){
+                console.log($object)
                 $(":root").css({
                     '--primary': data['primary'],
                     '--secondary': data['secondary'],
@@ -20,9 +26,9 @@ function addEffect($object, effect, data){
                 })
             } else {
                 $(":root").css({
-                    '--primary': '#f8f8f8',
-                    '--secondary': '#ffffff',
-                    '--black': '#252525',
+                    '--primary': PreviousPallete['--primary'],
+                    '--secondary': PreviousPallete['--secondary'],
+                    '--black': PreviousPallete['--black'],
                 })
             }
         })

@@ -58,6 +58,8 @@ body {
 
     scroll-behavior: smooth;
     overflow-x: hidden;
+
+    transition: background var(--default-transition);
 }
 
 /* 
@@ -78,6 +80,39 @@ h2 {
     line-height: 2.4rem;
 }
 
+    #nav-title {
+        font-size: 1.2em;
+        font-weight: 600;
+        letter-spacing: -.02em;
+        
+        top: 16px;
+        right: 5vw;
+        position: fixed;
+        
+        height: var(--nav-height);
+        width: 100vw;
+
+        text-align: center;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        z-index: 4;
+
+        opacity: 0;
+        transform: translateX(0.5em);
+        filter: blur(8px);
+        transition: all 250ms var(--bezier-curve);
+    }
+
+        #nav-title.active {
+            letter-spacing: 0;
+            filter: blur(0);
+            transform: translateX(0);
+            opacity: 1;
+        }
+
 h3 {
     color: var(--secondary);
     font-size: .8rem;
@@ -86,7 +121,7 @@ h3 {
 }
 
 h4 {
-    color: var(--secondary);
+    color: var(--black) !important;
     margin-block-start: 0;
     margin-block-end: .8em;
 }
@@ -283,6 +318,12 @@ h4 {
             -webkit-filter: blur(8px);
             padding: 0 12px 0 24px;
             opacity: 0;
+        }
+
+        nav.aside {
+            transform: translateX(0);
+            -webkit-transform: translateX(0);
+            left: 5vw;
         }
 
     nav ul {
@@ -1513,6 +1554,13 @@ footer button:hover {
         --nav-height: calc(84px + 32px);
     }
 
+    /* Text Styles */
+    #nav-title {
+        justify-content: center;
+        right: 0;
+        height: 32px;
+    }
+
     /* Mobile Navigation */
     nav {
         display: none;
@@ -1566,12 +1614,12 @@ footer button:hover {
     }
 
     .carousel .controls {
-        height: calc(var(--nav-height) - 16px);
+        height: calc(var(--nav-height) - 16px - 48px);
     }
 
     /* Properties */
     .is-sticky section {
-        top: 0;
+        top: 48px;
     }
 
 }
