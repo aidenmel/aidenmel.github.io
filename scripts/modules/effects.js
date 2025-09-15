@@ -2,11 +2,6 @@
 
 // Variables
 var Root = document.documentElement;
-    var PreviousPallete = {
-        '--primary': '#f8f8f8',
-        '--secondary': '#ffffff',
-        '--black': '#252525',
-    }
 var Buffer = 16; // Adds some wiggle room
 
 // Numbers
@@ -18,8 +13,28 @@ var scrollPalletes = {
         '--primary': '#f8f8f8',
         '--secondary': '#ffffff',
         '--black': '#252525',
+        '--transparency-primary': '#25252550',
+        '--transparency-secondary': '#ffffff50',
     },
 };
+
+// Presets
+var presetLibrary = {
+    'revert': {
+        '--primary': '#f8f8f8',
+        '--secondary': '#ffffff',
+        '--black': '#252525',
+        '--transparency-primary': '#25252550',
+        '--transparency-secondary': '#fff',
+    },
+    'invert': {
+        '--primary': '#252525',
+        '--secondary': '#000000',
+        '--black': '#ffffff',
+        '--transparency-primary': '#ffffff50',
+        '--transparency-secondary': '#25252550'
+    },
+}
 
 // Functions
 function addEffect($object, effect, data){
@@ -28,11 +43,15 @@ function addEffect($object, effect, data){
     if (effect === 'color-shift'){ // When in frame, shift the site's color pallete completely
         var objectStart = $object.offset().top;
         
-        scrollPalletes[objectStart] = {
-            '--primary': data['primary'],
-            '--secondary': data['secondary'],
-            '--black': data['black']
-        }   
+        if (typeof data === 'string'){
+            scrollPalletes[objectStart] = presetLibrary[data]; 
+        } else {
+            scrollPalletes[objectStart] = {
+                '--primary': data['primary'],
+                '--secondary': data['secondary'],
+                '--black': data['black']
+            }   
+        }
     }
 }
 
