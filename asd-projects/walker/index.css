@@ -1,14 +1,42 @@
+:root {
+  --primary: #ffffff;
+  --secondary: #000;
+}
 
 body {
-  background-color: darkgreen;
+  overflow: none;
+  font-size: 16px;
+  margin: 0;
+  background-color: var(--primary);
 }
 
 #board {
-  width: 440px;
-  height: 440px;
-  border: 1px solid white;
-  background-color: black;
+  background-image: url(https://cdn3.f-cdn.com/contestentries/1437066/9304471/5bd42b344f7de_thumbCard.jpg);
+  background-size: 256px;
+  background-repeat: repeat;
+  
+  border-radius: 12px;
+  border: 2px solid #252525;
+
   position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#monitor {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  
+  border: 12px solid #ffe4ce;
+  border-radius: 12px;
+  
+  width: 80vw;
+  max-width: 1080px;
+  aspect-ratio: 4/3;
 }
 
 #gameItem {
@@ -18,4 +46,12 @@ body {
   position: absolute;
 /*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
 /*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
+}
+
+#walker {
+  border-radius: 1em;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: blue;
 }

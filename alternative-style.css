@@ -1047,6 +1047,10 @@ main .content {
     
 }
 
+#portfolio p {
+    color: var(--black);
+}
+
 .original-portfolio-details {
     display: none;
 }

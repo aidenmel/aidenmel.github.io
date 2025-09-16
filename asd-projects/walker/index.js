@@ -7,15 +7,33 @@ function runProgram(){
   //////////////////////////// SETUP /////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
+  // Global Variable
+  var walker = {
+    x: 0,
+    y: 0,
+    speedX: 0,
+    speedY: 0,
+    speedPercent: 1,
+    size: 50,
+  }
+
   // Constant Variables
   var FRAME_RATE = 60;
   var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
-  
+  var PIXELS_PER_FRAME = 4;
+
   // Game Item Objects
 
 
   // one-time setup
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
+  const KEY = {
+    ENTER: 13,
+    LEFT: 65,
+    RIGHT: 68,
+    UP: 87,
+    DOWN: 83,
+  }
 
   /* 
   This section is where you set up event listeners for user input.
@@ -23,7 +41,8 @@ function runProgram(){
 
   Note: You can have multiple event listeners for different types of events.
   */
-  $(document).on('eventType', handleEvent);                          
+  $(document).on('keydown', handleKeyDown);                          
+  $(document).on('keyup', handleKeyUp);
 
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
@@ -34,8 +53,9 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    
-
+    repositionGameItem(); // Determines new position
+    wallCollision(); // Determines boundaries
+    redrawGameItem(); // Sets item at new position
   }
   
   /* 
@@ -44,15 +64,80 @@ function runProgram(){
   
   Note: You can have multiple event handlers for different types of events.
   */
-  function handleEvent(event) {
+  function handleKeyDown(event) {
+    // console.log(event.which) // Debug
 
+    if (event.which === KEY.LEFT){
+      walker.speedX = -PIXELS_PER_FRAME * walker.speedPercent;
+    }
+
+    if (event.which === KEY.RIGHT){
+      walker.speedX = PIXELS_PER_FRAME * walker.speedPercent;
+    }
+
+    if (event.which === KEY.DOWN){
+      walker.speedY = PIXELS_PER_FRAME * walker.speedPercent;
+    }
+  
+    if (event.which === KEY.UP){
+      walker.speedY = -PIXELS_PER_FRAME * walker.speedPercent;
+    }
+  
+  }
+
+  function handleKeyUp(event){
+    if (event.which === KEY.RIGHT || event.which === KEY.LEFT){
+      walker.speedX = 0;
+    }
+  
+    if (event.which === KEY.UP || event.which === KEY.DOWN){
+      walker.speedY = 0;
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
+  function redrawGameItem(){
+    $("#walker").css({
+      'left': walker.x,
+      'top': walker.y,
+    });
+  }
+
+  function repositionGameItem(){
+    walker.x += walker.speedX;
+    walker.y += walker.speedY;
+  }
   
+  function wallCollision(){
+
+    // Left Boundary
+    if (walker.x < 0){
+      walker.speedX = 0;
+      walker.x = 0;
+    }
+
+    // Right boundary
+    if (walker.x > $("#board").width() - walker.size){
+      walker.speedX = 0;
+      walker.x = $("#board").width() - walker.size;
+    }
+
+    // Top boundary
+    if (walker.y < 0){
+      walker.speedY = 0;
+      walker.y = 0;
+    }
+
+    // Bottom boundary
+    if (walker.y > $("#board").height() - walker.size){
+      walker.speedY = 0;
+      walker.y = $("#board").height() - walker.size;
+    }
+  }
+
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
