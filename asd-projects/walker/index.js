@@ -8,14 +8,8 @@ function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
 
   // Global Variable
-  var walker = {
-    x: 0,
-    y: 0,
-    speedX: 0,
-    speedY: 0,
-    speedPercent: 1,
-    size: 50,
-  }
+  var walkers = [];
+  var keysAssigned = [];
 
   // Constant Variables
   var FRAME_RATE = 60;
@@ -23,7 +17,7 @@ function runProgram(){
   var PIXELS_PER_FRAME = 4;
 
   // Game Item Objects
-
+  var GAME_STARTED = false;
 
   // one-time setup
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
@@ -41,8 +35,19 @@ function runProgram(){
 
   Note: You can have multiple event listeners for different types of events.
   */
-  $(document).on('keydown', handleKeyDown);                          
-  $(document).on('keyup', handleKeyUp);
+  $(document).on('keydown', function(e){
+    if (GAME_STARTED) {
+      handleKeyDown(e)
+    } else {
+      assignNewKey(e)
+    }
+  });
+
+  $(document).on('keyup', function(e){
+    if (GAME_STARTED) {
+      handleKeyUp(e)
+    }
+  });
 
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
@@ -53,6 +58,7 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
+
     repositionGameItem(); // Determines new position
     wallCollision(); // Determines boundaries
     redrawGameItem(); // Sets item at new position
@@ -65,33 +71,38 @@ function runProgram(){
   Note: You can have multiple event handlers for different types of events.
   */
   function handleKeyDown(event) {
-    // console.log(event.which) // Debug
+    for (var i = 0; i < walkers.length; i++){
+      var walker = walkers[i];
 
-    if (event.which === KEY.LEFT){
-      walker.speedX = -PIXELS_PER_FRAME * walker.speedPercent;
-    }
+      if (event.which === walker.keys.LEFT){
+        walker.speedX = -PIXELS_PER_FRAME * walker.speedPercent;
+      }
 
-    if (event.which === KEY.RIGHT){
-      walker.speedX = PIXELS_PER_FRAME * walker.speedPercent;
-    }
+      if (event.which === walker.keys.RIGHT){
+        walker.speedX = PIXELS_PER_FRAME * walker.speedPercent;
+      }
 
-    if (event.which === KEY.DOWN){
-      walker.speedY = PIXELS_PER_FRAME * walker.speedPercent;
+      if (event.which === walker.keys.DOWN){
+        walker.speedY = PIXELS_PER_FRAME * walker.speedPercent;
+      }
+    
+      if (event.which === walker.keys.UP){
+        walker.speedY = -PIXELS_PER_FRAME * walker.speedPercent;
+      }
     }
-  
-    if (event.which === KEY.UP){
-      walker.speedY = -PIXELS_PER_FRAME * walker.speedPercent;
-    }
-  
   }
 
   function handleKeyUp(event){
-    if (event.which === KEY.RIGHT || event.which === KEY.LEFT){
-      walker.speedX = 0;
-    }
-  
-    if (event.which === KEY.UP || event.which === KEY.DOWN){
-      walker.speedY = 0;
+    for (var i = 0; i < walkers.length; i++){
+      var walker = walkers[i];
+      
+      if (event.which === walker.keys.RIGHT || event.which === walker.keys.LEFT){
+        walker.speedX = 0;
+      }
+    
+      if (event.which === walker.keys.UP || event.which === walker.keys.DOWN){
+        walker.speedY = 0;
+      }
     }
   }
 
@@ -99,42 +110,96 @@ function runProgram(){
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
+  function createWalker(){
+
+    // Create a new object for the walker
+    var newWalker = {
+      obj: $("<div>").addClass('walker').appendTo("#board"),
+      size: 50,
+      color: '#ff0000',
+      x: (Math.random() * $("#board").width() - 50),
+      y: (Math.random() * $("#board").height() - 50),
+      speedX: 0,
+      speedY: 0,
+      speedPercent: 1,
+      keys: {
+        LEFT: 65,
+        RIGHT: 68,
+        UP: 87,
+        DOWN: 83, 
+      },
+    }
+
+    walkers.push(newWalker);
+    console.log(walkers)
+    var playerNum = walkers.length 
+
+    // Add a player tag to start menu
+    var $player_card = $("<li>").addClass('player-card').appendTo("#player-list")
+
+      // Add icon
+      $("<div>").addClass('walker-icon').css('background-color', newWalker.color).appendTo($player_card)
+
+      // Add name
+      $("<h2>").text('Player ' + (walkers.length)).appendTo($player_card);
+
+      // Add new remove button
+      if (playerNum !== 1){
+        $("<button>").text('X').appendTo($player_card).on('click', function(){
+          $player_card.remove();
+          newWalker.obj.remove();
+          walkers.splice(playerNum - 1)
+
+          console.log(walkers, walkers.length)
+          if (walkers.length <= 2){
+            $("#add-player").show();
+          }
+        })
+      }
+  }
+
   function redrawGameItem(){
-    $("#walker").css({
-      'left': walker.x,
-      'top': walker.y,
-    });
+    for (let walker_data of walkers){
+      walker_data.obj.css({
+        'left': walker_data.x,
+        'top': walker_data.y,
+      })
+    }
   }
 
   function repositionGameItem(){
-    walker.x += walker.speedX;
-    walker.y += walker.speedY;
+    for (let walker_data of walkers){
+      walker_data.x += walker_data.speedX;
+      walker_data.y += walker_data.speedY;
+    }
   }
   
   function wallCollision(){
+    for (let walker of walkers){
 
-    // Left Boundary
-    if (walker.x < 0){
-      walker.speedX = 0;
-      walker.x = 0;
-    }
+      // Left Boundary
+      if (walker.x < 0){
+        walker.speedX = 0;
+        walker.x = 0;
+      }
 
-    // Right boundary
-    if (walker.x > $("#board").width() - walker.size){
-      walker.speedX = 0;
-      walker.x = $("#board").width() - walker.size;
-    }
+      // Right boundary
+      if (walker.x > $("#board").width() - walker.size){
+        walker.speedX = 0;
+        walker.x = $("#board").width() - walker.size;
+      }
 
-    // Top boundary
-    if (walker.y < 0){
-      walker.speedY = 0;
-      walker.y = 0;
-    }
+      // Top boundary
+      if (walker.y < 0){
+        walker.speedY = 0;
+        walker.y = 0;
+      }
 
-    // Bottom boundary
-    if (walker.y > $("#board").height() - walker.size){
-      walker.speedY = 0;
-      walker.y = $("#board").height() - walker.size;
+      // Bottom boundary
+      if (walker.y > $("#board").height() - walker.size){
+        walker.speedY = 0;
+        walker.y = $("#board").height() - walker.size;
+      }
     }
   }
 
@@ -145,5 +210,66 @@ function runProgram(){
     // turn off event handlers
     $(document).off();
   }
-  
+
+
+  // Adding & Remove Players
+  createWalker(); // Always start with one walker
+  $("#add-player").on('click', function(){
+
+    $("#startMenu").hide();
+    $("#keyAssign").show();
+
+    keysAssigned = [];
+
+    var assignedKeys = {
+      LEFT: 65,
+      RIGHT: 68,
+      UP: 87,
+      DOWN: 83,
+    }
+    
+    // createWalker();
+
+    if (walkers.length > 2){
+      $("#add-player").hide();
+    }
+  })
+
+  function displayKeys(){
+      $("#key-list").empty(); // Clears list
+
+      for (var i = 0; i < 4; i++){ // Displays keys assigned
+        if (keysAssigned[i]){
+          $("<li>").text(String.fromCharCode(keysAssigned[i])).appendTo('#key-list')
+        } else {
+          $("<li>").text('?').appendTo('#key-list')
+        }
+      }
+    }
+
+  function assignNewKey(event){
+    keysAssigned.push(event.which);
+    displayKeys()
+    if (keysAssigned.length === 4){
+
+      createWalker({
+        UP: keysAssigned[0],
+        LEFT: keysAssigned[1],
+        DOWN: keysAssigned[2],
+        RIGHT: keysAssigned[3],
+      })  
+      
+      console.log('a')
+    } else if (keysAssigned.length >= 4) {
+      console.log('done')
+    } else {
+      displayKeys()
+    }
+  }
+
+  // Starting the game
+  $("#start").on('click', function(){
+    $("#startMenu").hide();
+    GAME_STARTED = true;
+  })
 }

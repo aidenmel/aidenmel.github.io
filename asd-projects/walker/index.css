@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Outfit:wght@100..900&display=swap');
+
+/* Variables */
 :root {
   --primary: #ffffff;
   --secondary: #000;
+
+  /* Properties */
+  --border-radius: 24px;
 }
 
+/* Essentials */
 body {
   overflow: none;
   font-size: 16px;
@@ -10,6 +17,26 @@ body {
   background-color: var(--primary);
 }
 
+/* Text Styles */
+h1 {
+  font-family: "Jua", sans-serif;
+  font-size: 2.4em;
+  margin: 0;
+}
+
+h2 {
+  font-family: "Jua", sans-serif;
+  font-size: 1.2em;
+  margin: 0;
+}
+
+p {
+  font-family: "Outfit", sans-serif;
+  font-size: 1em;
+  margin: 0;
+}
+
+/* Containers */
 #board {
   background-image: url(https://cdn3.f-cdn.com/contestentries/1437066/9304471/5bd42b344f7de_thumbCard.jpg);
   background-size: 256px;
@@ -48,10 +75,97 @@ body {
 /*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
 }
 
-#walker {
+.walker {
   border-radius: 1em;
   position: absolute;
   width: 50px;
   height: 50px;
   background-color: blue;
 }
+
+.menu {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 50vw;
+
+  z-index: 5;
+  border-radius: var(--border-radius);
+  text-align: center;
+  background: var(--primary);
+  padding: 32px;
+  box-shadow: 0 0 8px 0 #25252550;
+}
+
+  #startMenu ul {
+    padding-inline-start: 0;
+  }
+
+  .player-card {
+    background: #f8f8f8;
+    
+    list-style: none;
+    padding: 12px 16px;
+
+    border-radius: var(--border-radius);
+    width: 100%;
+    height: 56px;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
+    .walker-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      margin-right: 16px;
+      background-color: blue;
+      cursor: pointer;
+    }
+
+    .player-card button {
+      position: absolute;
+      right: 8px;
+      margin: 8px 0;
+      font-family: "Jua", sans-serif;
+      font-size: 1.6em;
+      background-color: #ffdcdc;
+      color: #ff6565;
+      border-radius: var(--border-radius);
+      width: 48px;
+      height: 48px;
+      border: none;
+    }
+
+  #keyAssign {
+    display: none; /* Hidden by default */
+  }
+    
+    #keyAssign ul {
+      list-style: none;
+      padding-inline-start: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      
+      gap: 8px;
+    }
+
+    #keyAssign li {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--border-radius);
+      background: #f8f8f8;
+      
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-family: "Outfit", sans-serif;
+      cursor: default;
+    }
