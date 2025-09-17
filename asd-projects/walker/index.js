@@ -21,13 +21,6 @@ function runProgram(){
 
   // one-time setup
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
-  const KEY = {
-    ENTER: 13,
-    LEFT: 65,
-    RIGHT: 68,
-    UP: 87,
-    DOWN: 83,
-  }
 
   /* 
   This section is where you set up event listeners for user input.
@@ -58,9 +51,8 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
-
     repositionGameItem(); // Determines new position
-    wallCollision(); // Determines boundaries
+    detectCollisions(); // Determines boundaries
     redrawGameItem(); // Sets item at new position
   }
   
@@ -106,23 +98,20 @@ function runProgram(){
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
-
+  // Adds multiplayer
   function createWalker(KEYS_ARRAY){
 
     // Create a new object for the walker
     var newWalker = {
       obj: $("<div>").addClass('walker').appendTo("#board"),
       size: 50,
-      color: '#ff0000',
+      color: randomColor(),
       x: (Math.random() * $("#board").width() - 50),
       y: (Math.random() * $("#board").height() - 50),
       speedX: 0,
       speedY: 0,
       speedPercent: 1,
-      keys: {
+      keys: { // Keys are assigned in a designated selection screen
         LEFT: KEYS_ARRAY.LEFT,
         RIGHT: KEYS_ARRAY.RIGHT,
         UP: KEYS_ARRAY.UP,
@@ -137,17 +126,38 @@ function runProgram(){
     var $player_card = $("<li>").addClass('player-card').appendTo("#player-list")
 
       // Add icon
-      $("<div>").addClass('walker-icon').css('background-color', newWalker.color).appendTo($player_card)
+      var $walkerIcon = $("<div>")
+      .addClass('walker-icon')
+      .css('background-color', newWalker.color)
+      .appendTo($player_card)
+    
+      // Color Randomizer
+      .on('click', function(){
+        newWalker.color = randomColor();
+        $walkerIcon.css('background-color', newWalker.color)
+      })
 
-      // Add name
-      $("<h2>").text('Player ' + (walkers.length)).appendTo($player_card);
 
-      // Display controls 
-      $("<p>").text('Controlled with ' + String.fromCharCode(newWalker.keys.UP) + ', ' + String.fromCharCode(newWalker.keys.LEFT) + ', ' + String.fromCharCode(newWalker.keys.DOWN) + ', ' + String.fromCharCode(newWalker.keys.RIGHT)).appendTo($player_card)
+      // Creates a description
+      var $desc = $("<div>").addClass('desc').appendTo($player_card)
+      
+        // Add name
+        $("<h2>").text('Player ' +  (walkers.length)).appendTo($desc);
+
+        // Display controls 
+        $("<p>").text('Controlled with ' 
+          + String.fromCharCode(newWalker.keys.UP) 
+          + ', ' +  String.fromCharCode(newWalker.keys.LEFT) 
+          + ', ' + String.fromCharCode(newWalker.keys.DOWN) 
+          + ', ' + String.fromCharCode(newWalker.keys.RIGHT)
+        ).appendTo($desc)
 
       // Add new remove button
       if (playerNum !== 1){
-        $("<button>").text('X').appendTo($player_card).on('click', function(){
+        $("<button>")
+        .text('X')
+        .appendTo($player_card)
+        .on('click', function(){
           $player_card.remove();
           newWalker.obj.remove();
           walkers.splice(playerNum - 1)
@@ -163,6 +173,12 @@ function runProgram(){
         $("#add-player").hide()
       }
   }
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+
 
   function redrawGameItem(){
     for (let walker_data of walkers){
@@ -180,9 +196,22 @@ function runProgram(){
     }
   }
   
-  function wallCollision(){
-    for (let walker of walkers){
+  function randomColor(){
+    return ('hsl(' 
+          +  Math.floor(Math.random() * 360) 
+          + ',' + (Math.floor(Math.random() * 31) + 70)
+          + ',' + (Math.floor(Math.random() * 21) + 50)
+          + ')')
+  }
 
+  // Collision Detection
+  function detectCollisions(){
+
+    // Player Collisions
+    
+
+    // Wall Collisions
+    for (let walker of walkers){
       // Left Boundary
       if (walker.x < 0){
         walker.speedX = 0;
@@ -234,10 +263,10 @@ function runProgram(){
     $("#keyAssign").show();
 
     $("#key-label").text('Press a key for movement ' + ORDER_OF_KEYS[0]);
-          
     keysAssigned = [];
   })
 
+  // Displays the keys selected so far
   function displayKeys(){
       $("#key-list").empty(); // Clears list
       var labelSet = false;
@@ -273,7 +302,7 @@ function runProgram(){
       $("#startMenu").show();
 
     } else if (keysAssigned.length < 4) {
-      displayKeys()
+      displayKeys() // Else if under 4, display the keys
     }
   }
 

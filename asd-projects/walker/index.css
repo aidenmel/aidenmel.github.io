@@ -80,7 +80,7 @@ p {
   position: absolute;
   width: 50px;
   height: 50px;
-  background-color: blue;
+  background-color: hsl(116, 100%, 50%);
 }
 
 .menu {
@@ -118,12 +118,20 @@ p {
     align-items: center;
   }
 
+    .player-card .desc {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
     .walker-icon {
       width: 48px;
       height: 48px;
       border-radius: 16px;
       margin-right: 16px;
-      background-color: blue;
+      background-color: hsl(116, 100%, 50%);
+      box-shadow: 0 0 8px 0 #00000025;
       cursor: pointer;
     }
 
