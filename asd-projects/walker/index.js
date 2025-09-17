@@ -110,7 +110,7 @@ function runProgram(){
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
-  function createWalker(){
+  function createWalker(KEYS_ARRAY){
 
     // Create a new object for the walker
     var newWalker = {
@@ -123,15 +123,14 @@ function runProgram(){
       speedY: 0,
       speedPercent: 1,
       keys: {
-        LEFT: 65,
-        RIGHT: 68,
-        UP: 87,
-        DOWN: 83, 
+        LEFT: KEYS_ARRAY.LEFT,
+        RIGHT: KEYS_ARRAY.RIGHT,
+        UP: KEYS_ARRAY.UP,
+        DOWN: KEYS_ARRAY.DOWN, 
       },
     }
 
     walkers.push(newWalker);
-    console.log(walkers)
     var playerNum = walkers.length 
 
     // Add a player tag to start menu
@@ -143,6 +142,9 @@ function runProgram(){
       // Add name
       $("<h2>").text('Player ' + (walkers.length)).appendTo($player_card);
 
+      // Display controls 
+      $("<p>").text('Controlled with ' + String.fromCharCode(newWalker.keys.UP) + ', ' + String.fromCharCode(newWalker.keys.LEFT) + ', ' + String.fromCharCode(newWalker.keys.DOWN) + ', ' + String.fromCharCode(newWalker.keys.RIGHT)).appendTo($player_card)
+
       // Add new remove button
       if (playerNum !== 1){
         $("<button>").text('X').appendTo($player_card).on('click', function(){
@@ -150,11 +152,15 @@ function runProgram(){
           newWalker.obj.remove();
           walkers.splice(playerNum - 1)
 
-          console.log(walkers, walkers.length)
           if (walkers.length <= 2){
             $("#add-player").show();
           }
         })
+      }
+
+      // Hide add player button if it exceeds maximum
+      if (walkers.length > 2){
+        $("#add-player").hide()
       }
   }
 
@@ -213,35 +219,37 @@ function runProgram(){
 
 
   // Adding & Remove Players
-  createWalker(); // Always start with one walker
-  $("#add-player").on('click', function(){
+  createWalker({ // Always start with one walker that has WASD controls
+    LEFT: 65,
+    RIGHT: 68,
+    UP: 87,
+    DOWN: 83, 
+  }); 
 
+  // Key assignment (for creating new walkers)
+  var ORDER_OF_KEYS = ['up', 'left', 'down', 'right']
+
+  $("#add-player").on('click', function(){
     $("#startMenu").hide();
     $("#keyAssign").show();
 
+    $("#key-label").text('Press a key for movement ' + ORDER_OF_KEYS[0]);
+          
     keysAssigned = [];
-
-    var assignedKeys = {
-      LEFT: 65,
-      RIGHT: 68,
-      UP: 87,
-      DOWN: 83,
-    }
-    
-    // createWalker();
-
-    if (walkers.length > 2){
-      $("#add-player").hide();
-    }
   })
 
   function displayKeys(){
       $("#key-list").empty(); // Clears list
+      var labelSet = false;
 
       for (var i = 0; i < 4; i++){ // Displays keys assigned
         if (keysAssigned[i]){
           $("<li>").text(String.fromCharCode(keysAssigned[i])).appendTo('#key-list')
         } else {
+          if (!labelSet){
+            labelSet = true;
+            $("#key-label").text('Press a key for movement ' + ORDER_OF_KEYS[i]);
+          }
           $("<li>").text('?').appendTo('#key-list')
         }
       }
@@ -249,9 +257,10 @@ function runProgram(){
 
   function assignNewKey(event){
     keysAssigned.push(event.which);
-    displayKeys()
+
     if (keysAssigned.length === 4){
 
+      // Create a new walker with new keycodes
       createWalker({
         UP: keysAssigned[0],
         LEFT: keysAssigned[1],
@@ -259,10 +268,11 @@ function runProgram(){
         RIGHT: keysAssigned[3],
       })  
       
-      console.log('a')
-    } else if (keysAssigned.length >= 4) {
-      console.log('done')
-    } else {
+      // Return to start menu
+      $("#keyAssign").hide();
+      $("#startMenu").show();
+
+    } else if (keysAssigned.length < 4) {
       displayKeys()
     }
   }
