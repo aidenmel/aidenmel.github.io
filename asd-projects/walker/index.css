@@ -11,7 +11,7 @@
 
 /* Essentials */
 body {
-  overflow: none;
+  overflow: hidden;
   font-size: 16px;
   margin: 0;
   background-color: var(--primary);
@@ -41,29 +41,26 @@ p {
   background-image: url(https://cdn3.f-cdn.com/contestentries/1437066/9304471/5bd42b344f7de_thumbCard.jpg);
   background-size: 256px;
   background-repeat: repeat;
-  
-  border-radius: 12px;
-  border: 2px solid #252525;
 
   position: relative;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
+
+  box-shadow: inset 0 0 48px 0 #00000050;
 }
 
 #monitor {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  top: 0;
   
-  border: 12px solid #ffe4ce;
-  border-radius: 12px;
-  
-  width: 80vw;
-  max-width: 1080px;
-  aspect-ratio: 4/3;
+  overflow: none;
+
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
 }
 
 #gameItem {
@@ -81,7 +78,31 @@ p {
   width: 50px;
   height: 50px;
   background-color: hsl(116, 100%, 50%);
+  z-index: 5;
 }
+
+  .tagger {
+    box-shadow: 0 0 16px 0 red, inset 0 0 8px 0 white;
+    border: 2px solid red;
+  }
+
+.menu-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background-color: transparent;
+}
+  
+  .menu-container.active {  
+    background-color: #ffffff50;
+    backdrop-filter: blur(4px) saturate(150%);
+  }
+
 
 .menu {
   position: fixed;
@@ -177,3 +198,20 @@ p {
       font-family: "Outfit", sans-serif;
       cursor: default;
     }
+
+  .game-content {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+  }
+
+/* Landscape */
+#landscape {
+  overflow: hidden;
+}
+
+#landscape img {
+  position: absolute;
+  z-index: 3;
+}

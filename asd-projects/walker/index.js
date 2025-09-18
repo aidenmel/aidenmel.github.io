@@ -16,8 +16,18 @@ function runProgram(){
   var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
   var PIXELS_PER_FRAME = 4;
 
+  // Key Assignment Variables
+  var ORDER_OF_KEYS = ['up', 'left', 'down', 'right']
+  var keyDirectory = {
+    38: '⬆️',
+    37: '⬅️',
+    40: '⬇️',
+    39: '➡️',
+  }
+
   // Game Item Objects
   var GAME_STARTED = false;
+  var CURRENT_TAGGER;
 
   // one-time setup
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
@@ -52,7 +62,7 @@ function runProgram(){
   */
   function newFrame() {
     repositionGameItem(); // Determines new position
-    detectCollisions(); // Determines boundaries
+    detectCollisions(); // Determines boundaries & tags
     redrawGameItem(); // Sets item at new position
   }
   
@@ -103,7 +113,7 @@ function runProgram(){
 
     // Create a new object for the walker
     var newWalker = {
-      obj: $("<div>").addClass('walker').appendTo("#board"),
+      obj: $("<div>").addClass('walker').appendTo("#walkers"),
       size: 50,
       color: randomColor(),
       x: (Math.random() * $("#board").width() - 50),
@@ -128,15 +138,17 @@ function runProgram(){
       // Add icon
       var $walkerIcon = $("<div>")
       .addClass('walker-icon')
-      .css('background-color', newWalker.color)
+      .css('background', newWalker.color)
       .appendTo($player_card)
     
       // Color Randomizer
       .on('click', function(){
         newWalker.color = randomColor();
-        $walkerIcon.css('background-color', newWalker.color)
+        $walkerIcon.css('background', newWalker.color)
+        newWalker.obj.css('background', newWalker.color)
       })
 
+      newWalker.obj.css('background', newWalker.color) // Set already assigned color
 
       // Creates a description
       var $desc = $("<div>").addClass('desc').appendTo($player_card)
@@ -146,10 +158,10 @@ function runProgram(){
 
         // Display controls 
         $("<p>").text('Controlled with ' 
-          + String.fromCharCode(newWalker.keys.UP) 
-          + ', ' +  String.fromCharCode(newWalker.keys.LEFT) 
-          + ', ' + String.fromCharCode(newWalker.keys.DOWN) 
-          + ', ' + String.fromCharCode(newWalker.keys.RIGHT)
+          + (keyDirectory[newWalker.keys.UP] ? keyDirectory[newWalker.keys.UP] : String.fromCharCode(newWalker.keys.UP))
+          + ', ' +  (keyDirectory[newWalker.keys.LEFT] ? keyDirectory[newWalker.keys.LEFT] : String.fromCharCode(newWalker.keys.LEFT)) 
+          + ', ' + (keyDirectory[newWalker.keys.DOWN] ? keyDirectory[newWalker.keys.DOWN] : String.fromCharCode(newWalker.keys.DOWN))
+          + ', ' + (keyDirectory[newWalker.keys.RIGHT] ? keyDirectory[newWalker.keys.RIGHT] : String.fromCharCode(newWalker.keys.RIGHT))
         ).appendTo($desc)
 
       // Add new remove button
@@ -200,15 +212,27 @@ function runProgram(){
     return ('hsl(' 
           +  Math.floor(Math.random() * 360) 
           + ',' + (Math.floor(Math.random() * 31) + 70)
-          + ',' + (Math.floor(Math.random() * 21) + 50)
-          + ')')
+          + '%,' + (Math.floor(Math.random() * 21) + 50)
+          + '%)')
   }
 
   // Collision Detection
   function detectCollisions(){
 
-    // Player Collisions
-    
+    // Player Collisions (aka tagging)
+    if (GAME_STARTED){
+      for (let walker of walkers){
+        if (walker !== CURRENT_TAGGER){
+          var deltaA = (walker.x - (CURRENT_TAGGER.x ));
+          var deltaB = (walker.y - (CURRENT_TAGGER.y ));
+          var distanceBetween = Math.sqrt(deltaA * deltaA + deltaB * deltaB);
+          
+          if (distanceBetween < 50){
+            console.log('tagged ', walker)
+          }
+        }  
+      }
+    }
 
     // Wall Collisions
     for (let walker of walkers){
@@ -238,6 +262,89 @@ function runProgram(){
     }
   }
 
+  function createMap(){
+
+    // Add bushes
+    for (var i = 0; i < 10 + (Math.random() * 10); i++){
+      var ranSize = 64 + (Math.random() * 48);
+
+      // Creates bush
+      $('<img>')
+      .attr('src', 'assets/landscape/small-bush.png')
+      .addClass('bush')
+      .appendTo('#landscape')
+      .css({
+        'width': ranSize,
+        'height': ranSize,
+        'z-index': 2,
+        'left': (Math.random() * $("#board").width() - 50),
+        'top': (Math.random() * $("#board").height() - 50),
+        'filter': 'drop-shadow(2px 4px 6px #00000050)',
+      })
+    }
+
+    // Adds rocks
+    for (var i = 0; i < 8 + (Math.random() * 10); i++){
+      var ranSize = 48 + (Math.random() * 24);
+
+      // Creates rocks
+      $('<img>')
+      .attr('src', 'assets/landscape/small-rock.png')
+      .addClass('rock')
+      .appendTo('#landscape')
+      .css({
+        'width': ranSize,
+        'height': ranSize,
+        'z-index': 1,
+        'left': (Math.random() * $("#board").width() - 50),
+        'top': (Math.random() * $("#board").height() - 50),
+        'transform': 'rotate(' + Math.random() * 360 + 'deg)',
+        'filter': 'drop-shadow(2px 4px 6px #00000050)',
+      })
+    }
+
+    // Adds dirt patches
+    for (var i = 0; i < (Math.random() * 3); i++){
+      var ranSize = 64 + (Math.random() * 48);
+
+      // Creates rocks
+      $('<img>')
+      .attr('src', 'assets/landscape/dirt-patch.png')
+      .addClass('dirt')
+      .appendTo('#landscape')
+      .css({
+        'width': ranSize,
+        'height': ranSize,
+        'z-index': 0,
+        'left': (Math.random() * $("#board").width() - 50),
+        'top': (Math.random() * $("#board").height() - 50),
+        'transform': 'rotate(' + Math.random() * 360 + 'deg)',
+      })
+    }
+
+    // Adds tree top
+    for (var i = 0; i < (Math.random() * 7); i++){
+      var ranSize = 128 + (Math.random() * 128);
+
+      // Creates rocks
+      $('<img>')
+      .attr('src', 'assets/landscape/tree-top.png')
+      .addClass('tree')
+      .appendTo('#landscape')
+      .css({
+        'width': ranSize,
+        'height': ranSize,
+        'z-index': 6,
+        'left': (Math.random() * $("#board").width() - 50),
+        'top': (Math.random() * $("#board").height() - 50),
+        'transform': 'rotate(' + Math.random() * 360 + 'deg)',
+        'filter': 'brightness(50%) saturate(8) drop-shadow(4px 8px 16px #00000050)',
+      })
+    }
+
+
+  }
+
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
@@ -246,69 +353,89 @@ function runProgram(){
     $(document).off();
   }
 
+  function startGame(){
+    GAME_STARTED = true; // Sets GAME_STARTED variable
 
-  // Adding & Remove Players
-  createWalker({ // Always start with one walker that has WASD controls
-    LEFT: 65,
-    RIGHT: 68,
-    UP: 87,
-    DOWN: 83, 
-  }); 
+    if (!CURRENT_TAGGER){ // If there is no tagger (first round), assign a random tagger
+      CURRENT_TAGGER = walkers[Math.floor(Math.random() * walkers.length)]
+    }
 
-  // Key assignment (for creating new walkers)
-  var ORDER_OF_KEYS = ['up', 'left', 'down', 'right']
+    // Loop through all walkers and determine tagger
+    for (let tagger in walkers){
+      if (tagger = CURRENT_TAGGER){
+        tagger.obj.addClass('tagger');
+      } else {
+        tagger.obj.removeClass('tagger')
+      }
+    }
 
+    createMap()
+
+    // Hide start menu
+    $(".menu-container").hide();
+  }
+
+  // Key assignment functions
+
+    // Displays the keys assigned so far
+    function displayKeys(){
+        $("#key-list").empty(); // Clears list
+        var labelSet = false;
+
+        for (var i = 0; i < 4; i++){ // Displays keys assigned
+          if (keysAssigned[i]){
+            $("<li>").text(keyDirectory[keysAssigned[i]] ? keyDirectory[keysAssigned[i]] : String.fromCharCode(keysAssigned[i])).appendTo('#key-list')
+          } else {
+            if (!labelSet){
+              labelSet = true;
+              $("#key-label").text('Press a key for movement ' + ORDER_OF_KEYS[i]);
+            }
+            $("<li>").text('?').appendTo('#key-list')
+          }
+        }
+      }
+
+    // Assigns key to new walker
+    function assignNewKey(event){
+      keysAssigned.push(event.which);
+      
+      if (keysAssigned.length === 4){
+
+        // Create a new walker when the 4 keycode minimum is met
+        createWalker({
+          UP: keysAssigned[0],
+          LEFT: keysAssigned[1],
+          DOWN: keysAssigned[2],
+          RIGHT: keysAssigned[3],
+        })  
+        
+        // Return to start menu
+        $("#keyAssign").hide();
+        $("#startMenu").show();
+
+      } else if (keysAssigned.length < 4) {
+        displayKeys() // Else if under 4, display the keys
+      }
+    }
+
+  // Key Assignment Event
   $("#add-player").on('click', function(){
     $("#startMenu").hide();
     $("#keyAssign").show();
 
     $("#key-label").text('Press a key for movement ' + ORDER_OF_KEYS[0]);
     keysAssigned = [];
+    displayKeys();
   })
-
-  // Displays the keys selected so far
-  function displayKeys(){
-      $("#key-list").empty(); // Clears list
-      var labelSet = false;
-
-      for (var i = 0; i < 4; i++){ // Displays keys assigned
-        if (keysAssigned[i]){
-          $("<li>").text(String.fromCharCode(keysAssigned[i])).appendTo('#key-list')
-        } else {
-          if (!labelSet){
-            labelSet = true;
-            $("#key-label").text('Press a key for movement ' + ORDER_OF_KEYS[i]);
-          }
-          $("<li>").text('?').appendTo('#key-list')
-        }
-      }
-    }
-
-  function assignNewKey(event){
-    keysAssigned.push(event.which);
-
-    if (keysAssigned.length === 4){
-
-      // Create a new walker with new keycodes
-      createWalker({
-        UP: keysAssigned[0],
-        LEFT: keysAssigned[1],
-        DOWN: keysAssigned[2],
-        RIGHT: keysAssigned[3],
-      })  
-      
-      // Return to start menu
-      $("#keyAssign").hide();
-      $("#startMenu").show();
-
-    } else if (keysAssigned.length < 4) {
-      displayKeys() // Else if under 4, display the keys
-    }
-  }
 
   // Starting the game
-  $("#start").on('click', function(){
-    $("#startMenu").hide();
-    GAME_STARTED = true;
-  })
+  $("#start").on('click', startGame)
+
+  // Always start with a single walker
+  createWalker({ // First walker always has WASD controls
+    LEFT: 65,
+    RIGHT: 68,
+    UP: 87,
+    DOWN: 83, 
+  }); 
 }

@@ -11,32 +11,40 @@
   </head>
   
   <body>
-    <section class="menu" id="startMenu">
-      <h1>Walker</h1>
-      <p>Play with two or more players in the classic game of tag.</p>
-      <hr>
-      <ul id="player-list">
-      </ul>
-      <button id="add-player">Add Player</button>
-      <hr>
-      <button id="start">Start Round</button>
-      <h6>Game brought to you by Aiden Melton</h6>
-    </section>
+    <main class="menu-container active">
+      <section class="menu" id="startMenu">
+        <h1>Walker</h1>
+        <p>Play with two or more players in the classic game of tag.</p>
+        <hr>
+        <ul id="player-list">
+        </ul>
+        <button id="add-player">Add Player</button>
+        <hr>
+        <button id="start">Start Round</button>
+        <h6>Game brought to you by Aiden Melton</h6>
+      </section>
 
-    <section class="menu" id="keyAssign">
-      <h1>Assign Keys</h1>
-      <p>Select the keys that will determine your created walker's movement.</p>
-      <ul id="key-list">
-        <li id="key-up">?</li>
-        <li id="key-left">?</li>
-        <li id="key-down">?</li>
-        <li id="key-right">?</li>
-      </ul>
-      <h2 id="key-label">Assign a key for <i>LEFT</i></h2>
-    </section>
-    
+      <section class="menu" id="keyAssign">
+        <h1>Assign Keys</h1>
+        <p>Select the keys that will determine your created walker's movement.</p>
+        <ul id="key-list">
+          <li id="key-up">?</li>
+          <li id="key-left">?</li>
+          <li id="key-down">?</li>
+          <li id="key-right">?</li>
+        </ul>
+        <h2 id="key-label">Assign a key for <i>LEFT</i></h2>
+      </section>
+    </main>
+
+    <main class="game-content">
+      <h2 id="round">Round 1</h2>
+    </main>
+
     <section id="monitor">
       <div id='board'>
+        <div id="landscape"></div>
+        <div id="walkers"></div>
       </div>
     </section>
   </body>
