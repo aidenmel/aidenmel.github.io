@@ -27,6 +27,7 @@ function runProgram(){
 
   // Game Item Objects
   var GAME_STARTED = false;
+  var ROUND = 0;
   var CURRENT_TAGGER;
 
   // one-time setup
@@ -61,9 +62,11 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    repositionGameItem(); // Determines new position
-    detectCollisions(); // Determines boundaries & tags
-    redrawGameItem(); // Sets item at new position
+    if (GAME_STARTED){
+      repositionGameItem(); // Determines new position
+      detectCollisions(); // Determines boundaries & tags
+      redrawGameItem(); // Sets item at new position
+    }
   }
   
   /* 
@@ -228,7 +231,7 @@ function runProgram(){
           var distanceBetween = Math.sqrt(deltaA * deltaA + deltaB * deltaB);
           
           if (distanceBetween < 50){
-            console.log('tagged ', walker)
+            newRound(walker)
           }
         }  
       }
@@ -263,9 +266,10 @@ function runProgram(){
   }
 
   function createMap(){
+    var screenToLandscape = ($(document).width() * $(document).height())/(540*960);
 
     // Add bushes
-    for (var i = 0; i < 10 + (Math.random() * 10); i++){
+    for (var i = 0; i < screenToLandscape * (10 + (Math.random() * 10)); i++){
       var ranSize = 64 + (Math.random() * 48);
 
       // Creates bush
@@ -284,7 +288,7 @@ function runProgram(){
     }
 
     // Adds rocks
-    for (var i = 0; i < 8 + (Math.random() * 10); i++){
+    for (var i = 0; i < screenToLandscape * (8 + (Math.random() * 10)); i++){
       var ranSize = 48 + (Math.random() * 24);
 
       // Creates rocks
@@ -304,7 +308,7 @@ function runProgram(){
     }
 
     // Adds dirt patches
-    for (var i = 0; i < (Math.random() * 3); i++){
+    for (var i = 0; i < screenToLandscape * ((Math.random() * 3)); i++){
       var ranSize = 64 + (Math.random() * 48);
 
       // Creates rocks
@@ -323,7 +327,7 @@ function runProgram(){
     }
 
     // Adds tree top
-    for (var i = 0; i < (Math.random() * 7); i++){
+    for (var i = 0; i < screenToLandscape * (2 + (Math.random() * 7)); i++){
       var ranSize = 128 + (Math.random() * 128);
 
       // Creates rocks
@@ -353,8 +357,38 @@ function runProgram(){
     $(document).off();
   }
 
+  function newRound(player_tagged){
+    
+    if (GAME_STARTED === false){return} else {GAME_STARTED=false} // Debounce
+
+    // Update round
+    ROUND += 1
+    $("#round").text('Round ' + ROUND);
+
+    // Assign the new tagger
+    if (player_tagged){
+      CURRENT_TAGGER.obj.removeClass('tagger');
+      CURRENT_TAGGER = player_tagged;
+      CURRENT_TAGGER.obj.addClass('tagger');
+    }
+
+    // Stops and randomize the position of the tagger
+    CURRENT_TAGGER.speedX = 0;
+    CURRENT_TAGGER.speedY = 0;
+    CURRENT_TAGGER.x = (Math.random() * $("#board").width() - 50);
+    CURRENT_TAGGER.y = (Math.random() * $("#board").height() - 50);
+
+    redrawGameItem(); // Sets block at new location
+
+    setTimeout(() => {
+      GAME_STARTED = true; // Starts the new round
+    }, 1000);
+
+  }
+
   function startGame(){
     GAME_STARTED = true; // Sets GAME_STARTED variable
+    ROUND = 1;
 
     if (!CURRENT_TAGGER){ // If there is no tagger (first round), assign a random tagger
       CURRENT_TAGGER = walkers[Math.floor(Math.random() * walkers.length)]
@@ -393,7 +427,7 @@ function runProgram(){
             $("<li>").text('?').appendTo('#key-list')
           }
         }
-      }
+    }
 
     // Assigns key to new walker
     function assignNewKey(event){
