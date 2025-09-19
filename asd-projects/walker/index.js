@@ -66,6 +66,7 @@ function runProgram(){
       repositionGameItem(); // Determines new position
       detectCollisions(); // Determines boundaries & tags
       redrawGameItem(); // Sets item at new position
+      checkForIdle(); // Check to see if a object has been idle 
     }
   }
   
@@ -79,20 +80,25 @@ function runProgram(){
     for (var i = 0; i < walkers.length; i++){
       var walker = walkers[i];
 
-      if (event.which === walker.keys.LEFT){
-        walker.speedX = -PIXELS_PER_FRAME * walker.speedPercent;
-      }
+      if (event){
+        if (event.which === walker.keys.LEFT){
+          walker.speedX = -PIXELS_PER_FRAME * walker.speedPercent;
+        }
 
-      if (event.which === walker.keys.RIGHT){
-        walker.speedX = PIXELS_PER_FRAME * walker.speedPercent;
-      }
+        if (event.which === walker.keys.RIGHT){
+          walker.speedX = PIXELS_PER_FRAME * walker.speedPercent;
+        }
 
-      if (event.which === walker.keys.DOWN){
-        walker.speedY = PIXELS_PER_FRAME * walker.speedPercent;
-      }
-    
-      if (event.which === walker.keys.UP){
-        walker.speedY = -PIXELS_PER_FRAME * walker.speedPercent;
+        if (event.which === walker.keys.DOWN){
+          walker.speedY = PIXELS_PER_FRAME * walker.speedPercent;
+        }
+      
+        if (event.which === walker.keys.UP){
+          walker.speedY = -PIXELS_PER_FRAME * walker.speedPercent;
+        }
+      } else {
+        walker.speedX = 0;
+        walker.speedY = 0;
       }
     }
   }
@@ -124,6 +130,7 @@ function runProgram(){
       speedX: 0,
       speedY: 0,
       speedPercent: 1,
+      idleFor: 0, 
       keys: { // Keys are assigned in a designated selection screen
         LEFT: KEYS_ARRAY.LEFT,
         RIGHT: KEYS_ARRAY.RIGHT,
@@ -194,6 +201,22 @@ function runProgram(){
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
+  function checkForIdle(){
+    for (let walker of walkers){
+      if (walker.speedX === 0 && walker.speedY === 0){
+        if (walker.idleFor >= 500){ // idle for 5 seconds
+          walker.obj.addClass('idle');
+        } else {
+          walker.idleFor += 1
+        }
+      } else {
+        if (walker.obj.hasClass('idle')){
+          walker.obj.removeClass('idle');
+        }
+        walker.idleFor = 0;
+      }
+    }
+  }
 
   function redrawGameItem(){
     for (let walker_data of walkers){
@@ -379,6 +402,7 @@ function runProgram(){
     CURRENT_TAGGER.y = (Math.random() * $("#board").height() - 50);
 
     redrawGameItem(); // Sets block at new location
+    handleKeyDown();
 
     setTimeout(() => {
       GAME_STARTED = true; // Starts the new round
