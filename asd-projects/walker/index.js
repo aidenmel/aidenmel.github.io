@@ -16,6 +16,9 @@ function runProgram(){
   var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
   var PIXELS_PER_FRAME = 4;
 
+  // Tables 
+  var randomNames = ["Bob", "Elizabeth", "Steven", "Mark", "Abby", "Gabe", "Chelsea", "Barnical", "James", "Shelby", "Robert", "Macy", "Sarah", "Hubert", "Patrick", "John", "superrarename"]
+
   // Key Assignment Variables
   var ORDER_OF_KEYS = ['up', 'left', 'down', 'right']
   var keyDirectory = {
@@ -122,6 +125,7 @@ function runProgram(){
 
     // Create a new object for the walker
     var newWalker = {
+      name: randomNames[Math.floor(Math.random() * randomNames.length)],
       obj: $("<div>").addClass('walker').appendTo("#walkers"),
       size: 50,
       color: randomColor(),
@@ -164,7 +168,7 @@ function runProgram(){
       var $desc = $("<div>").addClass('desc').appendTo($player_card)
       
         // Add name
-        $("<h2>").text('Player ' +  (walkers.length)).appendTo($desc);
+        $("<h2>").text(newWalker.name).appendTo($desc);
 
         // Display controls 
         $("<p>").text('Controlled with ' 
@@ -190,8 +194,11 @@ function runProgram(){
         })
       }
 
+      // Add display name
+      $("<h5>").text(newWalker.name).addClass('display-name').appendTo(newWalker.obj)
+
       // Hide add player button if it exceeds maximum
-      if (walkers.length > 2){
+      if (walkers.length > 3){
         $("#add-player").hide()
       }
   }
@@ -246,7 +253,7 @@ function runProgram(){
   function detectCollisions(){
 
     // Player Collisions (aka tagging)
-    if (GAME_STARTED){
+    if (GAME_STARTED && GAME_STARTED !== 'Explore'){
       for (let walker of walkers){
         if (walker !== CURRENT_TAGGER){
           var deltaA = (walker.x - (CURRENT_TAGGER.x ));
@@ -306,7 +313,7 @@ function runProgram(){
         'z-index': 2,
         'left': (Math.random() * $("#board").width() - 50),
         'top': (Math.random() * $("#board").height() - 50),
-        'filter': 'drop-shadow(2px 4px 6px #00000050)',
+        'filter': 'drop-shadow(2px 4px 6px #2b2b2b50) brightness(120%)',
       })
     }
 
@@ -353,7 +360,7 @@ function runProgram(){
     for (var i = 0; i < screenToLandscape * (2 + (Math.random() * 7)); i++){
       var ranSize = 128 + (Math.random() * 128);
 
-      // Creates rocks
+      // Creates trees
       $('<img>')
       .attr('src', 'assets/landscape/tree-top.png')
       .addClass('tree')
@@ -365,7 +372,7 @@ function runProgram(){
         'left': (Math.random() * $("#board").width() - 50),
         'top': (Math.random() * $("#board").height() - 50),
         'transform': 'rotate(' + Math.random() * 360 + 'deg)',
-        'filter': 'brightness(50%) saturate(8) drop-shadow(4px 8px 16px #00000050)',
+        'filter': 'brightness(1.1) saturate(3) drop-shadow(4px 8px 16px #00000050)',
       })
     }
 
@@ -401,6 +408,9 @@ function runProgram(){
     CURRENT_TAGGER.x = (Math.random() * $("#board").width() - 50);
     CURRENT_TAGGER.y = (Math.random() * $("#board").height() - 50);
 
+    // Updates avoid display
+    $("#to-avoid").text(CURRENT_TAGGER.name);
+
     redrawGameItem(); // Sets block at new location
     handleKeyDown();
 
@@ -414,20 +424,34 @@ function runProgram(){
     GAME_STARTED = true; // Sets GAME_STARTED variable
     ROUND = 1;
 
-    if (!CURRENT_TAGGER){ // If there is no tagger (first round), assign a random tagger
-      CURRENT_TAGGER = walkers[Math.floor(Math.random() * walkers.length)]
-    }
+    // If one player, let them roam. Otherwise enable tag!
+    if (walkers.length === 1){
+      GAME_STARTED = 'Explore';
+      $("#round").text('Add players to enable a game of tag');
+      $("#display-msg").text('Explore the map!');
+    } else {
 
-    // Loop through all walkers and determine tagger
-    for (let tagger in walkers){
-      if (tagger = CURRENT_TAGGER){
-        tagger.obj.addClass('tagger');
-      } else {
-        tagger.obj.removeClass('tagger')
+      if (!CURRENT_TAGGER){ // If there is no tagger (first round), assign a random tagger
+        CURRENT_TAGGER = walkers[Math.floor(Math.random() * walkers.length)]
       }
-    }
+
+      // Loop through all walkers and determine tagger
+      for (let tagger in walkers){
+        if (tagger = CURRENT_TAGGER){
+          tagger.obj.addClass('tagger');
+        } else {
+          tagger.obj.removeClass('tagger')
+        }
+      }
+
+
+      
+      $("#to-avoid").text(CURRENT_TAGGER.name);
+    } 
 
     createMap()
+
+
 
     // Hide start menu
     $(".menu-container").hide();
