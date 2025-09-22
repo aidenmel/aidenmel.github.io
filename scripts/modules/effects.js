@@ -25,14 +25,14 @@ var presetLibrary = {
         '--secondary': '#ffffff',
         '--black': '#252525',
         '--transparency-primary': '#25252550',
-        '--transparency-secondary': '#fff',
+        '--transparency-secondary': '##ffffff50',
     },
     'invert': {
-        '--primary': '#252525',
-        '--secondary': '#000000',
+        '--primary': '#000000',
+        '--secondary': '#252525',
         '--black': '#ffffff',
-        '--transparency-primary': '#ffffff50',
-        '--transparency-secondary': '#25252550'
+        '--transparency-primary': '#ffffff80',
+        '--transparency-secondary': '#ffffff50'
     },
 }
 
@@ -49,7 +49,9 @@ function addEffect($object, effect, data){
             scrollPalletes[objectStart] = {
                 '--primary': data['primary'],
                 '--secondary': data['secondary'],
-                '--black': data['black']
+                '--black': data['black'],
+                '--transparency-primary': data['transparency-primary'],
+                '--transparency-secondary': data['transparency-secondary'],
             }   
         }
     }
@@ -70,6 +72,8 @@ document.addEventListener('scroll', () => {
         '--primary': scrollPalletes[setPosition]['--primary'],
         '--secondary': scrollPalletes[setPosition]['--secondary'],
         '--black': scrollPalletes[setPosition]['--black'],
+        '--transparency-primary': scrollPalletes[setPosition]['--transparency-primary'],
+        '--transparency-secondary': scrollPalletes[setPosition]['--transparency-secondary'],
         })
     }
 
