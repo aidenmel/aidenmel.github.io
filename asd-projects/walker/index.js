@@ -122,7 +122,6 @@ function runProgram(){
 
   // Adds multiplayer
   function createWalker(KEYS_ARRAY){
-
     // Create a new object for the walker
     var newWalker = {
       name: randomNames[Math.floor(Math.random() * randomNames.length)],
@@ -143,64 +142,18 @@ function runProgram(){
       },
     }
 
-    walkers.push(newWalker);
-    var playerNum = walkers.length 
+    walkers.push(newWalker); // Adds to the end of the array
 
-    // Add a player tag to start menu
-    var $player_card = $("<li>").addClass('player-card').appendTo("#player-list")
-
-      // Add icon
-      var $walkerIcon = $("<div>")
-      .addClass('walker-icon')
-      .css('background', newWalker.color)
-      .appendTo($player_card)
+    // Creates a new 'player card' which appears on the start screen
+    var $player_card = createPlayerCard(newWalker);
+     
+    // Adds a display name to walker object
+    $("<h5>").text(newWalker.name).addClass('display-name').appendTo(newWalker.obj)
     
-      // Color Randomizer
-      .on('click', function(){
-        newWalker.color = randomColor();
-        $walkerIcon.css('background', newWalker.color)
-        newWalker.obj.css('background', newWalker.color)
-      })
-
-      newWalker.obj.css('background', newWalker.color) // Set already assigned color
-
-      // Creates a description
-      var $desc = $("<div>").addClass('desc').appendTo($player_card)
-      
-        // Add name
-        $("<h2>").text(newWalker.name).appendTo($desc);
-
-        // Display controls 
-        $("<p>").text('Controlled with ' 
-          + (keyDirectory[newWalker.keys.UP] ? keyDirectory[newWalker.keys.UP] : String.fromCharCode(newWalker.keys.UP))
-          + ', ' +  (keyDirectory[newWalker.keys.LEFT] ? keyDirectory[newWalker.keys.LEFT] : String.fromCharCode(newWalker.keys.LEFT)) 
-          + ', ' + (keyDirectory[newWalker.keys.DOWN] ? keyDirectory[newWalker.keys.DOWN] : String.fromCharCode(newWalker.keys.DOWN))
-          + ', ' + (keyDirectory[newWalker.keys.RIGHT] ? keyDirectory[newWalker.keys.RIGHT] : String.fromCharCode(newWalker.keys.RIGHT))
-        ).appendTo($desc)
-
-      // Add new remove button
-      if (playerNum !== 1){
-        $("<button>")
-        .text('X')
-        .appendTo($player_card)
-        .on('click', function(){
-          $player_card.remove();
-          newWalker.obj.remove();
-          walkers.splice(playerNum - 1)
-
-          if (walkers.length <= 2){
-            $("#add-player").show();
-          }
-        })
-      }
-
-      // Add display name
-      $("<h5>").text(newWalker.name).addClass('display-name').appendTo(newWalker.obj)
-
-      // Hide add player button if it exceeds maximum
-      if (walkers.length > 3){
-        $("#add-player").hide()
-      }
+    // Hide add player button if it exceeds maximum
+    if (walkers.length > 3){
+      $("#add-player").hide()
+    }
   }
 
 
@@ -239,6 +192,59 @@ function runProgram(){
       walker_data.x += walker_data.speedX;
       walker_data.y += walker_data.speedY;
     }
+  }
+
+  function createPlayerCard(newWalker){
+     var $player_card = $("<li>").addClass('player-card').appendTo("#player-list")
+    
+      // Add icon
+      var $walkerIcon = $("<div>")
+        .addClass('walker-icon')
+        .css('background', newWalker.color)
+        .appendTo($player_card)
+    
+      // Color Randomizer
+      .on('click', function(){
+        newWalker.color = randomColor();
+        $walkerIcon.css('background', newWalker.color)
+        newWalker.obj.css('background', newWalker.color)
+      })
+
+      newWalker.obj.css('background', newWalker.color) // Set already assigned color
+
+      // Creates a description
+      var $desc = $("<div>").addClass('desc').appendTo($player_card)
+      
+        // Add name
+        $("<h2>").text(newWalker.name).appendTo($desc);
+
+        // Display controls 
+        $("<p>").text('Controlled with ' 
+          + (keyDirectory[newWalker.keys.UP] ? keyDirectory[newWalker.keys.UP] : String.fromCharCode(newWalker.keys.UP))
+          + ', ' +  (keyDirectory[newWalker.keys.LEFT] ? keyDirectory[newWalker.keys.LEFT] : String.fromCharCode(newWalker.keys.LEFT)) 
+          + ', ' + (keyDirectory[newWalker.keys.DOWN] ? keyDirectory[newWalker.keys.DOWN] : String.fromCharCode(newWalker.keys.DOWN))
+          + ', ' + (keyDirectory[newWalker.keys.RIGHT] ? keyDirectory[newWalker.keys.RIGHT] : String.fromCharCode(newWalker.keys.RIGHT))
+        ).appendTo($desc)
+
+    // Adds a remove player button
+    var playerNum = walkers.length 
+
+    if (playerNum !== 1){
+      $("<button>")
+      .text('X')
+      .appendTo($player_card)
+      .on('click', function(){
+        $player_card.remove();
+        newWalker.obj.remove();
+        walkers.splice(playerNum - 1)
+
+        if (walkers.length <= 2){
+          $("#add-player").show();
+        }
+      })
+    }
+
+      return $player_card;
   }
   
   function randomColor(){
@@ -379,6 +385,9 @@ function runProgram(){
 
   }
 
+
+// Round System (start, end, new)
+
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
@@ -457,48 +466,48 @@ function runProgram(){
     $(".menu-container").hide();
   }
 
-  // Key assignment functions
+// Key assignment functions
 
-    // Displays the keys assigned so far
-    function displayKeys(){
-        $("#key-list").empty(); // Clears list
-        var labelSet = false;
+  // Displays the keys assigned so far
+  function displayKeys(){
+      $("#key-list").empty(); // Clears list
+      var labelSet = false;
 
-        for (var i = 0; i < 4; i++){ // Displays keys assigned
-          if (keysAssigned[i]){
-            $("<li>").text(keyDirectory[keysAssigned[i]] ? keyDirectory[keysAssigned[i]] : String.fromCharCode(keysAssigned[i])).appendTo('#key-list')
-          } else {
-            if (!labelSet){
-              labelSet = true;
-              $("#key-label").text('Press a key for movement ' + ORDER_OF_KEYS[i]);
-            }
-            $("<li>").text('?').appendTo('#key-list')
+      for (var i = 0; i < 4; i++){ // Displays keys assigned
+        if (keysAssigned[i]){
+          $("<li>").text(keyDirectory[keysAssigned[i]] ? keyDirectory[keysAssigned[i]] : String.fromCharCode(keysAssigned[i])).appendTo('#key-list')
+        } else {
+          if (!labelSet){
+            labelSet = true;
+            $("#key-label").text('Press a key for movement ' + ORDER_OF_KEYS[i]);
           }
+          $("<li>").text('?').appendTo('#key-list')
         }
-    }
-
-    // Assigns key to new walker
-    function assignNewKey(event){
-      keysAssigned.push(event.which);
-      
-      if (keysAssigned.length === 4){
-
-        // Create a new walker when the 4 keycode minimum is met
-        createWalker({
-          UP: keysAssigned[0],
-          LEFT: keysAssigned[1],
-          DOWN: keysAssigned[2],
-          RIGHT: keysAssigned[3],
-        })  
-        
-        // Return to start menu
-        $("#keyAssign").hide();
-        $("#startMenu").show();
-
-      } else if (keysAssigned.length < 4) {
-        displayKeys() // Else if under 4, display the keys
       }
+  }
+
+  // Assigns key to new walker
+  function assignNewKey(event){
+    keysAssigned.push(event.which);
+    
+    if (keysAssigned.length === 4){
+
+      // Create a new walker when the 4 keycode minimum is met
+      createWalker({
+        UP: keysAssigned[0],
+        LEFT: keysAssigned[1],
+        DOWN: keysAssigned[2],
+        RIGHT: keysAssigned[3],
+      })  
+      
+      // Return to start menu
+      $("#keyAssign").hide();
+      $("#startMenu").show();
+
+    } else if (keysAssigned.length < 4) {
+      displayKeys() // Else if under 4, display the keys
     }
+  }
 
   // Key Assignment Event
   $("#add-player").on('click', function(){
@@ -510,7 +519,7 @@ function runProgram(){
     displayKeys();
   })
 
-  // Starting the game
+  // To start the game
   $("#start").on('click', startGame)
 
   // Always start with a single walker

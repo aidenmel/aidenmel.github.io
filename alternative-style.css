@@ -148,12 +148,6 @@ p {
 
 */
 
-/* Descriptors */
-.descriptor {
-    text-align: center;
-    padding: 10vh 10vw 0 10vw;
-}
-
 /* Carousel */
 .carousel {
     width: 100vw;
@@ -278,11 +272,42 @@ p {
         height: 64px;
     }
 
+.bubbles li {
+    display: inline-block;
+
+    border: var(--border);
+    background: var(--transparency-primary);
+    border-radius: 48px;
+    border-bottom-left-radius: 8px;
+
+    font-size: 1em;
+
+    padding: 12px 16px;
+    width: auto;
+    color: var(--black);
+    list-style: none;
+
+    position: absolute;
+}
+
 /* 
 
     5. PROPERTIES
 
 */
+
+/* Descriptors */
+.descriptor {
+    text-align: center;
+    padding: 10vh 10vw 0 10vw;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .full-page {
     height: 95vh;
@@ -301,6 +326,19 @@ p {
         top: calc(var(--nav-height) + 16px);
         position: sticky;
     }
+
+    .is-sticky section.center {
+        top: 0;
+    }
+
+.big {
+    font-size: 4.8em;
+    line-height: 1em;
+}
+
+.center {
+    text-align: center;
+}
 
 
 /* Navigation */
@@ -572,7 +610,7 @@ p {
         font-size: 0.8rem;
     }
 
-    /* Stylesheet add-on */
+/* Stylesheet add-on */
     .on-screen-nav #swap-css {
         position: fixed;
         left: 32px;
@@ -592,7 +630,7 @@ p {
 
     }
 
-    /* Menu Button */
+/* Menu Button */
     .nav-menu {
         width: 24px;
         height: 24px;
