@@ -17,13 +17,14 @@
 
     // Objects
     var $gallery = $("#gallery");
+    var $quickGallery = $("#scroll-library");
     
 // Core Functions
 function createImage(src_link){
     var i;
 
     // Create new list
-    var newItem = $("<li>").appendTo("#scroll-library")
+    var newItem = $("<li>").appendTo($quickGallery)
     
     // Create mini image
     var $thumb = $("<img>").attr('src', src_link)
@@ -47,12 +48,25 @@ function createImage(src_link){
 function indexImage(index, dont_animate){
     
     // Set viewport
-    $gallery.animate({
+    $gallery.animate(
+    {
         left: -(VIEWPORT_WIDTH * (index - 1)),
-    }, !(dont_animate) ? (200 * Math.abs(CURRENT_INDEX - index)) : 0)
-    CURRENT_INDEX = index
+    }, 
+    !(dont_animate) ? (200 * Math.abs(CURRENT_INDEX - index)) : 0
+    )
 
-    // Set mini library
+    // Update mini library
+    var $target = $quickGallery.children().eq(index - 1);
+
+    $quickGallery.animate(
+    {
+        left: (VIEWPORT_WIDTH/2) - ($target.position().left) - ($target.width()/2),
+    },
+    !(dont_animate) ? (200 * Math.abs(CURRENT_INDEX - index)) : 0
+    )
+
+    // Update index
+    CURRENT_INDEX = index
 }
 
 // Events

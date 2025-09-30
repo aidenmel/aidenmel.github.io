@@ -91,6 +91,9 @@ section {
 
 /* Lists */
 #scroll-library {
+    position: absolute;
+    bottom: 2.4em;
+    left: 0;
     height: 56px;
     white-space: nowrap;
     width: auto;
@@ -106,6 +109,7 @@ section {
         border-radius: var(--border-radius);
         overflow: hidden;
         margin-right: 4px;
+        cursor: pointer;
     }
 
 
