@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Variables */
+:root {
+
+    /* Color Palletes */
+    --clear-bg: linear-gradient(25deg, #66666680, #ffffff60);
+    --clear-radius: 36px;
+    --clear-border: 1px solid #86868680;
+    --clear-shadow: 0 2px 16px 0 #66666650;
+
+    /* Properties */
+    --border-radius: 12px;
+}
+
+/* Body */
+* {
+    color: #fff;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    background: #000;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+/* Text Styles */
+h2 {
+    font-family: "Inter", sans-serif;
+    margin-block: 0;
+}
+
+p {
+    margin-block: 0;
+    font-weight: 500;
+    letter-spacing: -.05em;
+}
+
+/* Containers */
+section {
+    display: inline-block;
+    padding: .5em 2em;
+    background: var(--clear-bg);
+    border-radius: var(--clear-radius);
+    border: var(--clear-border);
+    text-align: center;
+    box-shadow: var(--clear-shadow);
+    z-index: 2;
+}
+
+#top-bar {
+    position: absolute;
+    width: 100vw;
+    left: 0;
+    top: 2.4em;
+    display: flex;
+    justify-content: center;
+}
+
+#actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#gallery {
+    position: absolute;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    
+    display: flex;
+    flex-wrap: nowrap;
+    margin-block: 0 !important;
+    padding-inline-start: 0 !important;
+}
+
+#gallery li {
+    width: 100vw;
+    height: 100vh;
+    list-style: none;
+}
+
+    #gallery li img {    
+        width: 100vw;
+        height: 100vh;
+        object-fit: contain;
+    }
+
+/* Lists */
+#scroll-library {
+    height: 56px;
+    white-space: nowrap;
+    width: auto;
+    padding-inline-start: 0;
+    margin-block: .4em;
+}
+
+    #scroll-library li {
+        display: inline-block;
+        list-style: none;
+        height: 56px;
+        object-fit: contain;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        margin-right: 4px;
+    }
+
+
+    #scroll-library li img {
+        height: 100%;
+        object-fit: contain;
+    }
