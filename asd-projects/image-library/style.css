@@ -4,13 +4,14 @@
 :root {
 
     /* Color Palletes */
-    --clear-bg: linear-gradient(25deg, #66666680, #ffffff60);
+    --clear-bg: linear-gradient(25deg, #2b2b2b80, #2e2e2e60);
     --clear-radius: 36px;
     --clear-border: 1px solid #86868680;
-    --clear-shadow: 0 2px 16px 0 #66666650;
+    --clear-shadow: 0 2px 16px 0 #3b3b3b50;
 
     /* Properties */
     --border-radius: 12px;
+    --bezier: cubic-bezier(.48,.06,.42,1.03);
 }
 
 /* Body */
@@ -56,13 +57,27 @@ section {
     top: 2.4em;
     display: flex;
     justify-content: center;
+    transition: opacity 250ms var(--bezier), transform 250ms var(--bezier), filter 250ms var(--bezier);
 }
+
+    #top-bar.hide {
+        transform: translateY(-2.4em);
+        opacity: 0;
+        filter: blur(8px) scale(90%);
+    }
 
 #actions {
     position: absolute;
     bottom: 0;
     left: 0;
+    transition: opacity 250ms var(--bezier), transform 250ms var(--bezier), filter 250ms var(--bezier);
 }
+
+    #actions.hide {
+        transform: translateY(2.4em);
+        opacity: 0;
+        filter: blur(8px) scale(90%);
+    }
 
 #gallery {
     position: absolute;
@@ -104,16 +119,26 @@ section {
     #scroll-library li {
         display: inline-block;
         list-style: none;
-        height: 56px;
+        height: 48px;
         object-fit: contain;
         border-radius: var(--border-radius);
         overflow: hidden;
         margin-right: 4px;
         cursor: pointer;
+        border: var(--clear-border);
+        box-shadow: var(--clear-shadow);
     }
 
 
     #scroll-library li img {
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
     }
+
+/* Debugging */
+#center-dot {
+    background: red;
+    position: absolute;
+    width: 2px;
+    height: 100vh;
+}
