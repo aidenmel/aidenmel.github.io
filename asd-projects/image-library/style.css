@@ -17,7 +17,8 @@
 /* Body */
 * {
     color: #fff;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter", sans-serif;url(https://psychic-eureka-4j7rjqxp4v672qr77-5505.app.github.dev/assets/photography/rainbow.JPG)
+    user-select: none;
 }
 
 body {
@@ -48,6 +49,7 @@ section {
     text-align: center;
     box-shadow: var(--clear-shadow);
     z-index: 2;
+    backdrop-filter: blur(2px) saturate(125%);
 }
 
 #top-bar {
@@ -56,6 +58,7 @@ section {
     left: 0;
     top: 2.4em;
     display: flex;
+    z-index: 3;
     justify-content: center;
     transition: opacity 250ms var(--bezier), transform 250ms var(--bezier), filter 250ms var(--bezier);
 }
@@ -70,6 +73,7 @@ section {
     position: absolute;
     bottom: 0;
     left: 0;
+    z-index: 3;
     transition: opacity 250ms var(--bezier), transform 250ms var(--bezier), filter 250ms var(--bezier);
 }
 

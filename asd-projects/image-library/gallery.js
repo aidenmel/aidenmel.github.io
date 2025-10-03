@@ -9,7 +9,12 @@
             'blue.JPG',
             'red.JPG',
             'white.JPG',
-            'yellow.JPG'
+            'yellow.JPG',
+            'orange.JPG',
+            'green.JPG',
+            'pink.JPG',
+            'purple.JPG',
+            'rainbow.JPG',
         ]
     }
     var CURRENT_INDEX = 1;
@@ -68,19 +73,38 @@ function createImage(src_link){
         timeModified: '...',
     }
 
+    function convertExifToDate(exifString){
+        if (!exifString){return}
+        var [datePart, timePart] = exifString.split(' ');
+        var formattedDate = datePart.replace(/:/g, '-');
+        var isoString = `${formattedDate}T${timePart}`;
+        return new Date(isoString);
+    }
+
     var XHR = new XMLHttpRequest(); // starts a XML request
-    XHR.open('HEAD', src_link, true); // XML setup
-    XHR.onreadystatechange = function(){
+    XHR.open('GET', src_link, true); // XML setup
+    XHR.responseType = 'blob';
+    XHR.onload = function(){
         if (XHR.readyState === 4 && XHR.status === 200){ // If the image is loaded & data is ready to be collected
-            var lastModified = XHR.getResponseHeader('Last-Modified')
-            if (lastModified){
-                var date = new Date(lastModified) // Helps with formatting the date
-                listData[i].dayModified = DaysOfWeek[date.getDay()];
-                listData[i].timeModified = date.getHours() + ':' + date.getMinutes() + ' ' + (date.getHours() < 12 ? 'AM' : 'PM');
-            } else {
-                listData[i].dayModified = 'unknown';
-                listData[i].timeModified = 'unknown';
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const arrayBuffer = e.target.result;
+                const exifData = EXIF.readFromBinaryFile(arrayBuffer);
+                var originalTimestamp = convertExifToDate(exifData.DateTimeOriginal);
+
+                // Update image data
+                if (originalTimestamp){
+                    var getHours = originalTimestamp.getHours();
+                    getHours = getHours % 12;
+                    getHours = getHours === 0 ? 12 : getHours;
+
+                    listData[i].dayModified = DaysOfWeek[originalTimestamp.getDay()];
+                    listData[i].timeModified = (getHours) + ':' + (originalTimestamp.getMinutes().toString().padStart(2, '0')) + ' ' + (originalTimestamp.getHours() < 12 ? 'AM' : 'PM');
+                }
             }
+            
+            reader.readAsArrayBuffer(XHR.response);
         }
     };  
     XHR.send(); // Sends request
@@ -109,9 +133,9 @@ function indexImage(index, dont_animate){
     )
 
     // Update details
-    console.log(listData)
-    $("#date").text(listData[index - 1].dayModified);
-    $("#time").text(listData[index - 1].timeModified)
+    var dataIndex = listData[index];
+    (dataIndex.dayModified === '...') ? $("#date").hide() : $("#date").text(dataIndex.dayModified).show();
+    (dataIndex.timeModified === '...') ? $("#time").hide() : $("#time").text(dataIndex.timeModified).show();
 
     // Update index
     CURRENT_INDEX = index
@@ -146,4 +170,36 @@ setInterval(() => {
     })
 }, 50);
 
-indexImage(CURRENT_INDEX, true) // Start with current index
+
+$("#top-bar").addClass('hide');
+$("#actions").addClass('hide');
+
+setTimeout(() => {
+    indexImage(1, true) // Start with current index
+    $("#top-bar").removeClass('hide');
+    $("#actions").removeClass('hide');
+}, 200);
+
+// Scroll Events
+var lastScrollTop = 0 // collects last pos
+
+function scrollIndex(increment){
+    if ((CURRENT_INDEX + increment) > 0 && (CURRENT_INDEX + increment) < listData.length){
+        indexImage(CURRENT_INDEX + increment)
+    }
+}
+
+$(window).on('scroll', function(){
+    let currentScrollTop = $(this).scrollTop();
+    console.log(currentScrollTop)
+
+    if (currentScrollTop > lastScrollTop){
+        // Scrolled down
+        scrollIndex(-1)
+    } else {
+        // Scrolled up
+        scrollIndex(1)
+    }
+
+    lastScrollTop = currentScrollTop;
+})
