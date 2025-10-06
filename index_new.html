@@ -23,6 +23,7 @@ All of the code is handwritten with the exception of imported assets (like Googl
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="scripts/modules/carousel.js"></script>
         <script src="scripts/modules/effects.js"></script>
+        <script src="scripts/modules/nav.js"></script>
         
         <!-- 🎨 Theme Changing Script: Used to incorporate two or more stylesheets (.css files)  -->
         <script>
@@ -75,15 +76,11 @@ All of the code is handwritten with the exception of imported assets (like Googl
 
             <nav class="hide" id="top-nav">
                 <h1 id="default-header-title">Aiden's Portfolio</h1>
-                <a href="/index.html" id="manipulated-header">
+                <a href="/index_new.html" id="manipulated-header">
                     <svg class="brand-icon" viewBox="0 0 29 20"><path d="M9 17L15 1L21 17L5 9H25" stroke="white" stroke-width="0.5"/></svg>
                     <h1>Aiden's Portfolio</h1>
                 </a>
-                <ul id="nav-ul">
-                    <li class="nav-li"><a href="index.html">Home</a></li>
-                    <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
-                    
-                </ul>
+                <ul id="nav-ul" class="insert-nav"></ul>
             </nav>
 
             <script src="/scripts/loading-module.js"></script>
@@ -97,10 +94,8 @@ All of the code is handwritten with the exception of imported assets (like Googl
                 </div>
             </div>
 
-            <div class="on-screen-nav" id="osn-container">
+            <div class="on-screen-nav insert-nav" id="osn-container">
                 <li><h6>NAVIGATION</h6></li>
-                <li class="nav-li"><a class="active_link" href="index.html">Home</a></li>
-                <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
                 <script>
                     
                     // Objects

@@ -1,0 +1,202 @@
+<html lang="en">
+    <head>
+        <title>Learn - Aiden Melton</title>
+        <link rel="stylesheet" href="alternative-style.css">
+        
+        <link rel="icon" href="/assets/logo-gen1.png">
+        <meta name="theme-color" content="#929292">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="scripts/modules/nav.js"></script>
+    </head>
+    <body>
+
+        <!-- Loading Screen -->
+        <div id="LoadingScreen">
+            <svg viewBox="0 0 30 30">
+                <path d="M9 17L15 1L21 17L5 9H25" stroke="white" stroke-width="0.5"/>
+            </svg>
+            <p class="loadingMsg">We're getting everything ready.</p>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="hide" id="top-nav">
+            <h1 id="default-header-title">Aiden's Portfolio</h1>
+            <a href="/index.html" id="manipulated-header">
+                <svg class="brand-icon" viewBox="0 0 29 20"><path d="M9 17L15 1L21 17L5 9H25" stroke="white" stroke-width="0.5"/></svg>
+                <h1>Aiden's Portfolio</h1>
+            </a>
+            <ul class="insert-nav" id="nav-ul">
+            </ul>
+        </nav>
+
+        <!-- Mobile Navigation -->
+        <div class="touch-nav-bar" id="osn-menu-btn">
+            <div class="menu-icon">
+                <div class="menu-line top"></div>
+                <div class="menu-line center"></div>
+                <div class="menu-line bottom"></div>
+            </div>
+        </div>
+
+        <div class="on-screen-nav insert-nav" id="osn-container">
+            <li><h6>NAVIGATION</h6></li>
+            
+            
+            <!-- <li><p>Site created by Aiden Melton</p></li> -->
+            
+            <script>
+                
+                // Objects
+                var MenuButton = document.getElementById("osn-menu-btn");
+                var OSNContainer = document.getElementById("osn-container")
+                var OSNChildren = OSNContainer.children
+
+                // Values
+                var OSNActive = false;
+                var debounce = false;
+                
+                // Events
+                MenuButton.addEventListener('click', (e) => {
+                    ToggleOnScreenMenu();
+                })
+
+                // Functions
+                function ToggleOnScreenMenu() {
+
+                    if (debounce == false){ // Check debounce
+                        debounce = true;
+
+                        if (OSNActive == false){
+
+                            OSNContainer.style.display = 'block';
+                            setTimeout(() => {
+                                OSNContainer.classList.add("active")
+                            }, 10);
+
+                            MenuButton.classList.add('m-enabled')
+
+                            // Make items appear
+                            for (let i = 0; i < OSNChildren.length; i++){
+                                console.log(OSNChildren[i])
+                                setTimeout(() => {
+                                    OSNChildren[i].classList.add('item-appear')
+                                }, (i + 1) * 150);
+                            }
+
+                            OSNActive = true;
+                        } else {
+                            MenuButton.classList.remove('m-enabled')
+                            OSNContainer.classList.remove("active")
+                            OSNActive = false;
+
+                            // Make items disappear
+                            for (let i = 0; i < OSNChildren.length; i++){
+                                OSNChildren[i].classList.remove('item-appear')
+                            }
+
+                            // Change display
+                            setTimeout(() => {
+                                OSNContainer.style.display = 'none';
+                            }, 401);
+                        }
+
+                        setTimeout(() => {
+                            debounce = false;
+                        }, 1000);
+                    }
+                }
+            </script>
+            <script src="/scripts/loading-module.js"></script>
+        </div>
+
+<!-- 
+        
+    learn.html
+
+-->
+    <section id="blur-background">
+        <ul id="bg-dots"></ul>
+
+        <script>
+            // Variables
+            var $background = $("#bg-dots");
+            var dots = [];
+            var RANDOM_START_DIRECTIONS = [-1, 1]
+
+            // Create a random number of circles
+            for (let i = 0; i < 4; i++){
+                var newDot = {
+                    $obj: $("<li>").addClass('bg-dot').appendTo($background),
+                    x: Math.random() * $(document).width(),
+                    y: Math.random() * $(document).height(),
+                    directionX:  RANDOM_START_DIRECTIONS[Math.floor(Math.random() * RANDOM_START_DIRECTIONS.length)],
+                    directionY:  RANDOM_START_DIRECTIONS[Math.floor(Math.random() * RANDOM_START_DIRECTIONS.length)],
+                }
+                var $dot = newDot['$obj']; 
+
+                // Width & Height
+                var RAN_WIDTH = ((Math.random() * .1) + .2) * $(document).width(); 
+                var RAN_HEIGHT = ((Math.random() * .1) + .2) * $(document).height();
+                $dot.width(RAN_WIDTH).height(RAN_HEIGHT);
+
+                // Set position
+                $dot.css({
+                  'left': newDot.x,
+                  'top': newDot.y,  
+                })
+
+                dots.push(newDot)
+            }
+
+        // Interval
+            setInterval(() => {
+                
+                // Loop through dots
+                for (var i = 0; i < dots.length; i++){
+                    var dot_data = dots[i];
+
+                    // Update position
+                    dot_data.x += dot_data.directionX;
+                    dot_data.y += dot_data.directionY;
+
+                    // Detect collisions
+                    if (dot_data.x < 0 || dot_data.x > $(document).width()){
+                        dot_data.directionX *= -1
+                    }
+                    
+                    if (dot_data.y < 0 || dot_data.y > $(document).height()){
+                        dot_data.directionY *= -1
+                    }
+
+                    // Update position
+                    updatePosition(dot_data);
+                }
+
+            }, 50);
+
+        // Helper Function
+        function updatePosition(data){
+            data['$obj'].css({
+                'left': data.x,
+                'top': data.y,
+            })
+        }
+
+        </script>
+    </section>
+
+    <article>
+
+        <section class='lesson'>
+            <h3>learn.html</h3>
+            <h1 class="big">Creating Scroll Effects</h1>
+            <p>My portfolio is centered around interactions. On this page, you'll learn how I created and integrated scroll effects all across my portfolio.</p>
+        </section>
+
+    </article>
+
+
+    </body>
+</html>

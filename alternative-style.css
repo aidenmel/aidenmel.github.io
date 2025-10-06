@@ -30,7 +30,7 @@
     /* Color Pallete */
     --primary: #f8f8f8;
     --secondary: #ffffff;
-    --black: #252525;
+    --black: #02050f;
     --transparency-primary: #25252550;
     --transparency-secondary: #ffffff50;
 
@@ -240,6 +240,27 @@ p {
             .dot.active {
                 background: var(--black);
             }
+
+    /* Lessons */
+    .lesson {
+        background: transparent;
+        width: calc(100vw - 4.8em);
+        height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+
+        padding: 0 2.4em;
+
+        backdrop-filter: blur(4.8em);
+    }
+
+        .lesson p {
+            max-width: calc(var(--container-max-width)/2);
+        }
 /* 
 
     4. CONTENT & IMAGES
@@ -289,6 +310,27 @@ p {
 
     position: absolute;
 }
+
+/* Bubble Background */
+#blur-background {
+    background: var(--black);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+    #blur-background li {
+        list-style: none;
+    }
+
+    .bg-dot {
+        position: fixed;
+        border-radius: 100%;
+        background-color: #007bff;
+    }
 
 /* 
 
