@@ -126,7 +126,7 @@
             var RANDOM_START_DIRECTIONS = [-1, 1]
 
             // Create a random number of circles
-            for (let i = 0; i < 4; i++){
+            for (let i = 0; i < Math.floor(4 * ($(document).width() / 800)); i++){
                 var newDot = {
                     $obj: $("<li>").addClass('bg-dot').appendTo($background),
                     x: Math.random() * $(document).width(),
@@ -187,16 +187,65 @@
         </script>
     </section>
 
-    <article>
-
-        <section class='lesson'>
-            <h3>learn.html</h3>
-            <h1 class="big">Creating Scroll Effects</h1>
-            <p>My portfolio is centered around interactions. On this page, you'll learn how I created and integrated scroll effects all across my portfolio.</p>
+    <article class="is-sticky" style="height: 500vh;">
+        <section id="lesson-plan">
+            <section class='lesson'>
+                <h3>learn.html</h3>
+                <h1 class="big">Creating Scroll Effects</h1>
+                <p>My portfolio is centered around interactions. On this page, you'll learn how I created and integrate scroll effects on your very own webpage.</p>
+            </section>
+            <section class='lesson left'>
+                <h1>What are Scroll Effects?</h1>
+                <p>Scroll effects are animations or manipulations that occur when the client reaches ("scrolls pass") a specific point on the page.</p>
+                <hr>
+                <h1>What we'll prioritize:</h1>
+                <ol>
+                    <li>Appearing/disappearing</li>
+                    <li>Fixed containers/objects</li>
+                </ol>
+            </section>
+            <section class='lesson left'>
+                <h1>The Setup</h1>
+                <p>Before diving in straight into code, first make sure your document is equipped with:</p>
+            </section>
         </section>
-
     </article>
 
+    <script>
+
+        // Lesson Page Scrolling by Aiden Melton
+
+        // Variables
+        var $lessonPlan = $("#lesson-plan");
+        var lessons = $lessonPlan.children();
+        var VIEWPORT_HEIGHT = window.innerHeight;
+
+        // Functions
+        function scrollPercentage($parent, SCROLL_POSITION){ // Returns a percent of what the user has scrolled
+            var absouteHeight = $parent.height(); // Get the total height of the parent and subtract it by the height on screen
+            var objectStart = $parent.offset().top; 
+            console.log(objectStart, absouteHeight)
+            SCROLL_POSITION -= objectStart; // Removes excess pixels that come before the parent object
+            return SCROLL_POSITION / absouteHeight;
+        }
+
+        function getActiveContainer(children, PERCENTAGE){ // Returns the container that the client has scrolled to
+            var absolutePosition = Math.floor(children.length * PERCENTAGE)
+            if (absolutePosition > children.length){absolutePosition === children.length - 1}
+            return children[absolutePosition];
+        }
+
+        // Event Handler
+        $(window).scroll(function(){
+            var SCROLL_POSITION = $(window).scrollTop(); // Gets user's current position
+            var PERCENTAGE_SCROLLED = scrollPercentage($lessonPlan, SCROLL_POSITION);
+            var child = getActiveContainer(lessons, PERCENTAGE_SCROLLED)
+            console.log(child)
+        })
+
+        // Update 
+
+    </script>
 
     </body>
 </html>

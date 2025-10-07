@@ -242,10 +242,21 @@ p {
             }
 
     /* Lessons */
+    #lesson-plan {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row;
+        top: 0;
+    }
+
     .lesson {
+        position: relative !important;
+        top: 0 !important;
         background: transparent;
-        width: calc(100vw - 4.8em);
-        height: 100vh;
+        min-width: calc(100vw - 4.8em);
+        /* max-width: 80vw; */
+        min-height: 100vh;
 
         display: flex;
         justify-content: center;
@@ -254,11 +265,16 @@ p {
         text-align: center;
 
         padding: 0 2.4em;
-
-        backdrop-filter: blur(4.8em);
     }
 
+        .lesson.left {
+            text-align: left !important;
+            align-items: flex-start;
+        }
+
         .lesson p {
+            margin: .2em;
+            font-size: 1.2em;
             max-width: calc(var(--container-max-width)/2);
         }
 /* 
@@ -311,6 +327,19 @@ p {
     position: absolute;
 }
 
+.code-block {
+    background-image: url(assets/stripe.png);
+    background-repeat: repeat;
+    background-size: 1.2em;
+    image-rendering: pixelated;
+    border: var(--border);
+    border-radius: calc(var(--border-radius)/2);
+    text-align: left;
+    padding: 1.2em;
+    color: var(--primary);
+    margin: 0;
+}
+
 /* Bubble Background */
 #blur-background {
     background: var(--black);
@@ -327,6 +356,7 @@ p {
     }
 
     .bg-dot {
+        filter: blur(4.8em);
         position: fixed;
         border-radius: 100%;
         background-color: #007bff;
@@ -361,7 +391,7 @@ p {
 
 .is-sticky {
     width: 100vw;
-    height: 200vh;
+    min-height: 200vh;
 }
 
     .is-sticky section {
