@@ -204,7 +204,7 @@
                     <li>Fixed containers/objects</li>
                 </ol>
             </section>
-            <section class='lesson left'>
+            <section class='lesson right'>
                 <h1>The Setup</h1>
                 <p>Before diving in straight into code, first make sure your document is equipped with:</p>
             </section>
@@ -219,12 +219,26 @@
         var $lessonPlan = $("#lesson-plan");
         var lessons = $lessonPlan.children();
         var VIEWPORT_HEIGHT = window.innerHeight;
+        var VIEWPORT_WIDTH = window.innerWidth;
+        var $activeChild = lessons[0];
+
+        // Setup Functions 
+        function getAbsolutePositions(){
+            for (let lesson_index in lessons){
+                if (lesson_index < lessons.length){
+                    var lesson = lessons[lesson_index]
+                    var abs_left = $(lesson).offset().left;
+                    $(lesson).attr('abs-left', abs_left)
+                }
+            } 
+        }
+
+        getAbsolutePositions() // For initial setup
 
         // Functions
         function scrollPercentage($parent, SCROLL_POSITION){ // Returns a percent of what the user has scrolled
-            var absouteHeight = $parent.height(); // Get the total height of the parent and subtract it by the height on screen
+            var absouteHeight = $parent.height() - VIEWPORT_HEIGHT; // Get the total height of the parent and subtract it by the height on screen
             var objectStart = $parent.offset().top; 
-            console.log(objectStart, absouteHeight)
             SCROLL_POSITION -= objectStart; // Removes excess pixels that come before the parent object
             return SCROLL_POSITION / absouteHeight;
         }
@@ -235,15 +249,34 @@
             return children[absolutePosition];
         }
 
+        function updatePagePosition($toMove, $updateTo){
+            console.log($updateTo),
+            // Update CSS
+            $toMove.css({
+                // 'transform': 'translate(' + child_index + 'px, ' + $updateTo.offset().top + 'px )',
+                'transform': 'translateX(' + -($updateTo.attr('abs-left')) + 'px)',
+            })
+        }
+
         // Event Handler
         $(window).scroll(function(){
             var SCROLL_POSITION = $(window).scrollTop(); // Gets user's current position
-            var PERCENTAGE_SCROLLED = scrollPercentage($lessonPlan, SCROLL_POSITION);
-            var child = getActiveContainer(lessons, PERCENTAGE_SCROLLED)
-            console.log(child)
+            var PERCENTAGE_SCROLLED = scrollPercentage($lessonPlan.parent(), SCROLL_POSITION);
+            var $child = $(getActiveContainer(lessons, PERCENTAGE_SCROLLED))
+            
+            // Manipulate object
+            if ($child !== $activeChild){ 
+                console.log($child)
+                updatePagePosition($lessonPlan, $child) // Updates the position of the lesson plan
+                $activeChild = $child // Updates $activeChild variable
+            }
         })
 
-        // Update 
+        $(window).resize(function(){
+            getAbsolutePositions();
+        })
+
+        
 
     </script>
 

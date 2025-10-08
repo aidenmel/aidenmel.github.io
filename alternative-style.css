@@ -244,17 +244,18 @@ p {
     /* Lessons */
     #lesson-plan {
         display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        flex-direction: row;
+
         top: 0;
+        position: sticky;
+        transition: transform 400ms ease-out;
     }
 
     .lesson {
         position: relative !important;
         top: 0 !important;
         background: transparent;
-        min-width: calc(100vw - 4.8em);
+        width: calc(100vw - 4.8em);
+        flex-shrink: 0;
         /* max-width: 80vw; */
         min-height: 100vh;
 
