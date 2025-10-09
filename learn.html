@@ -162,12 +162,13 @@
                     dot_data.y += dot_data.directionY;
 
                     // Detect collisions
-                    if (dot_data.x < 0 || dot_data.x > $(document).width()){
+                    if (dot_data.x < 0 || dot_data.x > $(window).width()){
                         dot_data.directionX *= -1
                     }
                     
-                    if (dot_data.y < 0 || dot_data.y > $(document).height()){
+                    if (dot_data.y < 0 || dot_data.y > window.innerHeight){
                         dot_data.directionY *= -1
+                        console.log(dot_data.directionY)
                     }
 
                     // Update position
@@ -189,25 +190,127 @@
 
     <article class="is-sticky" style="height: 500vh;">
         <section id="lesson-plan">
+            <!-- Title -->
             <section class='lesson'>
                 <h3>learn.html</h3>
                 <h1 class="big">Creating Scroll Effects</h1>
                 <p>My portfolio is centered around interactions. On this page, you'll learn how I created and integrate scroll effects on your very own webpage.</p>
+                <h3 style="margin-top: 4.8em;">Scroll to start this lecture.</h3>
             </section>
-            <section class='lesson left'>
-                <h1>What are Scroll Effects?</h1>
-                <p>Scroll effects are animations or manipulations that occur when the client reaches ("scrolls pass") a specific point on the page.</p>
-                <hr>
-                <h1>What we'll prioritize:</h1>
-                <ol>
-                    <li>Appearing/disappearing</li>
-                    <li>Fixed containers/objects</li>
-                </ol>
+
+            <!-- About -->
+            <section class='lesson left half'>
+                <aside>
+                    <h1>What are Scroll Effects?</h1>
+                    <p>Scroll effects are animations or manipulations that occur when the client reaches ("scrolls pass") a specific point on the page. Most effects are integrated with javascript, though some can occur with pure css.</p>
+                </aside>
+                <aside>
+                    <div class="mini-window">
+                        <h1 class="fs">Scroll to watch text appear!</h1>
+                        <h1 class="appear">This</h1>
+                        <h1 class="appear">Text</h1>
+                        <h1 class="appear">Just</h1>
+                        <h1 class="appear">Appeared</h1>
+                    </div>
+                </aside>
             </section>
-            <section class='lesson right'>
-                <h1>The Setup</h1>
-                <p>Before diving in straight into code, first make sure your document is equipped with:</p>
+
+            <!-- APPEAR/DISAPPEAR Effect -->
+
+            <section class="lesson">
+                <h1 class="big">1. Appear/Disappear FX</h1>
+                <p>A commonly adopted scroll effect that enables and disables elements.</p>
             </section>
+
+            <section class='lesson left half'>
+                <aside>
+                    <h1>How does it work?</h1>
+                    <p>This works by <mark>comparing the object's absolute position to that of the cilent's</mark> active position (the position at which the client has scrolled). So, if the scroll position is greater than the element's absolute position, show the object. Else, hide the object.</p>
+                </aside>
+                <aside>
+                    <div class="mini-window">
+                        <h1 class="fs">Scroll to watch text appear!</h1>
+                        <h1 class="appear">This</h1>
+                        <h1 class="appear">Text</h1>
+                        <h1 class="appear">Just</h1>
+                        <h1 class="appear">Appeared</h1>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="lesson half">
+                <aside>
+                    <h1>Preparing Elements</h1>
+                    <p>Create a specific class that will be used to collect all elements impacted by this effect.</p>
+                    <hr>
+                    <p>For this example, we'll assign the class "fade-fx" to all of our appearing/disappearing elements.</p>
+                </aside>
+                <aside class='content-center'>
+                    <h1 class="big"><mark>.fade-fx</mark></h1>
+                </aside>
+            </section>
+
+            <!-- Coding portion -->
+            <section class='lesson left half'>
+                <aside>
+                    <h3>The Actual Code (1/5)</h3>
+                    <h1>Create a Event Handler</h1>
+                    <p>We will start by creating a event handler. Fortunately, jquery has a ".scroll()" event that we can prioritize.</p>
+                </aside>
+                <aside>
+                    <code class="code-block priority"><pre>
+<mark>// Uses the 'window' selecter to detect for scrolling across the entire webpage.</mark>
+
+$(window).scroll(function(){ 
+
+})</pre></code>
+                </aside>
+            </section>
+
+            <section class='lesson left half'>
+                <aside>
+                    <h3>The Actual Code (2/5)</h3>
+                    <h1>Utilizing .fade-fx</h1>
+                    <p>Now, we will loop through the .fade-fx class which we will use to check each element's position</p>
+                </aside>
+                <aside>
+                    <code class="code-block"><pre>
+// Uses the 'window' selecter to detect for scrolling across the entire webpage.
+
+$(window).scroll(function(){
+
+<div class="priority">  <mark>// .each() loops through all objects with the ".fade-fx" class</mark> 
+    $(".fade-fx").each(function(){
+
+    }</div>
+})</pre></code>
+                </aside>
+            </section>
+
+            <section class='lesson left half'>
+                <aside>
+                    <h3>The Actual Code (3/5)</h3>
+                    <h1>Getting Positions</h1>
+                    <p>Now, we will loop through the .fade-fx class which we will use to check each element's position</p>
+                </aside>
+                <aside>
+                    <code class="code-block"><pre>
+...
+
+$(window).scroll(function(){
+<div class="priority"><mark>// Gets the client's scroll position</mark>
+var SCROLL_POSITION = $(window).scrollTop();</div>
+
+    // .each() loops through all objects with the ".fade-fx" class
+    $(".fade-fx").each(function(){
+<div class="priority">
+    <mark>// Returns the absolute top position</mark>
+    var ABSOLUTE_POSITION = $(this).offset().top;
+</div>
+...</pre></code>
+                </aside>
+            </section>
+
         </section>
     </article>
 
