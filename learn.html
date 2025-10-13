@@ -194,23 +194,27 @@
             <section class='lesson'>
                 <h3>learn.html</h3>
                 <h1 class="big">Creating Scroll Effects</h1>
-                <p>My portfolio is centered around interactions. On this page, you'll learn how I created and integrate scroll effects on your very own webpage.</p>
-                <h3 style="margin-top: 4.8em;">Scroll to start this lecture.</h3>
+                <p>My portfolio is centered around interactions. On this page, you'll learn how to create and integrate a basic scroll effeect for your website.</p>
+                <h3 style="margin-top: 4.8em;">Continue scrolling to move forwards.</h3>
             </section>
 
             <!-- About -->
             <section class='lesson left half'>
                 <aside>
-                    <h1>What are Scroll Effects?</h1>
-                    <p>Scroll effects are animations or manipulations that occur when the client reaches ("scrolls pass") a specific point on the page. Most effects are integrated with javascript, though some can occur with pure css.</p>
+                    <h1>What <i>are</i> Scroll Effects?</h1>
+                    <p>Scroll effects are animations or manipulations that occur when the client reaches ("scrolls pass") a specific point on the page. Most effects are integrated with javascript, though some can be made with purely css.</p>
                 </aside>
                 <aside>
                     <div class="mini-window">
-                        <h1 class="fs">Scroll to watch text appear!</h1>
-                        <h1 class="appear">This</h1>
-                        <h1 class="appear">Text</h1>
-                        <h1 class="appear">Just</h1>
-                        <h1 class="appear">Appeared</h1>
+                        <div class="fs">
+                            <h1>Try it out!</h1>
+                            <p>Watch these objects below appear as you scroll.</p>
+                        </div>
+                        <h1 class="fade-fx">This</h1>
+                        <h1 class="fade-fx">String</h1>
+                        <h1 class="fade-fx">Just</h1>
+                        <h1 class="fade-fx">Appeared!</h1>
+                        <p class="fs">Now its time to learn how this works!</p>
                     </div>
                 </aside>
             </section>
@@ -218,32 +222,21 @@
             <!-- APPEAR/DISAPPEAR Effect -->
 
             <section class="lesson">
-                <h1 class="big">1. Appear/Disappear FX</h1>
-                <p>A commonly adopted scroll effect that enables and disables elements.</p>
+                <h1 class="big">Your Objective</h1>
+                <p>Learn how to integrate .scroll() events with object classes to create custom effects.</p>
             </section>
 
-            <section class='lesson left half'>
-                <aside>
+            <section class='lesson left'>
                     <h1>How does it work?</h1>
                     <p>This works by <mark>comparing the object's absolute position to that of the cilent's</mark> active position (the position at which the client has scrolled). So, if the scroll position is greater than the element's absolute position, show the object. Else, hide the object.</p>
-                </aside>
-                <aside>
-                    <div class="mini-window">
-                        <h1 class="fs">Scroll to watch text appear!</h1>
-                        <h1 class="appear">This</h1>
-                        <h1 class="appear">Text</h1>
-                        <h1 class="appear">Just</h1>
-                        <h1 class="appear">Appeared</h1>
-                    </div>
-                </aside>
             </section>
 
             <section class="lesson half">
                 <aside>
-                    <h1>Preparing Elements</h1>
-                    <p>Create a specific class that will be used to collect all elements impacted by this effect.</p>
+                    <h1>Getting Started</h1>
+                    <p>Create a class that will be used to loop through all objects with scrolling effects.</p>
                     <hr>
-                    <p>For this example, we'll assign the class "fade-fx" to all of our appearing/disappearing elements.</p>
+                    <p>For this tutorial, we'll assign the class "fade-fx" to all of our appearing/disappearing elements.</p>
                 </aside>
                 <aside class='content-center'>
                     <h1 class="big"><mark>.fade-fx</mark></h1>
@@ -255,7 +248,10 @@
                 <aside>
                     <h3>The Actual Code (1/5)</h3>
                     <h1>Create a Event Handler</h1>
-                    <p>We will start by creating a event handler. Fortunately, jquery has a ".scroll()" event that we can prioritize.</p>
+                    <p>We will start by creating a event handler. Fortunately, jquery has a ".scroll()" event that we will prioritize for the remainder of this tutorial.</p>
+                    <hr>
+                    <h1>What's 'window'?</h1>
+                    <p>Window is the viewport/container of client's browser that a webpage is displayed on.</p>
                 </aside>
                 <aside>
                     <code class="code-block priority"><pre>
@@ -267,11 +263,13 @@ $(window).scroll(function(){
                 </aside>
             </section>
 
+            
+
             <section class='lesson left half'>
                 <aside>
                     <h3>The Actual Code (2/5)</h3>
-                    <h1>Utilizing .fade-fx</h1>
-                    <p>Now, we will loop through the .fade-fx class which we will use to check each element's position</p>
+                    <h1>Integrate .fade-fx</h1>
+                    <p>Now, loop through the .fade-fx class that will later collect each element's absolute position.</p>
                 </aside>
                 <aside>
                     <code class="code-block"><pre>
@@ -282,16 +280,24 @@ $(window).scroll(function(){
 <div class="priority">  <mark>// .each() loops through all objects with the ".fade-fx" class</mark> 
     $(".fade-fx").each(function(){
 
-    }</div>
+    })</div>
 })</pre></code>
                 </aside>
+            </section>
+
+            <section class='lesson left'>
+                    <h3 style="margin-bottom: .8em">A Concept to Understand</h3>
+                    <h1><mark>$(this)</mark></h1>
+                    <p>Soon, you will see the use of $(this). <mark>$(this) is each individual object returned from the function .each().</mark> In other words, $(this) will be the object the effect will take place on.</p>
             </section>
 
             <section class='lesson left half'>
                 <aside>
                     <h3>The Actual Code (3/5)</h3>
-                    <h1>Getting Positions</h1>
-                    <p>Now, we will loop through the .fade-fx class which we will use to check each element's position</p>
+                    <h1>Collect Positions</h1>
+                    <p>Create a variable that holds the value of <mark>window.scrollTop()</mark> to get the position the client scrolled to. </mark></p>
+                    <hr>
+                    <p>Then, get the absolute position of $(this) by using <mark>.offset().top</mark>. This will return the object's position relative to the top of the page.</p>
                 </aside>
                 <aside>
                     <code class="code-block"><pre>
@@ -307,6 +313,34 @@ var SCROLL_POSITION = $(window).scrollTop();</div>
     <mark>// Returns the absolute top position</mark>
     var ABSOLUTE_POSITION = $(this).offset().top;
 </div>
+    })
+...</pre></code>
+                </aside>
+            </section>
+
+            <section class='lesson left half'>
+                <aside>
+                    <h3>The Actual Code (4/5)</h3>
+                    <h1>Set Conditionals</h1>
+                    <p>Create a conditional statement that determines whether <mark>ABSOLUTE_POSITION</mark> is greater than <mark>SCROLL_POSITION</mark>.</p>
+                </aside>
+                <aside>
+                    <code class="code-block"><pre>
+...
+var SCROLL_POSITION = $(window).scrollTop();
+
+    // .each() loops through all objects with the ".fade-fx" class
+    $(".fade-fx").each(function(){
+
+        // Returns the absolute top position
+        var ABSOLUTE_POSITION = $(this).offset().top;
+
+        <div class="priority"><mark>// if ABSOLUTE_POSITION is greater than SCROLL_POSITION</mark>
+            if (ABSOLUTE_POSITION >= SCROLL_POSITION){
+            
+            } else {
+
+            }</div>
 ...</pre></code>
                 </aside>
             </section>
@@ -316,7 +350,66 @@ var SCROLL_POSITION = $(window).scrollTop();</div>
 
     <script>
 
-        // Lesson Page Scrolling by Aiden Melton
+// TUTORIAL
+// By Aiden M.
+//
+// While this is exact to the tutorial, some parts have been 
+// added to integrate effects inside the mini canvas.
+
+
+// Uses the 'window' selecter to detect for scrolling across the entire webpage.
+$(window).scroll(function(){ 
+    // Gets the client's scroll position
+    var SCROLL_POSITION = $(window).scrollTop();
+
+    // .each() loops through all objects with the ".fade-fx" class 
+    $(".fade-fx").each(function(){
+
+        // Returns the absolute top position
+        var ABSOLUTE_POSITION = $(this).offset().top;
+
+
+    })
+})
+
+
+ // BELOW IS FOR THE MINI CANVAS - IGNORE!
+
+    $('.fade-fx').each(function(){
+        var $obj = $(this)
+
+        // Checks for parent of mini window
+        if ($obj.parent().hasClass('mini-window')){
+            var $miniCanvas = $(this).parent(); // the mini window
+
+            var ABSOLUTE_POSITION = $obj.position().top;
+
+            // Creates a scroll event based off $miniCanvas
+            $miniCanvas.scroll(function(){
+
+                // Calculate position
+                var childPos = $obj.offset().top;
+
+                // Gets the client's scroll position
+                var SCROLL_POSITION = $miniCanvas.scrollTop();
+
+                if (childPos <= $miniCanvas.offset().top + (2 * ($miniCanvas.height()/3))){
+                    $obj.addClass('seen')
+                    console.log(true)
+                } else if (ABSOLUTE_POSITION >= 0) {
+                    $obj.removeClass('seen')
+                }
+
+            })
+
+        }
+    })
+
+//      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//      !!   SEPERATE FROM TUTORIAL   !!
+//      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    // Lesson Page Scrolling by Aiden Melton
 
         // Variables
         var $lessonPlan = $("#lesson-plan");
@@ -353,7 +446,6 @@ var SCROLL_POSITION = $(window).scrollTop();</div>
         }
 
         function updatePagePosition($toMove, $updateTo){
-            console.log($updateTo),
             // Update CSS
             $toMove.css({
                 // 'transform': 'translate(' + child_index + 'px, ' + $updateTo.offset().top + 'px )',
@@ -369,7 +461,6 @@ var SCROLL_POSITION = $(window).scrollTop();</div>
             
             // Manipulate object
             if ($child !== $activeChild){ 
-                console.log($child)
                 updatePagePosition($lessonPlan, $child) // Updates the position of the lesson plan
                 $activeChild = $child // Updates $activeChild variable
             }
