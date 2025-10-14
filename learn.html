@@ -79,7 +79,6 @@
 
                             // Make items appear
                             for (let i = 0; i < OSNChildren.length; i++){
-                                console.log(OSNChildren[i])
                                 setTimeout(() => {
                                     OSNChildren[i].classList.add('item-appear')
                                 }, (i + 1) * 150);
@@ -168,7 +167,6 @@
                     
                     if (dot_data.y < 0 || dot_data.y > window.innerHeight){
                         dot_data.directionY *= -1
-                        console.log(dot_data.directionY)
                     }
 
                     // Update position
@@ -219,8 +217,7 @@
                 </aside>
             </section>
 
-            <!-- APPEAR/DISAPPEAR Effect -->
-
+            <!-- Javascript -->
             <section class="lesson">
                 <h1 class="big">Your Objective</h1>
                 <p>Learn how to integrate .scroll() events with object classes to create custom effects.</p>
@@ -246,7 +243,7 @@
             <!-- Coding portion -->
             <section class='lesson left half'>
                 <aside>
-                    <h3>The Actual Code (1/5)</h3>
+                    <h3>The Actual Code (1/6)</h3>
                     <h1>Create a Event Handler</h1>
                     <p>We will start by creating a event handler. Fortunately, jquery has a ".scroll()" event that we will prioritize for the remainder of this tutorial.</p>
                     <hr>
@@ -263,11 +260,9 @@ $(window).scroll(function(){
                 </aside>
             </section>
 
-            
-
             <section class='lesson left half'>
                 <aside>
-                    <h3>The Actual Code (2/5)</h3>
+                    <h3>The Actual Code (2/6)</h3>
                     <h1>Integrate .fade-fx</h1>
                     <p>Now, loop through the .fade-fx class that will later collect each element's absolute position.</p>
                 </aside>
@@ -293,7 +288,7 @@ $(window).scroll(function(){
 
             <section class='lesson left half'>
                 <aside>
-                    <h3>The Actual Code (3/5)</h3>
+                    <h3>The Actual Code (3/6)</h3>
                     <h1>Collect Positions</h1>
                     <p>Create a variable that holds the value of <mark>window.scrollTop()</mark> to get the position the client scrolled to. </mark></p>
                     <hr>
@@ -320,13 +315,83 @@ var SCROLL_POSITION = $(window).scrollTop();</div>
 
             <section class='lesson left half'>
                 <aside>
-                    <h3>The Actual Code (4/5)</h3>
+                    <h3>The Actual Code (4/6)</h3>
+                    <h1>Make Effects Appear Sooner</h1>
+                    <p>Currently, the effect will only occur when the object is at the tippy-top of the page. Therefore, to make the effect take place near the bottom of the page, <mark>we will have to account for the window's height</mark>.</p>
+                    <hr>
+                    <p>To accomplish this, divide <mark>$(window).height()</mark> by <mark>3</mark> and multiply that result by 2. Then, subtract the value from the object's <mark>ABSOLUTE_POSITION</mark>.</p>
+                </aside>
+                <aside>
+                    <code class="code-block"><pre>
+...
+    // .each() loops through all objects with the ".fade-fx" class
+    $(".fade-fx").each(function(){
+
+        // Returns the absolute top position
+        var ABSOLUTE_POSITION = $(this).offset().top;
+        
+        <div class="priority"><mark>//  Subtracts half the screen's width from ABSOLUTE_POSITION</mark>
+        ABSOLUTE_POSITION -= (2 * ($(window).height() / 3));</div>
+    })
+...</pre></code>
+                </aside>
+            </section>
+
+            <section class='lesson left half'>
+                <aside>
+                    <h3>The Actual Code (5/6)</h3>
                     <h1>Set Conditionals</h1>
                     <p>Create a conditional statement that determines whether <mark>ABSOLUTE_POSITION</mark> is greater than <mark>SCROLL_POSITION</mark>.</p>
                 </aside>
                 <aside>
                     <code class="code-block"><pre>
 ...
+        // Returns the absolute top position
+        var ABSOLUTE_POSITION = $(this).offset().top;
+
+        // Subtracts half the screen's width from ABSOLUTE_POSITION
+        ABSOLUTE_POSITION -= (2 * ($(window).height() / 3));
+        <div class="priority"><mark>// if ABSOLUTE_POSITION is greater than SCROLL_POSITION</mark>
+            if (ABSOLUTE_POSITION >= SCROLL_POSITION){
+            
+            } else {
+
+            }</div>...</pre></code>
+                </aside>
+            </section>
+
+            <section class='lesson left half'>
+                <aside>
+                    <h3>The Actual Code (6/6)</h3>
+                    <h1>Add/Remove Classes</h1>
+                    <p>Now use <mark>$obj.addClass()</mark> if the ABSOLUTE_POSITION is <i>greater</i> than SCROLL_POSITION. Else use <mark>.removeClass()</mark> if the ABSOLUTE_POSITION is <i>less</i> than SCROLL_POSITION.</p>
+                    <hr>
+                    <h1>What's the point?</h1>
+                    <p>By inplementing classes, you will be able to create simple effects with CSS.</p>
+                </aside>
+                <aside>
+                    <code class="code-block"><pre>
+...
+    // if ABSOLUTE_POSITION is greater than SCROLL_POSITION
+    if (ABSOLUTE_POSITION >= SCROLL_POSITION){
+        <div class="priority"><mark>    // Adds 'active' class</mark>
+        $(this).addClass('active');</div>
+    } else {
+        <div class="priority"><mark>    // Removes 'active' class</mark>
+        $(this).removeClass('active');</div>
+    }
+...</pre></code>
+                </aside>
+            </section>
+
+            <section class='lesson left'>
+                    <h3>Code Review</h3>
+                    <p>Below is a review of all the javascript used in this tutorial.</p>
+                    <hr>
+                    <code class="code-block"><pre><div class="priority">// Uses the 'window' selecter to detect for scrolling across the entire webpage.
+$(window).scroll(function(){
+
+// Gets the client's scroll position
 var SCROLL_POSITION = $(window).scrollTop();
 
     // .each() loops through all objects with the ".fade-fx" class
@@ -334,18 +399,110 @@ var SCROLL_POSITION = $(window).scrollTop();
 
         // Returns the absolute top position
         var ABSOLUTE_POSITION = $(this).offset().top;
+        
+        //  Subtracts half the screen's width from ABSOLUTE_POSITION
+        ABSOLUTE_POSITION -= (2 * ($(window).height() / 3));
 
-        <div class="priority"><mark>// if ABSOLUTE_POSITION is greater than SCROLL_POSITION</mark>
-            if (ABSOLUTE_POSITION >= SCROLL_POSITION){
-            
-            } else {
+        // if ABSOLUTE_POSITION is greater than SCROLL_POSITION
+        if (ABSOLUTE_POSITION >= SCROLL_POSITION){
+            // Adds 'active' class
+            $(this).addClass('active');
+        } else {
+            // Removes 'active' class
+            $(this).removeClass('active');
+        }
 
-            }</div>
-...</pre></code>
+    })
+})</div></pre></code>
+            </section>
+
+            <section class="lesson">
+                <h1 class="big">Incorporating CSS</h1>
+                <p>With javascript set aside, lets now focus on using CSS to create a actual effect.</p>
+            </section>
+
+            <section class="lesson half left">
+                <aside>
+                    <h3>Create a Effect (1/2)</h3>
+                    <h1>Hide Objects</h1>
+                    <p>With javascript set aside, lets now focus on using CSS to create a actual effect. </p>
+                    <hr>
+                    <p>First, use <mark>.fade-fx</mark> to hide the object. This can done by setting the <mark>opacity</mark> to <mark>0</mark>. Then, add even more properties like <mark>blur</mark> to make the effect pop out.</p>
+                </aside>
+                <aside>
+                    <code class="code-block"><pre><div class="priority">.fade-fx {
+        opacity: 0; <mark>/* Hides the object */</mark>
+        filter: blur(16px); <mark>/* Makes the object blurry */</mark>
+        transition: all 250ms ease-out; <mark>/* Makes a transition/animation */</mark>
+    }</div></pre></code>
+
+                <h3 style="margin-top: .8em">styles.css</h3>
                 </aside>
             </section>
 
+            <section class="lesson half left">
+                <aside>
+                    <h3>Create a Effect (2/2)</h3>
+                    <h1>Activating Objects</h1>
+                    <p>Remember: The <mark>active</mark> class is added to each element that is in frame.</p>
+                    <hr>
+                    <p>With this, use <mark>.active</mark> to revert the effect.</p>
+                </aside>
+                <aside>
+                    <code class="code-block"><pre>
+.fade-fx {
+    opacity: 0; /* Hides the object */
+    filter: blur(16px); /* Makes the object blurry */
+    transition: all 250ms ease-out; /* Makes a transition/animation */
+}
+
+<div class="priority">.fade-fx.active {
+    opacity: 1; <mark>/* Shows the object */</mark>
+    filter: blur(0); <mark>/* Removes the blur effect */</mark>
+}</div></pre></code>
+
+                <h3 style="margin-top: .8em">styles.css</h3>
+                </aside>
+            </section>
+
+            <section class="lesson left">
+                <h3>Tips & Tricks</h3>
+                <h1 class="big">Did you know?</h1>
+                <p>You successfully created a basic effect, but you can do more. Try <mark>incorporating the use of IDs to make item-specific animations</mark>. So instead of a generic animation across all object, use ids to make one object appear and another to rotate.</p>
+            </section>
+
+<section class="lesson left">
+                <h3>Code Review</h3>
+                <p>Below is a review of all the CSS used in this tutorial.</p>
+                <hr>
+                <code class="code-block"><pre>
+.fade-fx {
+    opacity: 0; /* Hides the object */
+    filter: blur(16px); /* Makes the object blurry */
+    transition: all 250ms ease-out; /* Makes a transition/animation */
+}
+
+<div class="priority">.fade-fx.active {
+    opacity: 1; <mark>/* Shows the object */</mark>
+    filter: blur(0); <mark>/* Removes the blur effect */</mark>
+}</div></pre></code>
         </section>
+
+        <section class="lesson">
+            <h3>Congratulations!</h3>
+            <h1 class="big">Tutorial Completed</h1>
+            <p>You have successfully completed this tutorial. Now, go and implement some of your own scroll animationsf or your webpage.</p>
+            <hr class="space">
+            <a href="https://jsbin.com/zofibosuco/1/edit?html,output" target="_blank"><button>Try in JS Bin</button></a>
+            <button id="restart">Restart Tutorial</button>
+            <hr class="space">
+            <h3>Tutorial by Aiden Melton</h3>
+        </section>
+
+        </section>
+
+        <ul id="lesson-progress">
+        </ul>
     </article>
 
     <script>
@@ -355,22 +512,6 @@ var SCROLL_POSITION = $(window).scrollTop();
 //
 // While this is exact to the tutorial, some parts have been 
 // added to integrate effects inside the mini canvas.
-
-
-// Uses the 'window' selecter to detect for scrolling across the entire webpage.
-$(window).scroll(function(){ 
-    // Gets the client's scroll position
-    var SCROLL_POSITION = $(window).scrollTop();
-
-    // .each() loops through all objects with the ".fade-fx" class 
-    $(".fade-fx").each(function(){
-
-        // Returns the absolute top position
-        var ABSOLUTE_POSITION = $(this).offset().top;
-
-
-    })
-})
 
 
  // BELOW IS FOR THE MINI CANVAS - IGNORE!
@@ -395,13 +536,10 @@ $(window).scroll(function(){
 
                 if (childPos <= $miniCanvas.offset().top + (2 * ($miniCanvas.height()/3))){
                     $obj.addClass('seen')
-                    console.log(true)
                 } else if (ABSOLUTE_POSITION >= 0) {
                     $obj.removeClass('seen')
                 }
-
             })
-
         }
     })
 
@@ -417,13 +555,17 @@ $(window).scroll(function(){
         var VIEWPORT_HEIGHT = window.innerHeight;
         var VIEWPORT_WIDTH = window.innerWidth;
         var $activeChild = lessons[0];
+        var nav_bubbles;
+        var SCROLL_POSITION = 0;
 
         // Setup Functions 
-        function getAbsolutePositions(){
+        function getAbsolutePositions(offset){
+            !offset ? offset = 0 : offset = offset;
+
             for (let lesson_index in lessons){
                 if (lesson_index < lessons.length){
                     var lesson = lessons[lesson_index]
-                    var abs_left = $(lesson).offset().left;
+                    var abs_left = $(lesson).position().left + offset;
                     $(lesson).attr('abs-left', abs_left)
                 }
             } 
@@ -452,10 +594,36 @@ $(window).scroll(function(){
                 'transform': 'translateX(' + -($updateTo.attr('abs-left')) + 'px)',
             })
         }
+        
+
+        function updateNavigationBubbles(PERCENTAGE_SCROLLED){
+            var NAVIGATION_BUBBLE = $(getActiveContainer(nav_bubbles, PERCENTAGE_SCROLLED))
+            nav_bubbles.each(function(){
+                if ($(this)[0] === NAVIGATION_BUBBLE[0]){
+                    $(this).addClass('active');
+                } else {
+                    $(this).removeClass('active');
+                }
+            })
+        }
+
+        // Adding Navigation
+        for (let lesson_index in lessons){
+            if (lesson_index < lessons.length){
+                $("<li>").appendTo("#lesson-progress")
+                    .on('click', function(){
+                        $(window).scrollTop((lesson_index/lessons.length) * $(window).height())
+                    })
+            }
+        } 
+        
+        nav_bubbles = $("#lesson-progress").children();
+        updateNavigationBubbles($(window).scrollTop())
+
 
         // Event Handler
         $(window).scroll(function(){
-            var SCROLL_POSITION = $(window).scrollTop(); // Gets user's current position
+            SCROLL_POSITION = $(window).scrollTop(); // Gets user's current position
             var PERCENTAGE_SCROLLED = scrollPercentage($lessonPlan.parent(), SCROLL_POSITION);
             var $child = $(getActiveContainer(lessons, PERCENTAGE_SCROLLED))
             
@@ -463,14 +631,22 @@ $(window).scroll(function(){
             if ($child !== $activeChild){ 
                 updatePagePosition($lessonPlan, $child) // Updates the position of the lesson plan
                 $activeChild = $child // Updates $activeChild variable
+                // Update navigation bubbles
+                updateNavigationBubbles((PERCENTAGE_SCROLLED === 1) ? PERCENTAGE_SCROLLED = 0.99 : PERCENTAGE_SCROLLED)
             }
         })
 
         $(window).resize(function(){
+            VIEWPORT_HEIGHT = window.innerHeight;
+            VIEWPORT_WIDTH = window.innerWidth;
             getAbsolutePositions();
+            updatePagePosition($lessonPlan, $activeChild);
         })
 
-        
+        // Tutorial Restart
+        $("#restart").on('click', function(){
+            $(window).scrollTop(0);
+        })
 
     </script>
 

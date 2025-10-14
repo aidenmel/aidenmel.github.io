@@ -280,14 +280,32 @@ p {
             max-width: calc(var(--container-max-width)/2);
         }
 
+        .lesson button {
+            font-size: 1.4em;
+            font-weight: 400;
+            background: var(--transparency-primary);
+            color: var(--primary);
+            border-radius: var(--border-radius);
+            border: var(--border);
+            padding: .4em .8em .4em .8em;
+            margin-block-end: .2em;
+        }
+
+            .lesson button:hover {
+                background: var(--transparency-secondary);
+                cursor: pointer;
+            }
+
         .lesson.half {
             display: grid;
             grid-template-columns: 1.5fr 2fr;
             grid-template-rows: 1fr;
+            gap: 1.2em;
 
         }
 
             .lesson.half aside {
+                box-sizing: border-box;
                 height: 100%;
                 width: 100%;
                 display: flex;
@@ -299,6 +317,47 @@ p {
 
             aside.content-center {
                 align-items: center !important;
+            }
+    
+        ul#lesson-progress {
+            background: var(--transparency-primary);
+
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: auto;
+            padding: 8px;
+
+            border: var(--border);
+            border-radius: 48px;
+
+            gap: 2px;
+
+            z-index: 10;
+            backdrop-filter: blur(16px) saturate(120%);
+            -webkit-backdrop-filter: blur(16px) saturate(120%);
+        }
+
+            ul#lesson-progress li {
+                list-style: none;
+                width: 8px;
+                height: 8px;
+                border: var(--border);
+                border-radius: var(--border-radius);
+                transition: all 250ms var(--bezier-curve);
+                cursor: pointer;
+            }
+
+            ul#lesson-progress li.active {
+                width: 16px;
+                background: var(--transparency-secondary);
             }
 /* 
 
@@ -500,6 +559,10 @@ mark {
     transform: scale(1);
 }
 
+.space {
+    border: none;
+    margin-bottom: 3.6em;
+}
 
 /* Navigation */
 
@@ -1785,6 +1848,17 @@ footer button:hover {
         justify-content: center;
         right: 0;
         height: 32px;
+    }
+
+    /* Lessons */
+    .lesson.half {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .lesson.half aside {
+        height: auto;
     }
 
     /* Mobile Navigation */
