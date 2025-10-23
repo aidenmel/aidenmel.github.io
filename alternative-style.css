@@ -1792,7 +1792,7 @@ footer button:hover {
 /* Warnings */
 #warning {
     width: calc(100vw - 32px);
-    border-radius: 4px;
+    border-radius: 16px;
     padding: 8px 16px;
     height: auto;
     position: absolute;
@@ -1801,5 +1801,13 @@ footer button:hover {
     z-index: 10;
     color: var(--primary) !important;
     left: 8px;
+    max-width: 128px;
 
+    & p {
+        margin: 8px 0;
+    }
+
+    & h6 {
+        margin: 12px 0;
+    }
 }
