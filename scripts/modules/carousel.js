@@ -118,9 +118,9 @@ function createCarousel(carouselData, $where, properties){
             var scrollPercent = (window.scrollY - topOfParent)/(parentHeight - $where.height());
             if (scrollPercent > 0 && scrollPercent < 1){
                 $("nav").addClass('aside');
-                $("#nav-title").text(properties.sectionTitle).addClass('active');
+                $("#section-title").text(properties.sectionTitle).addClass('active');
             } else {
-                $("#nav-title").removeClass('active');
+                $("#section-title").removeClass('active');
                 $("nav").removeClass('aside');
             }
         })

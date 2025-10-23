@@ -47,6 +47,7 @@
 
 * {
     scroll-behavior: smooth;
+    box-sizing: border-box;
 }
 
 body {
@@ -241,124 +242,7 @@ p {
                 background: var(--black);
             }
 
-    /* Lessons */
-    #lesson-plan {
-        display: flex;
 
-        top: 0;
-        position: sticky;
-        transition: transform 400ms ease-out;
-    }
-
-    .lesson {
-        position: relative !important;
-        top: 0 !important;
-        background: transparent;
-        width: calc(100vw - 10vw);
-        flex-shrink: 0;
-        max-width: 100vw;
-        min-height: 100vh;
-
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-
-        padding: 0 5vw;
-    }
-
-        .lesson.left {
-            text-align: left !important;
-            align-items: flex-start;
-        }
-
-        .lesson p {
-            margin: .2em;
-            font-size: 1.2em;
-            max-width: calc(var(--container-max-width)/2);
-        }
-
-        .lesson button {
-            font-size: 1.4em;
-            font-weight: 400;
-            background: var(--transparency-primary);
-            color: var(--primary);
-            border-radius: var(--border-radius);
-            border: var(--border);
-            padding: .4em .8em .4em .8em;
-            margin-block-end: .2em;
-        }
-
-            .lesson button:hover {
-                background: var(--transparency-secondary);
-                cursor: pointer;
-            }
-
-        .lesson.half {
-            display: grid;
-            grid-template-columns: 1.5fr 2fr;
-            grid-template-rows: 1fr;
-            gap: 1.2em;
-
-        }
-
-            .lesson.half aside {
-                box-sizing: border-box;
-                height: 100%;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                flex-direction: column;
-                text-align: left;
-            }
-
-            aside.content-center {
-                align-items: center !important;
-            }
-    
-        ul#lesson-progress {
-            background: var(--transparency-primary);
-
-            position: fixed;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            -webkit-transform: translateX(-50%);
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            width: auto;
-            padding: 8px;
-
-            border: var(--border);
-            border-radius: 48px;
-
-            gap: 2px;
-
-            z-index: 10;
-            backdrop-filter: blur(16px) saturate(120%);
-            -webkit-backdrop-filter: blur(16px) saturate(120%);
-        }
-
-            ul#lesson-progress li {
-                list-style: none;
-                width: 8px;
-                height: 8px;
-                border: var(--border);
-                border-radius: var(--border-radius);
-                transition: all 250ms var(--bezier-curve);
-                cursor: pointer;
-            }
-
-            ul#lesson-progress li.active {
-                width: 16px;
-                background: var(--transparency-secondary);
-            }
 /* 
 
     4. CONTENT & IMAGES
@@ -459,29 +343,6 @@ p {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-    }
-
-
-/* Bubble Background */
-#blur-background {
-    background: var(--black);
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-}
-
-    #blur-background li {
-        list-style: none;
-    }
-
-    .bg-dot {
-        filter: blur(4.8em);
-        position: fixed;
-        border-radius: 100%;
-        background-color: #007bff;
     }
 
 hr {
@@ -1843,24 +1704,7 @@ footer button:hover {
         --nav-height: calc(84px + 32px);
     }
 
-    /* Text Styles */
-    #nav-title {
-        justify-content: center;
-        right: 0;
-        height: 32px;
-    }
-
-    /* Lessons */
-    .lesson.half {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-    }
-
-    .lesson.half aside {
-        height: auto;
-    }
-
+    
     /* Mobile Navigation */
     nav {
         display: none;
@@ -1873,7 +1717,16 @@ footer button:hover {
     .nav-menu {
         display: flex;
     }
+
+/* ENDED HERE */
         
+    /* Text Styles */
+    #nav-title {
+        justify-content: center;
+        right: 0;
+        height: 32px;
+    }
+
     .fs-details h1 {
         font-size: 6rem;
         line-height: 5rem;
@@ -1934,4 +1787,19 @@ footer button:hover {
 /* Hidden objects (from default structure) */
 #default-header-title, .sidebar {
     display: none;
+}
+
+/* Warnings */
+#warning {
+    width: calc(100vw - 32px);
+    border-radius: 4px;
+    padding: 8px 16px;
+    height: auto;
+    position: absolute;
+    top: 8px;
+    background: var(--transparency-primary);
+    z-index: 10;
+    color: var(--primary) !important;
+    left: 8px;
+
 }
