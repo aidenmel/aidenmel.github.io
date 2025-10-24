@@ -1796,12 +1796,15 @@ footer button:hover {
     padding: 8px 16px;
     height: auto;
     position: absolute;
-    top: 8px;
+    top: calc(var(--nav-height) + 32px);
     background: var(--transparency-primary);
     z-index: 10;
     color: var(--primary) !important;
-    left: 8px;
-    max-width: 128px;
+    left: 50%;
+    max-width: 512px;
+    transform: translateX(-50%);
+    text-align: center;
+    display: none; 
 
     & p {
         margin: 8px 0;

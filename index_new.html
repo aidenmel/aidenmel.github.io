@@ -159,66 +159,15 @@ All of the code is handwritten with the exception of imported assets (like Googl
         <!-- 👋 Header: The first thing a user sets their eyes on. -->
        
     <header>
-        <div class="responsive-region">
-            <!-- Cursor Reveal Effect  -->
-            <div class="header_cursor" id="header-cursor"></div>
+        <div class="header_cursor" id="header-cursor"></div>
+        <span class="background">
 
-            <!-- Header -->
-            <svg id="dynamic-header1" preserveAspectRatio="none" fill="none" viewbox="0 0 34 10" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M34 0H0V10H34V0ZM17.4897 1.528C16.8257 1.184 16.0537 1.012 15.1737 1.012H12.2457V9.388H15.1737C16.0537 9.388 16.8257 9.216 17.4897 8.872C18.1617 8.528 18.6777 8.044 19.0377 7.42C19.4057 6.788 19.5897 6.052 19.5897 5.212C19.5897 4.372 19.4057 3.636 19.0377 3.004C18.6777 2.364 18.1617 1.872 17.4897 1.528ZM15.1137 7.96C15.9937 7.96 16.6737 7.72 17.1537 7.24C17.6337 6.76 17.8737 6.084 17.8737 5.212C17.8737 4.34 17.6337 3.66 17.1537 3.172C16.6737 2.676 15.9937 2.428 15.1137 2.428H13.9257V7.96H15.1137ZM11.1858 1.012V9.388H9.50584V1.012H11.1858ZM3.316 7.792H6.652L7.204 9.388H8.98L5.968 1H4.012L1 9.388H2.764L3.316 7.792ZM6.196 6.448L4.984 2.944L3.772 6.448H6.196ZM21.9272 2.368V4.468H24.7473V5.8H21.9272V8.02H25.1073V9.388H20.2473V1H25.1073V2.368H21.9272ZM31.518 9.388H33.198V1H31.518V6.76L27.714 1H26.034V9.388H27.714V3.64L31.518 9.388Z" fill="white"/></svg>
-
-            <svg id="dynamic-header2" preserveAspectRatio="none" fill="none" viewBox="0 0 34 10" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H34V10H0V0ZM14.0984 7.164H16.1838V8.496H12.8291V0.12H14.0984V7.164ZM9.72624 3.576V1.476H12.1289V0.107999H8.45691V8.496H12.1289V7.128H9.72624V4.908H11.8569V3.576H9.72624ZM7.65529 0.12V8.496H6.38596V3.048L4.69049 8.496H3.72942L2.02489 3.048V8.496H0.755556V0.12H2.19716L4.20996 6.348L6.22276 0.12H7.65529ZM20.8439 1.476V0.12H16.2018V1.476H17.8882V8.496H19.1575V1.476H20.8439ZM24.2543 8.58C23.6619 8.58 23.1179 8.396 22.6223 8.028C22.1267 7.66 21.7338 7.152 21.4436 6.504C21.1535 5.848 21.0084 5.108 21.0084 4.284C21.0084 3.468 21.1535 2.736 21.4436 2.088C21.7338 1.432 22.1267 0.919999 22.6223 0.551999C23.1179 0.184 23.6619 0 24.2543 0C24.8527 0 25.3967 0.184 25.8863 0.551999C26.3819 0.919999 26.7718 1.432 27.0559 2.088C27.346 2.736 27.4911 3.468 27.4911 4.284C27.4911 5.108 27.346 5.848 27.0559 6.504C26.7718 7.152 26.3819 7.66 25.8863 8.028C25.3907 8.396 24.8467 8.58 24.2543 8.58ZM25.2607 6.744C24.9706 6.968 24.6351 7.08 24.2543 7.08C23.8735 7.08 23.535 6.968 23.2388 6.744C22.9487 6.512 22.722 6.184 22.5588 5.76C22.3956 5.336 22.314 4.844 22.314 4.284C22.314 3.724 22.3956 3.236 22.5588 2.82C22.722 2.396 22.9487 2.072 23.2388 1.848C23.535 1.624 23.8735 1.512 24.2543 1.512C24.6351 1.512 24.9706 1.624 25.2607 1.848C25.5508 2.072 25.7775 2.396 25.9407 2.82C26.1039 3.236 26.1855 3.724 26.1855 4.284C26.1855 4.844 26.1039 5.336 25.9407 5.76C25.7775 6.184 25.5508 6.512 25.2607 6.744ZM32.1256 8.496H33.3949V0.107999H32.1256V5.868L29.2515 0.107999H27.9821V8.496H29.2515V2.748L32.1256 8.496Z" fill="white"/>
-            </svg>
-        </div>
-
-        <script>
-
-            // Stretching & Cursor Script
-            var topHeader = document.getElementById('dynamic-header1');
-            var bottomHeader = document.getElementById('dynamic-header2');
-            var cursor = document.getElementById('header-cursor');
-
-            let targetSplitPercent = 50;
-            let currentSplitPercent = 50; // sets the starting position
-
-            window.addEventListener('mousemove', (e) => {
-                
-                // Move Cursor
-                cursor.style.top = e.clientY + window.scrollY + 'px';
-                cursor.style.left = e.clientX + window.scrollX + 'px';
-                
-                // Stretch Header
-                var viewportHeight = window.innerHeight;
-                var mouseY = e.clientY + window.scrollY;
-                targetSplitPercent = (mouseY / viewportHeight) * 100;
-                
-                if (targetSplitPercent < 40){
-                    targetSplitPercent = 40;
-                } else if (targetSplitPercent > 60){
-                    targetSplitPercent = 60;
-                }
-
-
-                // Manipulate height
-                topHeader.style.height = targetSplitPercent + "%"; 
-                bottomHeader.style.height = (100 - targetSplitPercent) + "%"
-                
-                // Manipulate width
-                topHeader.setAttribute('width', topHeader.parentElement.clientWidth);
-                bottomHeader.setAttribute('width', bottomHeader.parentElement.clientWidth);
-            })
-
-        window.addEventListener('resize', function(){
-            topHeader.setAttribute('width', topHeader.parentElement.clientWidth);
-            bottomHeader.setAttribute('width', bottomHeader.parentElement.clientWidth);
-        })
-
-            topHeader.style.height = "40%"; 
-            bottomHeader.style.height =  "60%"
-            topHeader.setAttribute('width', topHeader.parentElement.clientWidth);
-            bottomHeader.setAttribute('width', bottomHeader.parentElement.clientWidth);
-        </script>
+        </span>
+        <aside>
+            <h1>Aiden</h1>
+            <h1>Melton</h1>
+            <p>An aspiring software engieering who pushes his limits of webpage design and creativity.</p>
+        </aside>
     </header>
     
     
