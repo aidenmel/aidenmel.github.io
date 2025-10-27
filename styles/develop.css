@@ -46,6 +46,7 @@ by Aiden Melton
     --transparency-secondary: #ffffff50;
 
     /* Misc */
+    --blur-effect: blur(16px) saturate(120%);
     --border: 2px solid var(--transparency-secondary);
     --bezier-curve: cubic-bezier(.11,.89,.41,1.36);
 }
@@ -338,8 +339,8 @@ nav {
     position: fixed;
 
     z-index: 999;
-    backdrop-filter: blur(16px) saturate(120%);
-    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    backdrop-filter: var(--blur-effect);
+    -webkit-backdrop-filter: var(--blur-effect);
     transition: 400ms ease-out;
     transition-property: opacity;
 
@@ -348,7 +349,7 @@ nav {
 
     &.active {
         display: flex;
-        opacity: 100%;
+        opacity: 1;
         margin-left: 0;
     }
 
@@ -510,7 +511,7 @@ header {
 
 /* 
 
-    5. Containers
+    5. Containers & Large Content
 
 */
 
@@ -863,6 +864,123 @@ header {
     }
 }
 
+/* Overlay / More Details */
+.overlay {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+
+    opacity: 0;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 10;
+    background: var(--transparency-primary);
+    backdrop-filter: var(--blur-effect);
+    -webkit-backdrop-filter: var(--blur-effect);
+    
+    transition: 400ms ease-out;
+    transition-property: opacity;
+
+    &.active {
+        display: block;
+        opacity: 1;
+    }
+
+    & ul {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: var(--nav-height);
+
+        border: var(--border);
+
+        margin-block: 0;
+        padding-inline: 0;
+        border-radius: var(--border-radius);
+
+        width: calc(100% - 48px);
+        height: calc(100% - 24px - var(--nav-height));
+        background-color: var(--transparency-primary);
+    }
+}
+
+
+/* 
+
+    6. Footer
+
+*/
+
+footer {
+    width: calc(100vw - 64px - 48px);
+    padding: 48px 5vw 64px 5vw;
+    background-color: var(--white-primary);
+    color: var(--black-primary);
+    margin-bottom: 84px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    & .footer-contents {
+        max-width: var(--container-max-width);
+        width: 100%;
+    }
+
+    & li {
+        font-weight: 500;
+        list-style: none;
+    }
+
+    & ul {
+        padding-inline-start: 0;
+        margin: 8px 0;
+    }
+
+    & p {
+        font-weight: 500;
+        margin-bottom: -8px;
+    }
+
+    & img {
+        filter: brightness(10%);
+    }
+
+    & h2 {
+        font-weight: 600;
+        font-size: 2em;
+        margin: 0;
+    }
+
+    & a {
+        font-size: 1.2em;
+        font-weight: 500;
+        text-decoration: none;
+        color: var(--black-primary);
+    }
+
+    & button {
+        font-weight: 500;
+        font-family: var(--fonts); 
+        border-radius: 16px;
+        border: 2px var(--black-primary) solid;
+        padding: 4px 16px;
+        background-color: transparent;
+        margin-top: 16px;
+        transition: 250ms ease-out;
+
+        &:hover {
+            cursor: pointer;
+            color: var(--white-primary);
+            background-color: var(--black-primary);
+        }
+    }
+
+
+}
+
 /* 
 
     7. Properties
@@ -896,6 +1014,12 @@ header {
     transform: translate(-50%, -50%);
 }
 
+.left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
 .fs {
     height: var(--section-height);
 }
@@ -923,9 +1047,40 @@ header {
     }
 }
 
+.number {
+    text-align: left;
+
+    & h1 {
+        color: var(--black-primary);
+        font-size: 3.6em;
+        line-height: 1em;
+    }
+}
+
 /* 
 
-    8. Branding
+    8. Misc. Elements
+
+*/
+
+progress {
+    appearance: none;
+
+    &::-webkit-progress-bar {
+        border-radius: 16px;
+        height: .25em;
+        background: transparent;
+    }
+
+    &::-webkit-progress-value {
+        border-radius: 16px;
+        background: var(--black-secondary);
+    }
+}
+
+/* 
+
+    9. Branding
 
 */
 
@@ -1088,6 +1243,14 @@ header {
 
         & .controls {
             height: calc(var(--nav-height) - 16px - 48px);
+        }
+    }
+
+    /* Overlay */
+    .overlay {
+        & ul {
+            bottom: var(--nav-height);
+            top: auto;
         }
     }
 

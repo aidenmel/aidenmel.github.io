@@ -59,6 +59,13 @@ All of the code is handwritten with the exception of imported assets (like Googl
         </script>
     </div>
 
+<!-- Overlays -->
+    <div class="overlay">
+        <ul>
+
+        </ul>
+    </div>
+
 <!-- 📑 Navigation: Used to navigate between pages (includes both standard & mobile versions) 
 
 ↓ Default Navigation Bar ↓ -->
@@ -225,11 +232,11 @@ All of the code is handwritten with the exception of imported assets (like Googl
             <h2>Worked with multiple platforms to reach the result you deserve.</h2>
             
             <script>
-                addEffect(
-                    $("#platform-experience"), 
-                    'color-shift', 
-                    'invert'
-                )
+                // addEffect(
+                //     $("#platform-experience"), 
+                //     'color-shift', 
+                //     'invert'
+                // )
             </script>
         </section>
         </div>
@@ -251,21 +258,18 @@ All of the code is handwritten with the exception of imported assets (like Googl
                 
                 <div class="number">
                     <h1>25</h1>
-                    <h4>Projects Worked On</h4>
-                </div>
-
-                <div>
-
+                    <h4>of projects worked on</h4>
+                    <progress value="0" max="100"></progress>
                 </div>
 
                 <script>
-                addEffect($("#numbers"),'color-shift', 'revert',)
+                // addEffect($("#numbers"),'color-shift', 'revert',)
                 </script>
             </section>
         </div>
 <!-- ➕ More Content -->
        
-            <div class="content">
+            <div style="display: none;" class="content">
 
                 <!-- Location -->
                 <div class="original-location">
@@ -298,22 +302,6 @@ All of the code is handwritten with the exception of imported assets (like Googl
                         </li>
                     </ul>
                 </div>
-
-
-                <!-- 
-    
-    
-🕹️ Interests: A grid structure that displays three personal interests. -->
-       
-                <div id="Interests">
-                    <h2>Interests</h2>
-                    <p>Change window size to expand menu.</p>
-                    <ul>
-                        <li class="transition"><img src="https://daily.jstor.org/wp-content/uploads/2023/01/good_times_with_bad_music_1050x700.jpg" /><span>Music</span></li>
-                        <li class="transition" transition-offset="50"><img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2022/01/104228210.jpg?auto=format&q=60&w=1280&h=720&fit=crop&crop=faces" /><span>Web Design</span></li>
-                        <li class="transition" transition-offset="100"><img src="https://hips.hearstapps.com/hmg-prod/images/teen-shows-1582317535.jpg?crop=1xw:1xh;center,top&resize=1200:*" /><span>TV Shows</span></li>
-                    </ul>
-                </div>
             </div>
 
 <!-- 
@@ -328,11 +316,7 @@ All of the code is handwritten with the exception of imported assets (like Googl
                             <path d="M9 17L15 1L21 17L5 9H25" stroke="white" stroke-width="0.5"/>
                         </svg>
                     </a>
-                    <!-- <h2>Aiden Melton</h2> -->
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                    </ul>
+                    <ul class="insert-nav"></ul>
                     <a href="#top-of-page"><button>Return to Top</button></a>
                 </div>
             </footer>

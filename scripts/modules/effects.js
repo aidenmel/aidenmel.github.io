@@ -64,7 +64,7 @@ function addColorShift($object, data){
 }
 
 function addBubbleList($object, data){
-    var newBubbleEntry = []
+    var newBubbleEntry = [];
 
     // Create bubble objects
     for (let i = 0; i < data.length; i++){

@@ -15,16 +15,13 @@ var pages = {
 
 // Functions
 function insertNav($location){
-
     // Loop through pages
     for (let name in pages){
         var redirect = pages[name];
-
         // Create new list object
         var $li = $("<li>").addClass('nav-li').appendTo($location); // Creates 'li' element
         $("<a>").attr('href', redirect).text(name).appendTo($li); // Creates 'a' element
     }
-
 }
 
 // Loop through all ul with the '.nav-ul' class
