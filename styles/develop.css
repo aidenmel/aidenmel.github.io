@@ -987,6 +987,19 @@ footer {
         margin: 8px 0;
     }
 
+    & svg {
+        max-width: 128px;
+
+        & path {
+            stroke: var(--black-primary);
+            transition: var(--default-transition);
+        }
+
+        &:hover path {
+            stroke-width: 10px;
+        }
+    }
+
     & p {
         font-weight: 500;
         margin-bottom: -8px;
@@ -1123,6 +1136,16 @@ progress {
     &::-webkit-progress-value {
         border-radius: 16px;
         background: var(--black-secondary);
+    }
+}
+
+marquee {
+    background: var(--white-secondary);
+    gap: 3.6em;
+
+    & img {
+        max-height: 48px;
+        filter: brightness(0.5);
     }
 }
 
