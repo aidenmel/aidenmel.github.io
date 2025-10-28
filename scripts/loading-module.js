@@ -12,10 +12,13 @@ document.onreadystatechange = () => {
             // Fade & complete
             loadingScreen.classList.add('complete');
             
+            // Header animation
+            $("header").addClass('active');
+
             // Set display to none
             setTimeout(() => {
                 loadingScreen.style = "display: none !important;";
-                navBar.classList.remove('hide')
+                navBar.classList.remove('hide');
             }, 400)    
         }, 200);
     }
