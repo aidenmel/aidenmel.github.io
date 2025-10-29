@@ -189,6 +189,15 @@ All of the code is handwritten with the exception of imported assets (like Googl
        
     <main>
 
+        <div class="grid-block">
+            <div>
+                <section>
+                    <h2>test</h2>
+                    <p>An active Covington High student.</p>
+                </section>
+            </div>
+        </div>
+
         <!-- Sidebar Section -->
         <div class="sidebar">
             <img class="sidebar-img" src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
@@ -198,19 +207,26 @@ All of the code is handwritten with the exception of imported assets (like Googl
             <script>
                 createCarousel([
                     {
+                        date: '2023 - 2024',
+                        logo: 'https://drive.google.com/thumbnail?id=168XZoNOTocyytBcNZIhVdfH7UOq2J6Su&sz=w256',
                         title: 'Techo',
-                        desc: 'A product based group with a mission of serving new, reliable, and easy-to-setup products for developers.',
-                        images: ['https://drive.google.com/thumbnail?id=1hp4pXp3Or6lbF8TndEyYlXE7Ly2Lb9DQ&sz=w1000 '],
+                        desc: 'A project centered around selling reliable products on a public marketplace.',
+                        images: ['https://drive.google.com/thumbnail?id=1uYETjWAtVnD6nqpUlGwEHmdGZqaIUAN9&sz=w1000'],
+                        hover_content: 'https://drive.google.com/thumbnail?id=1hp4pXp3Or6lbF8TndEyYlXE7Ly2Lb9DQ&sz=w1000',
                     },
                     {
-                        title: 'Test Title 2',
-                        desc: 'This is a second temporary description that will be filled in later.',
-                        images: ['assets/thumbnails/cruisephoto.png'],
+                        date: '2023',
+                        title: 'Celline',
+                        desc: 'A notable commission of mine, with the goal of creating a courtyard styled game. ', 
+                        images: ['https://drive.google.com/thumbnail?id=1rOLJkO6KLyxnVTcaNHtcBylzoBUQxdeU&sz=w1000'],
+                        hover_content: 'https://drive.google.com/thumbnail?id=12GZZoGfJGFbNxMAxLy6fI2_-qH-MHrac&sz=w1000',
                     },
                     {
-                        title: 'Test Title 3',
-                        desc: 'This is a third temporary description that will be filled in later.',
-                        images: ['assets/thumbnails/white-house-thumb.jpeg'],
+                        date: '2019 - 2021',
+                        title: 'Costa',
+                        desc: 'A virtual cruise line community made for pure entertainment.',
+                        images: ['https://drive.google.com/thumbnail?id=10HDpFDiob9cX3RjqUU7e4cUUpr_mKIwT&sz=w1000'],
+                        hover_content: 'https://drive.google.com/thumbnail?id=1SJvvG2dn-iEHmeoiJTjnAm5D9JkY-04p&sz=w1000',
                     },
                 ], 
                 $('#past-work-carousel'), 
@@ -234,18 +250,6 @@ All of the code is handwritten with the exception of imported assets (like Googl
                 // )
             </script>
         </section>
-        </div>
-
-        <div class="is-sticky">
-            <section id="full-stack" class="fs">
-                
-                <h2 class="big center">Important Text Here</h2>
-                <ul id='bubble-list' class="bubbles">
-                </ul>
-            </section>
-            <script>
-                addEffect($("#bubble-list"), 'bubbles', ['First', 'Second', 'Third'])
-            </script>
         </div>
 
         <div class="is-sticky">

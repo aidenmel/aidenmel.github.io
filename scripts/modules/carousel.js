@@ -56,9 +56,23 @@ function createCarousel(carouselData, $where, properties){
         // Creates details
         var $details = $("<div>").addClass('details').appendTo($item)
         
+            // Adds a date
+            if (itemData.date){
+                $("<h6>").text(itemData.date).appendTo($details)
+            }
+
+            // Adds a logo
+            if (itemData.logo){
+                $("<img>").addClass('logo').attr('src', itemData.logo).appendTo($details);
+            }
+            
             // Adds a title
             if (itemData.title){
-                $("<h2>").text(itemData.title).appendTo($details);
+                var $title = $("<h2>").text(itemData.title).appendTo($details);
+
+                if (itemData.logo){
+                    $title.css('display', 'inline')
+                }
             }
 
             // Adds a description
@@ -71,6 +85,11 @@ function createCarousel(carouselData, $where, properties){
                 $("<img>").attr('src', itemData.images[0]).appendTo($item);
             }
             
+            // Hover Image
+            if (itemData.hover_content){
+                $("<img>").addClass('hover-content').attr('src', itemData.hover_content).appendTo($item);
+            }
+
             // Adds item to carousel array
             items.push($item)
 

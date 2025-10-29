@@ -561,12 +561,36 @@ header.active path {
 
 */
 
+/* Grid Blocks */
+.grid-block {
+
+    width: 100vw;
+
+    & div {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        background: var(--transparency-primary);
+        width: calc(100% - calc(2 * var(--whitespace)));
+        max-width: var(--container-max-width);
+
+        border: var(--border);
+        border-radius: var(--border-radius);
+        padding: var(--whitespace);
+
+        & h1 {
+            color: var(--transparency-primary)
+        }
+    }
+    
+
+}
+
 /* Carousel */
 .carousel {
     width: 100vw;
     height: 100vh;
     max-height: var(--max-full-screen-height);
-    overflow: hidden;
 
     & ul {
         display: flex;
@@ -592,10 +616,18 @@ header.active path {
         overflow: hidden;
 
         &:hover .details {
-            filter: blur(0);
-            -webkit-filter: blur(0);
+            filter: blur(0) drop-shadow(0 0 16px #000000);
+            -webkit-filter: blur(0) drop-shadow(0 0 16px #000000);
             margin-bottom: 0;
             opacity: 1;
+        }
+
+        &:hover .hover-content {
+            opacity: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
         }
     }
 
@@ -605,6 +637,17 @@ header.active path {
         width: 100%;
         height: 100%;
         border-radius: var(--border-radius);
+        background: #000;
+
+        &.hover-content {
+            position: absolute;
+            left: -16px;
+            top: -16px;
+            width: calc(100% + 32px);
+            height: calc(100% + 32px);
+            opacity: 0;
+            transition: all 400ms ease-out;
+        }
     }
 
     & .details {
@@ -612,10 +655,12 @@ header.active path {
         bottom: 0;
         left: 0;
 
+        max-width: 50%;
+
         padding: 2.4em;
 
-        filter: blur(4px);
-        -webkit-filter: blur(4px);
+        filter: blur(4px) drop-shadow(0 0 16px #000000);
+        -webkit-filter: blur(4px) drop-shadow(0 0 16px #000000);
         margin-bottom: -8px;
         opacity: 0;
 
@@ -624,14 +669,30 @@ header.active path {
 
         z-index: 4;
 
+        & h6 {
+            color: var(--transparency-secondary);
+            margin-block: .8em;
+        }
+
         & h2 {
             color: var(--white-primary);
+            margin-block: 0;
         }
 
         & p {
             color: var(--white-secondary);
             font-size: 1.2em;
             margin-block: 0.4em;
+        }
+
+        & .logo {
+            height: 2.8em;
+            width: 2.8em;
+            border-radius: 0;
+            object-fit: contain;
+            display: inline;
+            margin-right: .8em;
+            background: transparent;
         }
     }
 
@@ -1142,9 +1203,13 @@ progress {
 marquee {
     background: var(--white-secondary);
     gap: 3.6em;
+    height: 10vh;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
 
     & img {
-        max-height: 48px;
+        max-height: 3.6em;
         filter: brightness(0.5);
     }
 }
