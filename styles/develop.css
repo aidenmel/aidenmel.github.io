@@ -899,6 +899,25 @@ header.active path {
         line-height: 1em;
         max-width: calc(var(--container-max-width)/2);
     }
+
+    & p {
+        color: var(--black-primary);
+        font-size: 1.2em;
+        line-height: 1em;
+        opacity: 0;
+
+        filter: blur(4px) drop-shadow(0 0 16px #000000);
+        -webkit-filter: blur(4px) drop-shadow(0 0 16px #000000);
+        margin-bottom: -8px;
+        opacity: 0;
+    }
+
+    &.typing-complete p {
+        filter: blur(0) drop-shadow(0 0 16px #000000);
+        -webkit-filter: blur(0) drop-shadow(0 0 16px #000000);
+        margin-bottom: 0;
+        opacity: 1;
+    }
 }
 
 /* Corner Notifications */
@@ -1263,7 +1282,7 @@ marquee {
 
     & .type-line {
         display: inline-block;
-        height: 4.8em;
+        height: 4em;
         width: 1.6em;
         background-color: var(--black-secondary);
         margin-left: .4em;

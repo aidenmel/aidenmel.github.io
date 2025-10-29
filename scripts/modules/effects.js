@@ -84,6 +84,8 @@ function addTypingEffect($object){
         $obj: $object,
         string: $object.first().text(),
     }
+
+    $object.children().first().text('')
 }
 
 function randomPosition(){
@@ -155,23 +157,28 @@ document.addEventListener('scroll', () => {
 
     // Typing Effects
     for (let typingPosition in typingEffects){
-        if (scrollPosition >= typingPosition){
+        if ((scrollPosition - ($(window).height()/2)) >= (typingPosition - ($(window).height()/2))){
             var typingData = typingEffects[typingPosition]
-            var distanceCompleted = (scrollPosition - typingPosition)/(typingData.$obj.parent().height()/3)
-            distanceCompleted > .95 ? distanceCompleted = 1 : distanceCompleted;
-            distanceCompleted < .05 ? distanceCompleted = 0 : distanceCompleted;
+            var distanceCompleted = (scrollPosition - typingPosition)/(typingData.$obj.parent().height()/2)
+            distanceCompleted > .92 ? distanceCompleted = 1 : distanceCompleted;
+            distanceCompleted < .07 ? distanceCompleted = 0 : distanceCompleted;
 
             var stringLength = typingData.string.length;
             var splitString = typingData.string.split("");
             var stringToPresent = "";
 
-            for (let x = 0; x <= (Math.floor(distanceCompleted * stringLength)); x++) {
+            for (let x = 0; x <= (Math.floor(distanceCompleted * stringLength)) - 1; x++) {
                 stringToPresent += splitString[x];
             }
 
-            console.log(stringToPresent)
+            typingData.$obj.children().first().text(stringToPresent);
 
-            typingData.$obj.first().text(stringToPresent);
+            if (distanceCompleted === 1){
+                $obj.parent().addClass('typing-complete');
+            } else {
+                $obj.parent().removeClass('typing-complete');
+            }
+
         }
     }
 
