@@ -18,6 +18,7 @@ var scrollPalletes = {
     },
 };
 var Bubbles = {};
+var typingEffects = {};
 
 // Presets
 var presetLibrary = {
@@ -43,6 +44,8 @@ function addEffect($object, effect, data){
         addColorShift($object, data)
     } else if (effect === 'bubbles'){
         addBubbleList($object, data)
+    } else if (effect === 'typing'){
+        addTypingEffect($object);
     }
 }
 
@@ -74,6 +77,13 @@ function addBubbleList($object, data){
 
     // Add bubble entry into array
     Bubbles[$object.offset().top] = newBubbleEntry;
+}
+
+function addTypingEffect($object){
+    typingEffects[$object.offset().top] = {
+        $obj: $object,
+        string: $object.first().text(),
+    }
 }
 
 function randomPosition(){
@@ -142,6 +152,28 @@ document.addEventListener('scroll', () => {
             }
         }
     } 
+
+    // Typing Effects
+    for (let typingPosition in typingEffects){
+        if (scrollPosition >= typingPosition){
+            var typingData = typingEffects[typingPosition]
+            var distanceCompleted = (scrollPosition - typingPosition)/(typingData.$obj.parent().height()/3)
+            distanceCompleted > .95 ? distanceCompleted = 1 : distanceCompleted;
+            distanceCompleted < .05 ? distanceCompleted = 0 : distanceCompleted;
+
+            var stringLength = typingData.string.length;
+            var splitString = typingData.string.split("");
+            var stringToPresent = "";
+
+            for (let x = 0; x <= (Math.floor(distanceCompleted * stringLength)); x++) {
+                stringToPresent += splitString[x];
+            }
+
+            console.log(stringToPresent)
+
+            typingData.$obj.first().text(stringToPresent);
+        }
+    }
 
     // Scroll Effects
     var setScrollPos;

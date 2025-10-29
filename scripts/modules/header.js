@@ -60,8 +60,6 @@ $(document).on('mousemove', function(e){
 
     // Update background
     updateBackground();
-    console.log($bg)
-    // console.log(PARALLAX_POS.x, PARALLAX_POS.y)
 
     // Record previous position
     PREVIOUS_CURSOR.x = e.pageX;

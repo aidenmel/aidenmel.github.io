@@ -37,9 +37,9 @@ by Aiden Melton
     /* Color Pallete */
     --background: #fff;
     --black-primary: #02040f;
-    --black-secondary: #e45300;
+    --black-secondary: #006eff;
     --white-primary: #fff;
-    --white-secondary: #f8f8f8;
+    --white-secondary: #ebebeb;
 
     /* Clear Elements */
     --transparency-hover: #ffffff20;
@@ -565,21 +565,51 @@ header.active path {
 .grid-block {
 
     width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--whitespace);
+    padding-top: 0;
 
     & div {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 2fr;
+        overflow: hidden;
 
-        background: var(--transparency-primary);
-        width: calc(100% - calc(2 * var(--whitespace)));
+        background: var(--white-secondary);
+        width: 100%;
         max-width: var(--container-max-width);
 
         border: var(--border);
         border-radius: var(--border-radius);
-        padding: var(--whitespace);
 
-        & h1 {
-            color: var(--transparency-primary)
+        & section {
+            padding: var(--whitespace);
+
+            & p {
+                color: var(--black-primary);
+                font-weight: 500;
+                font-size: 1em;
+                margin-block: .4em;
+            }
+
+            & svg {
+                height: 1.4em;
+                transform: translateY(.25em);
+
+                & path {
+                    fill: var(--black-secondary)
+                }
+            }
+
+            & h4 {
+                display: inline;
+            }
+        }  
+
+        & img {
+            width: 100%;
+            object-fit: cover;
         }
     }
     
@@ -859,6 +889,18 @@ header.active path {
         }
     }
 
+/* Big Idea Containers */
+.big-idea {
+    padding: var(--whitespace);
+
+    & h1 {
+        color: var(--black-primary);
+        font-size: 4.8em;
+        line-height: 1em;
+        max-width: calc(var(--container-max-width)/2);
+    }
+}
+
 /* Corner Notifications */
 .notification, .css-container {
     display: block;
@@ -1024,8 +1066,8 @@ header.active path {
 */
 
 footer {
-    width: calc(100vw - 64px - 48px);
-    padding: 48px var(--whitespace) 64px var(--whitespace);
+    width: 100vw;
+    padding: var(--whitespace);
     background-color: var(--white-primary);
     color: var(--black-primary);
     margin-bottom: 84px;
@@ -1211,6 +1253,39 @@ marquee {
     & img {
         max-height: 3.6em;
         filter: brightness(0.5);
+    }
+}
+
+.type-box {
+    & h1 {
+        display: inline;
+    }
+
+    & .type-line {
+        display: inline-block;
+        height: 4.8em;
+        width: 1.6em;
+        background-color: var(--black-secondary);
+        margin-left: .4em;
+        border-radius: 2px;
+
+        animation: typing 1s ease-in-out infinite;
+    }
+
+    &.complete .type-line {
+        display: none;
+    }
+}
+
+@keyframes typing {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }
 
