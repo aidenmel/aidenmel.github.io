@@ -159,7 +159,7 @@ document.addEventListener('scroll', () => {
     for (let typingPosition in typingEffects){
         if ((scrollPosition - ($(window).height()/2)) >= (typingPosition - ($(window).height()/2))){
             var typingData = typingEffects[typingPosition]
-            var distanceCompleted = (scrollPosition - typingPosition)/(typingData.$obj.parent().height()/2)
+            var distanceCompleted = (scrollPosition - typingPosition)/(typingData.$obj.parent().height())
             distanceCompleted > .92 ? distanceCompleted = 1 : distanceCompleted;
             distanceCompleted < .07 ? distanceCompleted = 0 : distanceCompleted;
 
@@ -174,9 +174,10 @@ document.addEventListener('scroll', () => {
             typingData.$obj.children().first().text(stringToPresent);
 
             if (distanceCompleted === 1){
-                $obj.parent().addClass('typing-complete');
+                console.log('yes')
+                typingData.$obj.parent().addClass('typing-complete');
             } else {
-                $obj.parent().removeClass('typing-complete');
+                typingData.$obj.parent().removeClass('typing-complete');
             }
 
         }
