@@ -8,8 +8,22 @@
 function changeTheme(boolean) {
     var ThemeLink = document.getElementsByTagName('link')[0];
     if (boolean === true) {
-        ThemeLink.setAttribute('href', "/style.css")
+        ThemeLink.setAttribute('href', "/styles/org-style.css")
+
+        $(".stylesheet-checkbox").each(function(){
+            $(this).prop('checked', true); 
+        })
     } else {
-        ThemeLink.setAttribute('href', "/alternative-style.css")
+        ThemeLink.setAttribute('href', "/styles/develop.css")
+
+        $(".stylesheet-checkbox").each(function(){
+            $(this).prop('checked', false); 
+        })
     }
 }
+
+$(".stylesheet-checkbox").each(function() {
+    $(this).click(function(){
+        changeTheme($(this).is(":checked"));
+    })
+});

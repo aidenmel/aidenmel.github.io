@@ -32,7 +32,7 @@ by Aiden Melton
     /* Sizing */
     --container-max-height: 1600px;
     --container-max-width: 1600px;
-    --whitespace: 10vh;
+    --whitespace: 5vh;
 
     /* Color Pallete */
     --background: #fff;
@@ -267,7 +267,8 @@ nav {
 
         & li {
             transition: all 250ms var(--bezier-curve);
-            
+            transition: background-color 0s !important;
+
             height: 2px;
             width: 100%;
             background-color: var(--white-primary);
@@ -298,11 +299,12 @@ nav {
             gap: .25em;
 
             & li {
-                transition: 400ms var(--bezier-curve);
-                
+                transition: all 400ms var(--bezier-curve);
+                transition: all 250ms ease-out !important;
+
                 background-color: transparent;
                 border-radius: var(--border-radius);
-                padding: .25em 1.6em;
+                padding: .4em 2em;
                 width: auto;
                 height: auto;
                 text-align: center;
@@ -317,29 +319,6 @@ nav {
             }
         }
     }
-
-    /* &.revert {
-        width: 5.6em !important;
-        height: 5.6em !important;
-        padding: 1.4em !important;
-        border-radius: 120px !important;
-
-        & ul {
-            gap: unset;
-
-            & li {
-                height: 2px !important;
-                width: 100% !important;
-                background-color: var(--white-primary) !important;
-                border-radius: var(--border-radius) !important;
-                padding: 0 !important;
-
-                & a {
-                    color: transparent !important;
-                }
-            }
-        }
-    } */
 }
 
     /* Other */
@@ -370,7 +349,6 @@ header {
     max-height: var(--max-full-screen-height);
     
     margin: var(--whitespace);
-    margin-top: var(--nav-height);
     margin-bottom: 0;
 
     & .background {
@@ -814,6 +792,8 @@ header.active path {
         color: var(--black-primary);
         font-size: 4.8em;
         line-height: 1em;
+        max-width: 100%;
+        word-break:break-word;
     }
 
     & p {
@@ -835,6 +815,9 @@ header.active path {
         -webkit-filter: blur(4px);
         margin-bottom: -8px;
         opacity: 0;
+        
+        user-select: none;
+        pointer-events: none;
     }
 
     &.typing-complete p, &.typing-complete .switch {
@@ -842,6 +825,10 @@ header.active path {
         -webkit-filter: blur(0);
         margin-bottom: 0;
         opacity: 1;
+
+        
+        user-select: unset !important;
+        pointer-events: unset !important;
     }
 }
 
@@ -1215,7 +1202,7 @@ marquee {
         height: 4em;
         width: 1.6em;
         background-color: var(--black-secondary);
-        margin-left: .4em;
+        margin-left: .1em;
         border-radius: 2px;
 
         animation: typing 1s ease-in-out infinite;
@@ -1242,11 +1229,14 @@ marquee {
     display: inline;
     position: relative;
     height: 34px;
+    max-width: 68px;
     aspect-ratio: 2/1;
+
 
     &.big {
         margin-top: .8em;
         height: 2.4em;
+        max-width: 4.8em;
 
         & .slider::before {
             height: 2em;
@@ -1465,7 +1455,8 @@ marquee {
     header {
         margin-top: 0;
         margin: var(--whitespace);
-        height: 100vw;
+        margin-bottom: 0;
+        height: 100vh;
 
         & .background {
             height: calc(100% - calc(2 * var(--whitespace)));
@@ -1541,6 +1532,16 @@ marquee {
     .is-sticky section {
         top: 48px;
     }
+
+    .type-box {
+        max-width: 80vw;
+    }
+
+    .type-box {
+        & h1 {
+            font-size: 4em;
+        }
+    }
 }
 
 /* 
@@ -1550,6 +1551,6 @@ marquee {
 */
 
 /* Hidden objects (from default structure) */
-#default-header-title, .sidebar {
+#default-header-title, .sidebar, .revert-css-container {
     display: none;
 }

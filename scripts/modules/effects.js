@@ -160,21 +160,20 @@ document.addEventListener('scroll', () => {
         if ((scrollPosition - ($(window).height()/2)) >= (typingPosition - ($(window).height()/2))){
             var typingData = typingEffects[typingPosition]
             var distanceCompleted = (scrollPosition - typingPosition)/(typingData.$obj.parent().height())
-            distanceCompleted > .92 ? distanceCompleted = 1 : distanceCompleted;
+            distanceCompleted > .9 ? distanceCompleted = 1 : distanceCompleted;
             distanceCompleted < .07 ? distanceCompleted = 0 : distanceCompleted;
 
             var stringLength = typingData.string.length;
             var splitString = typingData.string.split("");
             var stringToPresent = "";
 
-            for (let x = 0; x <= (Math.floor(distanceCompleted * stringLength)) - 1; x++) {
+            for (let x = 0; x <= (Math.ceil(distanceCompleted * stringLength)) - 1; x++) {
                 stringToPresent += splitString[x];
             }
 
             typingData.$obj.children().first().text(stringToPresent);
 
-            if (distanceCompleted === 1){
-                console.log('yes')
+            if (typingData.$obj.children().first().text() === typingData.string){
                 typingData.$obj.parent().addClass('typing-complete');
             } else {
                 typingData.$obj.parent().removeClass('typing-complete');
@@ -210,6 +209,6 @@ $(document).ready(function(){
     $(".top-of-page").on('click', function(){
         $("html, body").animate({
             scrollTop: 0,
-        }, 'slow')
+        }, 1200)
     })
 })
