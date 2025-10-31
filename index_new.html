@@ -27,7 +27,7 @@ All of the code is handwritten with the exception of imported assets (like Googl
         <script src="scripts/specific-modules/theme-changer.js"></script>
     </head>
 
-<body id="top-of-page">
+<body>
 
 <!-- 📡 Loading Screen: Covers a user entire screen until the page has loaded properly -->
     <div id="LoadingScreen">
@@ -36,19 +36,6 @@ All of the code is handwritten with the exception of imported assets (like Googl
         </svg>
         <p class="loadingMsg">We're getting everything ready.</p>
     </div>
-
-<!-- 🎨 Stylesheet Switch: Swaps the currently stylesheet with a original stylesheet -->
-    <div class="css-container">
-        <div class="notify-container active" id="swap-css">
-            <div>
-                <h3>Remove Stylesheet</h3>
-                <p>See how styling can make a difference.</p>
-            </div> 
-            <label class="switch">
-                <input title="style switch" id="stylesheet-checkbox" type="checkbox">
-                <span class="slider"></span>
-            </label>
-        </div>
 
         <!-- 🎨 Theme Changing Event: When a user click the toggle, it will fire ("send a message") to the script in <head> -->
         <script>
@@ -82,80 +69,10 @@ All of the code is handwritten with the exception of imported assets (like Googl
             <script src="/scripts/loading-module.js"></script>
 
             <!-- ↓ Mobile Navigation Center ↓ -->
-            <div class="touch-nav-bar" id="osn-menu-btn">
-                <div class="menu-icon">
-                    <div class="menu-line top"></div>
-                    <div class="menu-line center"></div>
-                    <div class="menu-line bottom"></div>
-                </div>
+            <div class="mobile-nav default" id="mobile-nav">
+                <ul id="nav-ul" class="insert-nav"></ul>
             </div>
 
-            <div class="on-screen-nav insert-nav" id="osn-container">
-                <li><h6>NAVIGATION</h6></li>
-                <script>
-                    
-                    // Objects
-                    var MenuButton = document.getElementById("osn-menu-btn");
-                    var OSNContainer = document.getElementById("osn-container")
-                    var OSNChildren = OSNContainer.children
-
-                    // Values
-                    var OSNActive = false;
-                    var debounce = false;
-                    
-                    // Events
-                    MenuButton.addEventListener('click', (e) => {
-                        ToggleOnScreenMenu();
-                    })
-
-                    // Functions
-                    function ToggleOnScreenMenu() {
-
-                        if (debounce == false){ // Check debounce
-                            debounce = true;
-
-                            if (OSNActive == false){
-
-                                OSNContainer.style.display = 'block';
-                                setTimeout(() => {
-                                    OSNContainer.classList.add("active")
-                                }, 10);
-
-                                MenuButton.classList.add('m-enabled')
-
-                                // Make items appear
-                                for (let i = 0; i < OSNChildren.length; i++){
-                                    console.log(OSNChildren[i])
-                                    setTimeout(() => {
-                                        OSNChildren[i].classList.add('item-appear')
-                                    }, (i + 1) * 150);
-                                }
-
-                                OSNActive = true;
-                            } else {
-                                MenuButton.classList.remove('m-enabled')
-                                OSNContainer.classList.remove("active")
-                                OSNActive = false;
-
-                                // Make items disappear
-                                for (let i = 0; i < OSNChildren.length; i++){
-                                    OSNChildren[i].classList.remove('item-appear')
-                                }
-
-                                // Change display
-                                setTimeout(() => {
-                                    OSNContainer.style.display = 'none';
-                                }, 401);
-                            }
-
-                            setTimeout(() => {
-                                debounce = false;
-                            }, 1000);
-                        }
-                    }
-                </script>
-            </div>
-    
             <h2 id="section-title">Section Title</h2>
     
 <!-- 📄 Page Content -->
@@ -284,7 +201,7 @@ All of the code is handwritten with the exception of imported assets (like Googl
         <div class="is-sticky" class="height: 300vh;">
             <section class="fs content-center big-idea">
                 <div id="styling-is-important" class='type-box'>
-                    <h1>Styling a site is not just important, but necessary</h1>
+                    <h1>Styling a website creates character.</h1>
                     <div class="type-line"></div>
                 </div>
                 <p>And here's a switch to prove it:</p>
@@ -309,7 +226,7 @@ All of the code is handwritten with the exception of imported assets (like Googl
                         </svg>
                     </a>
                     <ul class="insert-nav"></ul>
-                    <a href="#top-of-page"><button>Return to Top</button></a>
+                    <button class="top-of-page">Return to Top</button>
                 </div>
             </footer>
 

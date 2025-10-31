@@ -204,3 +204,12 @@ document.addEventListener('scroll', () => {
 
     currentPallete = setScrollPos;
 })
+
+// Top of Page
+$(document).ready(function(){
+    $(".top-of-page").on('click', function(){
+        $("html, body").animate({
+            scrollTop: 0,
+        }, 'slow')
+    })
+})
