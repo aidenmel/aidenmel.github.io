@@ -1434,7 +1434,7 @@ marquee {
     /* Root Changes */
     :root {
         --section-height: 100vh;
-        --nav-height: calc(84px + 32px);
+        --nav-height: 116px;
         --whitespace: 5vw;
     }
 
@@ -1541,6 +1541,32 @@ marquee {
         & h1 {
             font-size: 4em;
         }
+    }
+}
+
+/* 
+
+    10. Animations
+
+*/
+
+.animated {
+    animation-play-state: paused;
+    -webkit-animation-play-state: paused;
+}
+
+@keyframes platform-experience-animation {
+    0% {
+        background: 'blue';
+        filter: blur(16px);
+        opacity: 0;
+        transform: scale(90%) translateY(-5%);
+    }
+    100% {
+        background: 'red';
+        filter: blur(0);
+        opacity: 1;
+        transform: scale(100%) translateY(0);
     }
 }
 

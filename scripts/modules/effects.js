@@ -39,18 +39,27 @@ var presetLibrary = {
     },
 }
 
-// Functions
+// FUNCTIONS
 function addEffect($object, effect, data){
     if (effect === 'color-shift'){ // When in frame, shift the site's color pallete completely
         addColorShift($object, data)
-    } else if (effect === 'bubbles'){
-        addBubbleList($object, data)
     } else if (effect === 'typing'){
         addTypingEffect($object);
+    } else if (effect === 'animate'){
+        animationEffects[$object.parent().offset().top] = {
+            $obj: $object,
+        }
+        
+        $object.css({
+            'animation': '1000.1s linear infinite ' + ($object.attr('id')) + '-animation' ,
+            '-webkit-animation-play-state': 'paused',
+            'animation-play-state': 'paused',
+            'animation-delay': '-0s',
+        })
     }
 }
 
-// Helper Functions
+// HELPER FUNCTIONS
 function addColorShift($object, data){
     var objectStart = $object.offset().top;
             
@@ -67,19 +76,6 @@ function addColorShift($object, data){
     }
 }
 
-function addBubbleList($object, data){
-    var newBubbleEntry = [];
-
-    // Create bubble objects
-    for (let i = 0; i < data.length; i++){
-        var $bubble = $("<li>").text(data[i]).appendTo($object);
-        newBubbleEntry.push($bubble);
-    }
-
-    // Add bubble entry into array
-    Bubbles[$object.offset().top] = newBubbleEntry;
-}
-
 function addTypingEffect($object){
     typingEffects[$object.offset().top] = {
         $obj: $object,
@@ -93,68 +89,10 @@ function randomPosition(){
     return Math.random() * ($(document).width() - $object.width());
 }
 
-function calculateNewPosition($object, collisions){
-    var collisionDetected;
-    
-    // Detect collisions
-    while (collisionDetected){
-                
-    }
-
-
-    return Math.random() * ($(document).width() - $object.width())
-}
-
-
 
 // Events
 document.addEventListener('scroll', () => {
     var scrollPosition = window.scrollY;
-
-    // Bubble effects
-    for (let bubblePosition in Bubbles){
-        var allBubbles = Bubbles[bubblePosition]
-        
-        if (scrollPosition >= bubblePosition){
-
-            // Show bubbles
-            for (let i = 0; i < allBubbles.length; i++){
-                if (scrollPosition >= (Number(bubblePosition) + (i * 128))){
-                    var $bubble = allBubbles[i]
-
-                    if (!$bubble.hasClass('active')){
-                        var newPos = {
-                            left: calculateNewPosition($bubble, allBubbles),
-                            top: Math.random() * ($(document).height() - $bubble.height()),
-                        }
-                        
-                        // Appear in new spot
-                        $bubble.css({
-                            'left': newPos.left,
-                            // 'top': newPos.top,
-                        })
-
-                        if (newPos.left < ($(window).width()/2)){
-                            // Update border radius 
-                            $bubble.css({
-                                'border-bottom-left-radius': '48px',
-                                'border-bottom-right-radius': '8px',
-                            })
-                        }
-                    }
-
-                    // Enable bubble
-                    $bubble.addClass('active');
-                } else {
-                    bubbleData[i].removeClass('active');
-                }
-            }
-        } else {
-             for (let i = 0; i < bubbleData.length; i++){
-                bubbleData[i].removeClass('active');
-            }
-        }
-    } 
 
     // Typing Effects
     for (let typingPosition in typingEffects){
@@ -185,7 +123,19 @@ document.addEventListener('scroll', () => {
 
     // Animation Effects
     for (let animationPosition in animationEffects){
+        $animateObj = animationEffects[animationPosition].$obj;
 
+        if (scrollPosition >= (animationPosition - ($animateObj.height()/2))){
+            let buffer = ($animateObj.height()/2) - 48; // -48 = .is-sticky top value
+
+            var distanceCompleted = ($animateObj.offset().top - 48 - scrollPosition)/buffer;
+            distanceCompleted > .95 ? distanceCompleted = .99 : distanceCompleted;
+            distanceCompleted < .05 ? distanceCompleted = .0 : distanceCompleted;
+
+            $animateObj.css('animation-delay', (-1000 + (distanceCompleted * 1000)) + 's');
+        } else {
+            $animateObj.css('animation-delay', '0s');
+        }
     }
 
     // Scroll Effects
