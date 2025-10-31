@@ -19,6 +19,7 @@ var scrollPalletes = {
 };
 var Bubbles = {};
 var typingEffects = {};
+var animationEffects = {};
 
 // Presets
 var presetLibrary = {
@@ -180,6 +181,11 @@ document.addEventListener('scroll', () => {
             }
 
         }
+    }
+
+    // Animation Effects
+    for (let animationPosition in animationEffects){
+
     }
 
     // Scroll Effects
