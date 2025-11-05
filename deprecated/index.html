@@ -1,0 +1,352 @@
+<!-- 
+    
+👋 Hey, I'm Aiden and this is my site! 
+    
+I've been generous enough to provide some comments to help you view my code more easily (if you ever do). 
+
+All of the code is handwritten with the exception of imported assets (like Google Maps).
+
+| Aiden M.
+| Class of 2026
+
+-->
+<html lang="en">
+    <head>
+        <title>Aiden's Portfolio - Home</title>
+        <link rel="stylesheet" href="/alternative-style.css">
+        
+        <link rel="icon" href="/assets/logo-gen1.png">
+        <meta name="theme-color" content="#929292">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="scripts/modules/nav.js"></script>
+
+        <!-- 🎨 Theme Changing Script: Used to incorporate two or more stylesheets (.css files)  -->
+        <script>
+            function changeTheme(boolean) {
+                var ThemeLink = document.getElementsByTagName('link')[0];
+                if (boolean === true) {
+                    ThemeLink.setAttribute('href', "/style.css")
+                } else {
+                    ThemeLink.setAttribute('href', "/alternative-style.css")
+                }
+            }
+        </script>
+    </head>
+    <body id="top-of-page">
+
+<!-- 📡 Loading Screen: Covers the screen with the elements below until the site has completely loaded. -->
+    <div id="LoadingScreen">
+        <svg viewBox="0 0 30 30">
+            <path d="M9 17L15 1L21 17L5 9H25" stroke="white" stroke-width="0.5"/>
+        </svg>
+        <p class="loadingMsg">We're getting everything ready.</p>
+    </div>
+<!-- 
+            
+            
+🎨 Stylesheet Swap: Switches the stylesheet between the standard to custom styling 
+-->
+        <div class="css-container">
+            <div class="notify-container active" id="swap-css">
+                <div>
+                    <h3>Remove Stylesheet</h3>
+                    <p>See how styling can make a difference.</p>
+                </div> 
+                <label class="switch">
+                    <input title="style switch" id="stylesheet-checkbox" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- 🎨 Theme Changing Event: When a user click the toggle, it will fire ("send a message") to the script in <head> -->
+            <script>
+                var Checkbox = document.getElementById("stylesheet-checkbox");
+                    
+                Checkbox.addEventListener('click', (e) => {
+                    changeTheme(Checkbox.checked);
+                })
+
+            </script>
+        </div>
+
+<!-- 
+    
+    
+📑 Navigation: Used to navigate between pages (includes both standard & mobile versions) 
+
+↓ Default Navigation Bar ↓ -->
+            <nav class="hide" id="top-nav">
+                <h1 id="default-header-title">Aiden's Portfolio</h1>
+                <a href="/index_new.html" id="manipulated-header">
+                    <svg class="brand-icon" viewBox="0 0 29 20"><path d="M9 17L15 1L21 17L5 9H25" stroke="white" stroke-width="0.5"/></svg>
+                    <h1>Aiden's Portfolio</h1>
+                </a>
+                <ul class='insert-nav' id="nav-ul"></ul>
+            </nav>
+
+            <script src="/scripts/loading-module.js">
+                // Why is this here?
+                // For my loading screen, I incorporate a navigation animation therefore I must also load the navigation content before I set the loading screen. 
+            </script>
+
+            <!-- ↓ Mobile Navigation Center ↓ -->
+            <div class="touch-nav-bar" id="osn-menu-btn">
+                <div class="menu-icon">
+                    <div class="menu-line top"></div>
+                    <div class="menu-line center"></div>
+                    <div class="menu-line bottom"></div>
+                </div>
+            </div>
+
+            <div class="on-screen-nav insert-nav" id="osn-container">
+                <li><h6>NAVIGATION</h6></li>
+                <script>
+                    
+                    // Objects
+                    var MenuButton = document.getElementById("osn-menu-btn");
+                    var OSNContainer = document.getElementById("osn-container")
+                    var OSNChildren = OSNContainer.children
+
+                    // Values
+                    var OSNActive = false;
+                    var debounce = false;
+                    
+                    // Events
+                    MenuButton.addEventListener('click', (e) => {
+                        ToggleOnScreenMenu();
+                    })
+
+                    // Functions
+                    function ToggleOnScreenMenu() {
+
+                        if (debounce == false){ // Check debounce
+                            debounce = true;
+
+                            if (OSNActive == false){
+
+                                OSNContainer.style.display = 'block';
+                                setTimeout(() => {
+                                    OSNContainer.classList.add("active")
+                                }, 10);
+
+                                MenuButton.classList.add('m-enabled')
+
+                                // Make items appear
+                                for (let i = 0; i < OSNChildren.length; i++){
+                                    console.log(OSNChildren[i])
+                                    setTimeout(() => {
+                                        OSNChildren[i].classList.add('item-appear')
+                                    }, (i + 1) * 150);
+                                }
+
+                                OSNActive = true;
+                            } else {
+                                MenuButton.classList.remove('m-enabled')
+                                OSNContainer.classList.remove("active")
+                                OSNActive = false;
+
+                                // Make items disappear
+                                for (let i = 0; i < OSNChildren.length; i++){
+                                    OSNChildren[i].classList.remove('item-appear')
+                                }
+
+                                // Change display
+                                setTimeout(() => {
+                                    OSNContainer.style.display = 'none';
+                                }, 401);
+                            }
+
+                            setTimeout(() => {
+                                debounce = false;
+                            }, 1000);
+                        }
+                    }
+                </script>
+            </div>
+    
+    
+<!-- 📄 Page Content -->
+        
+
+    <article id="all-contents">
+
+        <!-- Warning -->
+        <div id="warning">
+        <p>This site is currently undergoing some major updates. Some assets or pages may be disabled or disconfigured for the time being.</p>
+        <h6>10/23/2025</h6>
+        </div>
+
+        <!-- 👋 Header: The first thing a user sets their eyes on. -->
+       
+        <header>
+            <div class="responsive-region">
+                <!-- Cursor Reveal Effect  -->
+                <div class="header_cursor" id="header-cursor"></div>
+
+                <!-- Header -->
+                <svg id="dynamic-header1" preserveAspectRatio="none" fill="none" viewbox="0 0 34 10" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M34 0H0V10H34V0ZM17.4897 1.528C16.8257 1.184 16.0537 1.012 15.1737 1.012H12.2457V9.388H15.1737C16.0537 9.388 16.8257 9.216 17.4897 8.872C18.1617 8.528 18.6777 8.044 19.0377 7.42C19.4057 6.788 19.5897 6.052 19.5897 5.212C19.5897 4.372 19.4057 3.636 19.0377 3.004C18.6777 2.364 18.1617 1.872 17.4897 1.528ZM15.1137 7.96C15.9937 7.96 16.6737 7.72 17.1537 7.24C17.6337 6.76 17.8737 6.084 17.8737 5.212C17.8737 4.34 17.6337 3.66 17.1537 3.172C16.6737 2.676 15.9937 2.428 15.1137 2.428H13.9257V7.96H15.1137ZM11.1858 1.012V9.388H9.50584V1.012H11.1858ZM3.316 7.792H6.652L7.204 9.388H8.98L5.968 1H4.012L1 9.388H2.764L3.316 7.792ZM6.196 6.448L4.984 2.944L3.772 6.448H6.196ZM21.9272 2.368V4.468H24.7473V5.8H21.9272V8.02H25.1073V9.388H20.2473V1H25.1073V2.368H21.9272ZM31.518 9.388H33.198V1H31.518V6.76L27.714 1H26.034V9.388H27.714V3.64L31.518 9.388Z" fill="white"/></svg>
+
+                <svg id="dynamic-header2" preserveAspectRatio="none" fill="none" viewBox="0 0 34 10" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H34V10H0V0ZM14.0984 7.164H16.1838V8.496H12.8291V0.12H14.0984V7.164ZM9.72624 3.576V1.476H12.1289V0.107999H8.45691V8.496H12.1289V7.128H9.72624V4.908H11.8569V3.576H9.72624ZM7.65529 0.12V8.496H6.38596V3.048L4.69049 8.496H3.72942L2.02489 3.048V8.496H0.755556V0.12H2.19716L4.20996 6.348L6.22276 0.12H7.65529ZM20.8439 1.476V0.12H16.2018V1.476H17.8882V8.496H19.1575V1.476H20.8439ZM24.2543 8.58C23.6619 8.58 23.1179 8.396 22.6223 8.028C22.1267 7.66 21.7338 7.152 21.4436 6.504C21.1535 5.848 21.0084 5.108 21.0084 4.284C21.0084 3.468 21.1535 2.736 21.4436 2.088C21.7338 1.432 22.1267 0.919999 22.6223 0.551999C23.1179 0.184 23.6619 0 24.2543 0C24.8527 0 25.3967 0.184 25.8863 0.551999C26.3819 0.919999 26.7718 1.432 27.0559 2.088C27.346 2.736 27.4911 3.468 27.4911 4.284C27.4911 5.108 27.346 5.848 27.0559 6.504C26.7718 7.152 26.3819 7.66 25.8863 8.028C25.3907 8.396 24.8467 8.58 24.2543 8.58ZM25.2607 6.744C24.9706 6.968 24.6351 7.08 24.2543 7.08C23.8735 7.08 23.535 6.968 23.2388 6.744C22.9487 6.512 22.722 6.184 22.5588 5.76C22.3956 5.336 22.314 4.844 22.314 4.284C22.314 3.724 22.3956 3.236 22.5588 2.82C22.722 2.396 22.9487 2.072 23.2388 1.848C23.535 1.624 23.8735 1.512 24.2543 1.512C24.6351 1.512 24.9706 1.624 25.2607 1.848C25.5508 2.072 25.7775 2.396 25.9407 2.82C26.1039 3.236 26.1855 3.724 26.1855 4.284C26.1855 4.844 26.1039 5.336 25.9407 5.76C25.7775 6.184 25.5508 6.512 25.2607 6.744ZM32.1256 8.496H33.3949V0.107999H32.1256V5.868L29.2515 0.107999H27.9821V8.496H29.2515V2.748L32.1256 8.496Z" fill="white"/>
+                </svg>
+            </div>
+
+            <script>
+
+                // Stretching & Cursor Script
+                var topHeader = document.getElementById('dynamic-header1');
+                var bottomHeader = document.getElementById('dynamic-header2');
+                var cursor = document.getElementById('header-cursor');
+
+                let targetSplitPercent = 50;
+                let currentSplitPercent = 50; // sets the starting position
+
+                window.addEventListener('mousemove', (e) => {
+                    
+                    // Move Cursor
+                    cursor.style.top = e.clientY + window.scrollY + 'px';
+                    cursor.style.left = e.clientX + window.scrollX + 'px';
+                    
+                    // Stretch Header
+                    var viewportHeight = window.innerHeight;
+                    var mouseY = e.clientY + window.scrollY;
+                    targetSplitPercent = (mouseY / viewportHeight) * 100;
+                    
+                    if (targetSplitPercent < 40){
+                        targetSplitPercent = 40;
+                    } else if (targetSplitPercent > 60){
+                        targetSplitPercent = 60;
+                    }
+
+
+                    // Manipulate height
+                    topHeader.style.height = targetSplitPercent + "%"; 
+                    bottomHeader.style.height = (100 - targetSplitPercent) + "%"
+                    
+                    // Manipulate width
+                    topHeader.setAttribute('width', topHeader.parentElement.clientWidth);
+                    bottomHeader.setAttribute('width', bottomHeader.parentElement.clientWidth);
+                })
+
+            window.addEventListener('resize', function(){
+                topHeader.setAttribute('width', topHeader.parentElement.clientWidth);
+                bottomHeader.setAttribute('width', bottomHeader.parentElement.clientWidth);
+            })
+
+                topHeader.style.height = "40%"; 
+                bottomHeader.style.height =  "60%"
+                topHeader.setAttribute('width', topHeader.parentElement.clientWidth);
+                bottomHeader.setAttribute('width', bottomHeader.parentElement.clientWidth);
+            </script>
+        </header>
+    
+    
+    <!-- 📝 Main: Rest of the page's content. -->
+       
+    <main>
+
+        <!-- Sidebar Section -->
+        <div class="sidebar">
+            <img class="sidebar-img" src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
+        </div>
+
+        <!-- 🖼️ Full Screen Photo: An interactive photo that manipulates as the user scrolls. -->
+       
+        <section class="fs-container" id="locked-frame1">
+            <div class="fs-sticky">
+                <span class="fs-img">
+                    <img class="scroll-responsive" UseParentData="3" src="/assets/cruisephoto.png" alt="Carnival Mardi Gras - Captured by Aiden Melton">
+                </span>
+                <div class="fs-details scroll-responsive" UseParentData="2">
+                    <h1>Hi, I'm Aiden</h1>
+                    <h6>An inspiring software engineer.</h6>
+                </div>
+            </div>
+        </section>
+
+<!-- ➕ More Content -->
+       
+            <div class="content">
+
+                <!-- Location -->
+                <div class="original-location">
+                    <h2>Aiden Melton</h2>
+                    <p>Student at Covington High School</p>
+                </div>
+
+                <!-- Location -->
+                <div style="display: none;" id="on-campus" class="side-by-container full-page">
+                    <aside class="details">
+                        <h2>Life On Campus</h2>
+                        <h6>"Once a lion, always a lion"</h6>
+                        <p>When I am campus at Covington High School.</p>
+                    </aisde>
+                    <div class="thumbnails">
+                        <img src="./assets/thumbnails/ava-stage-photo.jpeg">
+                    </div>
+                </div>
+
+                <div class="display: none;" id="Location">
+                    <ul>
+                        <li class="details">
+                            <h2 style="margin-top: 8px;">On-Campus</h2>
+                                <p>"One a lion, always a lion" when I am on campus at Covington High School.</p>
+                        </li>
+                        <li class="map">
+                            <!-- <div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Covington%20High%20School.%2073030%20Lion%20Drive.%20Covington.%20LA+(Covington%20High%20School)&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.maps.ie/population/">Population mapping</a></iframe></div> -->
+                            <!-- <div id="map"></div> -->
+                            <iframe class="transition" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6876.116683510648!2d-90.1481733465238!3d30.491099326656077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86275d3d321f6d99%3A0x5723fd2123e6444e!2sCovington%20High%20School!5e0!3m2!1sen!2sus!4v1696470657196!5m2!1sen!2sus" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- 
+    
+    
+🕹️ Interests: A grid structure that displays three personal interests. -->
+       
+                <div id="Interests">
+                    <h2>Interests</h2>
+                    <p>Change window size to expand menu.</p>
+                    <ul>
+                        <li class="transition"><img src="https://daily.jstor.org/wp-content/uploads/2023/01/good_times_with_bad_music_1050x700.jpg" /><span>Music</span></li>
+                        <li class="transition" transition-offset="50"><img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2022/01/104228210.jpg?auto=format&q=60&w=1280&h=720&fit=crop&crop=faces" /><span>Web Design</span></li>
+                        <li class="transition" transition-offset="100"><img src="https://hips.hearstapps.com/hmg-prod/images/teen-shows-1582317535.jpg?crop=1xw:1xh;center,top&resize=1200:*" /><span>TV Shows</span></li>
+                    </ul>
+                </div>
+            </div>
+
+<!-- 
+    
+    
+👋 Footer: End of page content. Consists primarly of return buttons and redirects. -->
+       
+            <footer>
+                <div class="footer-contents">
+                    <a href="/index.html">
+                        <img class="nav-logo" alt="Aiden Portfolio Logo" src="/assets/logo-gen1.png"/>
+                    </a>
+                    <p>Quick Links</p>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                    </ul>
+                    <a href="#top-of-page"><button>Return to Top</button></a>
+                </div>
+            </footer>
+
+<!-- 
+    
+    
+⚙️ Scripts: Where scripts for site functionality is called. -->    
+            <script src="/scripts/reveal-module.js"></script>
+            <script src="/scripts/scroll-module.js"></script>
+
+        </main>
+    </article>
+    </body>
+</html>

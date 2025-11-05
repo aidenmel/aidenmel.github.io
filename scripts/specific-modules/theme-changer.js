@@ -14,7 +14,7 @@ function changeTheme(boolean) {
             $(this).prop('checked', true); 
         })
     } else {
-        ThemeLink.setAttribute('href', "/styles/develop.css")
+        ThemeLink.setAttribute('href', "/styles/style.css")
 
         $(".stylesheet-checkbox").each(function(){
             $(this).prop('checked', false); 

@@ -1,10 +1,7 @@
 /* 
 
-develop.css
+style.css
 by Aiden Melton
-
-!! THIS IS NOT A PUBLIC STYLESHEET.              !!
-!! THIS IS USED PURELY FOR DEVELOPMENTAL PURPOSES. !!
 
 */
 
@@ -299,7 +296,7 @@ nav {
             gap: .25em;
 
             & li {
-                transition: all 400ms var(--bezier-curve);
+                transition: all 25ms var(--bezier-curve);
                 transition: all 250ms ease-out !important;
 
                 background-color: transparent;
@@ -314,6 +311,9 @@ nav {
                 }
 
                 & a {
+                    pointer-events: all;
+                    user-select: auto;
+                    text-decoration: auto;
                     color: var(--white-secondary);
                 }
             }

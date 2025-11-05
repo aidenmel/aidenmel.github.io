@@ -635,6 +635,9 @@ mark {
         display: flex;
         opacity: 100%;
         margin-left: 0;
+        
+        touch-action: auto;
+        -ms-touch-action: auto;
     }
 
     .on-screen-nav li {
